@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Wordmark } from "@/components/Wordmark";
+import { BackgroundVideo } from "@/components/BackgroundVideo";
 import { useCountUp } from "@/hooks/useCountUp";
 import { useReveal } from "@/hooks/useReveal";
 import { useBarGrow } from "@/hooks/useBarGrow";
@@ -588,9 +589,12 @@ export default function LandingPage() {
       >
         <div className="absolute inset-0 z-0 bg-[#0A0A0A]" />
 
+        {/* Background Video */}
+        <BackgroundVideo base="image5" className="absolute inset-0 z-0" overlayClassName="absolute inset-0 bg-[#0A0A0A]/45" />
+
         {/* Animated Gradient */}
         <div
-          className="absolute inset-0 z-0 animate-drift opacity-80"
+          className="absolute inset-0 z-0 animate-drift opacity-45 mix-blend-overlay"
           style={{
             backgroundImage: `
               radial-gradient(120% 95% at 72% 8%, rgba(225,59,44,.62), transparent 52%), 
@@ -766,8 +770,9 @@ export default function LandingPage() {
       </section>
 
       {/* Section 03 - THE NETWORK */}
-      <section id="channels" className="py-32 px-6 bg-[#0A0A0A] border-t border-[#F4F1EA]/10" data-testid="section-channels">
-        <div className="max-w-[1440px] mx-auto">
+      <section id="channels" className="relative overflow-hidden py-32 px-6 bg-[#0A0A0A] border-t border-[#F4F1EA]/10" data-testid="section-channels">
+        <BackgroundVideo base="image23" className="absolute inset-0 z-0" overlayClassName="absolute inset-0 bg-[#0A0A0A]/80" />
+        <div className="relative z-10 max-w-[1440px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-[1.6fr_1fr] gap-12 items-end mb-16">
             <div>
               <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">{settings.networkSection.eyebrow}</h3>
