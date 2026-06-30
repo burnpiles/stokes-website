@@ -222,6 +222,166 @@ function VerticalBar({ label, percent, isPeak, delay }: { label: string, percent
   );
 }
 
+type YtVideo = { img: string; title: string; tags: string[]; views: string; duration: string };
+type YtShort = { img: string; title: string; views: string };
+
+const HERO_VIDEO: YtVideo = {
+  img: mysteryImg,
+  title: "Last To Leave The Mystery Vault Keeps $100,000",
+  tags: ["Mystery", "Competition", "Survival", "48 Hours"],
+  views: "82M",
+  duration: "21:14",
+};
+
+const YT_VIDEOS: YtVideo[] = [
+  { img: gamingImg, title: "We Survived 100 Hours In Hardcore Mode", tags: ["Gaming", "Challenge"], views: "41M", duration: "18:02" },
+  { img: outdoorImg, title: "Stranded On A Deserted Island For 7 Days", tags: ["Outdoor", "Survival"], views: "37M", duration: "24:51" },
+  { img: trophyImg, title: "First To Find The Golden Trophy Wins It", tags: ["Trophy", "Competition"], views: "29M", duration: "16:33" },
+];
+
+const YT_SHORTS: YtShort[] = [
+  { img: workBeat, title: "He never saw it coming", views: "12M" },
+  { img: workHide, title: "Last one found wins", views: "8.4M" },
+  { img: gamingImg, title: "Speedrun gone wrong", views: "15M" },
+  { img: workCircle, title: "The circle of trust", views: "6.1M" },
+  { img: outdoorImg, title: "48 hours in the wild", views: "9.7M" },
+  { img: workTrophy, title: "Winner takes the trophy", views: "11M" },
+  { img: mysteryImg, title: "Inside the mystery box", views: "20M" },
+  { img: workDouble, title: "Double or nothing", views: "7.3M" },
+  { img: trophyImg, title: "10K on the line", views: "5.9M" },
+];
+
+function YouTubeCountUp() {
+  const { ref, isVisible } = useReveal();
+  const count = useCountUp(isVisible ? 140000000 : 0, 5000);
+  return (
+    <div ref={ref} className="md:text-right" data-testid="youtube-countup">
+      <div className="font-display text-[#E13B2C] text-[40px] md:text-[64px] leading-none tabular-nums">
+        {count.toLocaleString()}
+      </div>
+      <div className="font-mono text-xs tracking-[0.2em] text-[#F4F1EA]/60 uppercase mt-3">
+        Subscribers and counting
+      </div>
+    </div>
+  );
+}
+
+function VideoCard({ video, featured = false }: { video: YtVideo; featured?: boolean }) {
+  return (
+    <div className="group relative rounded-[6px] overflow-hidden bg-[#141210] border border-[#F4F1EA]/10 hover:border-[#E13B2C]/50 transition-colors duration-300">
+      <div className="relative aspect-video overflow-hidden">
+        {/* Swap this <img> src with your GIF / real thumbnail */}
+        <img src={video.img} alt={video.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/10 to-transparent" />
+        <div className="absolute top-4 left-4 flex flex-wrap gap-2 max-w-[80%]">
+          {video.tags.map((t) => (
+            <span key={t} className="font-mono text-[10px] tracking-widest uppercase bg-[#0A0A0A]/70 backdrop-blur-sm border border-white/15 px-2.5 py-1 rounded-full text-[#F4F1EA]">
+              {t}
+            </span>
+          ))}
+        </div>
+        <div className="absolute bottom-3 right-3 font-mono text-[11px] bg-[#0A0A0A]/85 px-2 py-0.5 rounded text-[#F4F1EA]">
+          {video.duration}
+        </div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className={`${featured ? "w-20 h-20" : "w-14 h-14"} rounded-full bg-[#E13B2C] flex items-center justify-center scale-90 opacity-85 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 shadow-[0_0_30px_rgba(225,59,44,0.5)]`}>
+            <svg viewBox="0 0 24 24" className={`${featured ? "w-8 h-8" : "w-5 h-5"} fill-white ml-1`}><path d="M8 5v14l11-7z" /></svg>
+          </div>
+        </div>
+      </div>
+      <div className={featured ? "p-7" : "p-5"}>
+        <h4 className={`font-display ${featured ? "text-2xl md:text-[34px]" : "text-lg"} leading-tight mb-2`}>{video.title}</h4>
+        <div className="font-mono text-xs text-[#F4F1EA]/50 tracking-wide">{video.views} VIEWS</div>
+      </div>
+    </div>
+  );
+}
+
+function ShortsCarousel({ shorts }: { shorts: YtShort[] }) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const velocityRef = useRef(0);
+  const rafRef = useRef<number | null>(null);
+
+  const stop = () => {
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+  };
+
+  const start = () => {
+    if (rafRef.current !== null) return;
+    const loop = () => {
+      const el = scrollerRef.current;
+      if (!el || velocityRef.current === 0) {
+        rafRef.current = null;
+        return;
+      }
+      el.scrollLeft += velocityRef.current;
+      rafRef.current = requestAnimationFrame(loop);
+    };
+    rafRef.current = requestAnimationFrame(loop);
+  };
+
+  useEffect(() => stop, []);
+
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const ratio = (e.clientX - rect.left) / rect.width;
+    const edge = 0.35;
+    const maxSpeed = 16;
+    if (ratio > 1 - edge) {
+      velocityRef.current = ((ratio - (1 - edge)) / edge) * maxSpeed;
+    } else if (ratio < edge) {
+      velocityRef.current = -((edge - ratio) / edge) * maxSpeed;
+    } else {
+      velocityRef.current = 0;
+    }
+    if (velocityRef.current !== 0) start();
+    else stop();
+  };
+
+  return (
+    <div className="relative">
+      <div
+        ref={scrollerRef}
+        onMouseMove={handleMove}
+        onMouseLeave={() => {
+          velocityRef.current = 0;
+          stop();
+        }}
+        className="flex gap-4 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        data-testid="shorts-carousel"
+      >
+        {shorts.map((s) => (
+          <div key={s.title} className="group relative shrink-0 w-[190px] md:w-[230px] aspect-[9/16] rounded-[8px] overflow-hidden bg-[#141210] border border-[#F4F1EA]/10">
+            {/* Swap this <img> src with your GIF / Short */}
+            <img src={s.img} alt={s.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-[#0A0A0A]/10" />
+            <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-[#0A0A0A]/60 backdrop-blur-sm px-2 py-1 rounded-full">
+              <svg viewBox="0 0 24 24" className="w-3 h-3 fill-[#E13B2C]"><path d="M8 5v14l11-7z" /></svg>
+              <span className="font-mono text-[9px] tracking-widest text-white/85 uppercase">Short</span>
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="w-12 h-12 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white ml-0.5"><path d="M8 5v14l11-7z" /></svg>
+              </div>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4">
+              <div className="font-sans font-bold text-sm text-white leading-tight mb-1 line-clamp-2">{s.title}</div>
+              <div className="font-mono text-[10px] text-[#F4F1EA]/60">{s.views} views</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 md:w-24 bg-gradient-to-r from-[#0A0A0A] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 md:w-24 bg-gradient-to-l from-[#0A0A0A] to-transparent" />
+    </div>
+  );
+}
+
 export default function LandingPage() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [activeBrand, setActiveBrand] = useState<Brand | null>(null);
@@ -229,6 +389,10 @@ export default function LandingPage() {
   useEffect(() => {
     document.title = "Stokes Twins | Media Kit";
     document.body.style.backgroundColor = "#0A0A0A";
+    if (window.location.hash) {
+      const el = document.querySelector(window.location.hash);
+      if (el) requestAnimationFrame(() => el.scrollIntoView());
+    }
   }, []);
 
   return (
@@ -420,11 +584,45 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Section 04 - WHO'S WATCHING */}
+      {/* Section 04 - THE ENGINE (YouTube) */}
+      <section id="youtube" className="py-32 px-6 bg-[#0A0A0A] border-t border-[#F4F1EA]/10" data-testid="section-youtube">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-end mb-16">
+            <div>
+              <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">04 — THE ENGINE</h3>
+              <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1]">YouTube is the Engine.</h2>
+            </div>
+            <YouTubeCountUp />
+          </div>
+
+          {/* Hero YouTube video */}
+          <div className="mb-6">
+            <VideoCard video={HERO_VIDEO} featured />
+          </div>
+
+          {/* 3 more videos, 16:9 */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
+            {YT_VIDEOS.map((v) => (
+              <VideoCard key={v.title} video={v} />
+            ))}
+          </div>
+
+          {/* Shorts carousel */}
+          <div className="flex items-end justify-between mb-8 gap-4">
+            <h3 className="font-display text-3xl md:text-4xl">Shorts that hit.</h3>
+            <span className="font-mono text-[10px] tracking-[0.2em] text-[#F4F1EA]/40 uppercase hidden md:block whitespace-nowrap">
+              Hover near an edge to scroll →
+            </span>
+          </div>
+          <ShortsCarousel shorts={YT_SHORTS} />
+        </div>
+      </section>
+
+      {/* Section 05 - WHO'S WATCHING */}
       <section id="demographics" className="py-32 px-6 bg-[#F4F1EA] text-[#0A0A0A]" data-testid="section-demographics">
         <div className="max-w-[1440px] mx-auto">
           <div className="mb-20">
-            <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">04 — WHO'S WATCHING</h3>
+            <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">05 — WHO'S WATCHING</h3>
             <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1] max-w-[800px]">Gen-Z and young millennials, leaning all the way in.</h2>
           </div>
 
@@ -501,11 +699,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Section 05 - THE WORK */}
+      {/* Section 06 - THE WORK */}
       <section id="work" className="py-32 px-6 bg-[#0A0A0A]" data-testid="section-work">
         <div className="max-w-[1440px] mx-auto">
           <div className="mb-20">
-            <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">05 — THE WORK</h3>
+            <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">06 — THE WORK</h3>
             <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1]">Productions brands wanted in on.</h2>
           </div>
 
