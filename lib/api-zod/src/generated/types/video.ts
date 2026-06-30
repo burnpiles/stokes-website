@@ -12,6 +12,7 @@ export interface Video {
   tags: string[];
   views: string;
   duration: string;
+  youtubeUrl: string;
   thumbnailUrl: string;
   featured: boolean;
   sortOrder: number;

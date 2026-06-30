@@ -10,6 +10,7 @@ export interface Short {
   id: number;
   title: string;
   views: string;
+  youtubeUrl: string;
   thumbnailUrl: string;
   sortOrder: number;
 }

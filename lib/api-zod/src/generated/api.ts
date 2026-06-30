@@ -122,6 +122,7 @@ export const GetContentResponse = zod.object({
   "tags": zod.array(zod.string()),
   "views": zod.string(),
   "duration": zod.string(),
+  "youtubeUrl": zod.string(),
   "thumbnailUrl": zod.string(),
   "featured": zod.boolean(),
   "sortOrder": zod.number()
@@ -130,6 +131,7 @@ export const GetContentResponse = zod.object({
   "id": zod.number(),
   "title": zod.string(),
   "views": zod.string(),
+  "youtubeUrl": zod.string(),
   "thumbnailUrl": zod.string(),
   "sortOrder": zod.number()
 })),
@@ -476,6 +478,7 @@ export const CreateVideoBody = zod.object({
   "tags": zod.array(zod.string()).optional(),
   "views": zod.string().optional(),
   "duration": zod.string().optional(),
+  "youtubeUrl": zod.string().optional(),
   "thumbnailUrl": zod.string().optional(),
   "featured": zod.boolean().optional(),
   "sortOrder": zod.number().optional()
@@ -487,6 +490,7 @@ export const CreateVideoResponse = zod.object({
   "tags": zod.array(zod.string()),
   "views": zod.string(),
   "duration": zod.string(),
+  "youtubeUrl": zod.string(),
   "thumbnailUrl": zod.string(),
   "featured": zod.boolean(),
   "sortOrder": zod.number()
@@ -505,6 +509,7 @@ export const UpdateVideoBody = zod.object({
   "tags": zod.array(zod.string()).optional(),
   "views": zod.string().optional(),
   "duration": zod.string().optional(),
+  "youtubeUrl": zod.string().optional(),
   "thumbnailUrl": zod.string().optional(),
   "featured": zod.boolean().optional(),
   "sortOrder": zod.number().optional()
@@ -516,6 +521,7 @@ export const UpdateVideoResponse = zod.object({
   "tags": zod.array(zod.string()),
   "views": zod.string(),
   "duration": zod.string(),
+  "youtubeUrl": zod.string(),
   "thumbnailUrl": zod.string(),
   "featured": zod.boolean(),
   "sortOrder": zod.number()
@@ -535,6 +541,7 @@ export const DeleteVideoResponse = zod.void()
 export const CreateShortBody = zod.object({
   "title": zod.string().min(1),
   "views": zod.string().optional(),
+  "youtubeUrl": zod.string().optional(),
   "thumbnailUrl": zod.string().optional(),
   "sortOrder": zod.number().optional()
 })
@@ -543,6 +550,7 @@ export const CreateShortResponse = zod.object({
   "id": zod.number(),
   "title": zod.string(),
   "views": zod.string(),
+  "youtubeUrl": zod.string(),
   "thumbnailUrl": zod.string(),
   "sortOrder": zod.number()
 })
@@ -558,6 +566,7 @@ export const UpdateShortParams = zod.object({
 export const UpdateShortBody = zod.object({
   "title": zod.string().min(1).optional(),
   "views": zod.string().optional(),
+  "youtubeUrl": zod.string().optional(),
   "thumbnailUrl": zod.string().optional(),
   "sortOrder": zod.number().optional()
 })
@@ -566,6 +575,7 @@ export const UpdateShortResponse = zod.object({
   "id": zod.number(),
   "title": zod.string(),
   "views": zod.string(),
+  "youtubeUrl": zod.string(),
   "thumbnailUrl": zod.string(),
   "sortOrder": zod.number()
 })

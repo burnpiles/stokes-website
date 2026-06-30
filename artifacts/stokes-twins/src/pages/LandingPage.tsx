@@ -9,6 +9,7 @@ import { useBarGrow } from "@/hooks/useBarGrow";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useContent } from "@/lib/content";
 import { resolveImg } from "@/lib/resolveImg";
+import { extractYouTubeId, youtubeThumb } from "@/lib/youtube";
 import { platformIcon } from "@/lib/platformIcons";
 import type {
   Brand,
@@ -360,10 +361,24 @@ function YouTubeCountUp({ counter }: { counter: Settings["youtubeCounter"] }) {
 }
 
 function VideoCard({ video, featured = false }: { video: Video; featured?: boolean }) {
+  const ytId = extractYouTubeId(video.youtubeUrl);
+  const override = video.thumbnailUrl.trim();
+  const src = override ? resolveImg(override) : youtubeThumb(video.youtubeUrl, "max");
   return (
     <div className="group relative rounded-[6px] overflow-hidden bg-[#141210] border border-[#F4F1EA]/10 hover:border-[#E13B2C]/50 transition-colors duration-300">
       <div className="relative aspect-video overflow-hidden">
-        <img src={resolveImg(video.thumbnailUrl)} alt={video.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+        <img
+          src={src}
+          alt={video.title}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          onError={(e) => {
+            const img = e.currentTarget;
+            if (!override && ytId && img.dataset.fallback !== "1") {
+              img.dataset.fallback = "1";
+              img.src = `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`;
+            }
+          }}
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/10 to-transparent" />
         <div className="absolute top-4 left-4 flex flex-wrap gap-2 max-w-[80%]">
           {video.tags.map((t) => (
@@ -447,9 +462,24 @@ function ShortsCarousel({ shorts }: { shorts: Short[] }) {
         className="flex gap-4 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         data-testid="shorts-carousel"
       >
-        {shorts.map((s) => (
+        {shorts.map((s) => {
+          const ytId = extractYouTubeId(s.youtubeUrl);
+          const override = s.thumbnailUrl.trim();
+          const src = override ? resolveImg(override) : youtubeThumb(s.youtubeUrl, "max");
+          return (
           <div key={s.id} className="group relative shrink-0 w-[190px] md:w-[230px] aspect-[9/16] rounded-[8px] overflow-hidden bg-[#141210] border border-[#F4F1EA]/10">
-            <img src={resolveImg(s.thumbnailUrl)} alt={s.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img
+              src={src}
+              alt={s.title}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              onError={(e) => {
+                const img = e.currentTarget;
+                if (!override && ytId && img.dataset.fallback !== "1") {
+                  img.dataset.fallback = "1";
+                  img.src = `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`;
+                }
+              }}
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-[#0A0A0A]/10" />
             <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-[#0A0A0A]/60 backdrop-blur-sm px-2 py-1 rounded-full">
               <svg viewBox="0 0 24 24" className="w-3 h-3 fill-[#E13B2C]"><path d="M8 5v14l11-7z" /></svg>
@@ -465,7 +495,8 @@ function ShortsCarousel({ shorts }: { shorts: Short[] }) {
               <div className="font-mono text-[10px] text-[#F4F1EA]/60">{s.views} views</div>
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
       <div className="pointer-events-none absolute inset-y-0 left-0 w-16 md:w-24 bg-gradient-to-r from-[#0A0A0A] to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-16 md:w-24 bg-gradient-to-l from-[#0A0A0A] to-transparent" />

@@ -132,6 +132,7 @@ export interface Video {
   tags: string[];
   views: string;
   duration: string;
+  youtubeUrl: string;
   thumbnailUrl: string;
   featured: boolean;
   sortOrder: number;
@@ -141,6 +142,7 @@ export interface Short {
   id: number;
   title: string;
   views: string;
+  youtubeUrl: string;
   thumbnailUrl: string;
   sortOrder: number;
 }
@@ -242,6 +244,7 @@ export interface VideoInput {
   tags?: string[];
   views?: string;
   duration?: string;
+  youtubeUrl?: string;
   thumbnailUrl?: string;
   featured?: boolean;
   sortOrder?: number;
@@ -253,6 +256,7 @@ export interface VideoUpdate {
   tags?: string[];
   views?: string;
   duration?: string;
+  youtubeUrl?: string;
   thumbnailUrl?: string;
   featured?: boolean;
   sortOrder?: number;
@@ -262,6 +266,7 @@ export interface ShortInput {
   /** @minLength 1 */
   title: string;
   views?: string;
+  youtubeUrl?: string;
   thumbnailUrl?: string;
   sortOrder?: number;
 }
@@ -270,6 +275,7 @@ export interface ShortUpdate {
   /** @minLength 1 */
   title?: string;
   views?: string;
+  youtubeUrl?: string;
   thumbnailUrl?: string;
   sortOrder?: number;
 }

@@ -6,6 +6,7 @@ export const shortsTable = pgTable("shorts", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
   views: text("views").notNull().default(""),
+  youtubeUrl: text("youtube_url").notNull().default(""),
   thumbnailUrl: text("thumbnail_url").notNull().default(""),
   sortOrder: integer("sort_order").notNull().default(0),
 });

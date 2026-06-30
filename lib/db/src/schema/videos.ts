@@ -8,6 +8,7 @@ export const videosTable = pgTable("videos", {
   tags: text("tags").array().notNull().default([]),
   views: text("views").notNull().default(""),
   duration: text("duration").notNull().default(""),
+  youtubeUrl: text("youtube_url").notNull().default(""),
   thumbnailUrl: text("thumbnail_url").notNull().default(""),
   featured: boolean("featured").notNull().default(false),
   sortOrder: integer("sort_order").notNull().default(0),

@@ -132,15 +132,17 @@ function Dashboard() {
     { key: "tags", label: "Tags", type: "tags" },
     { key: "views", label: "Views", type: "text" },
     { key: "duration", label: "Duration", type: "text" },
+    { key: "youtubeUrl", label: "YouTube Link or ID", type: "text", placeholder: "https://youtube.com/watch?v=… (thumbnail auto-pulled)" },
     { key: "featured", label: "Featured (hero)", type: "boolean" },
     { key: "sortOrder", label: "Sort Order", type: "number" },
-    { key: "thumbnailUrl", label: "Thumbnail", type: "image" },
+    { key: "thumbnailUrl", label: "Thumbnail override (optional — leave empty to use YouTube's)", type: "image" },
   ];
   const shortFields: FieldDef[] = [
     { key: "title", label: "Title", type: "text" },
     { key: "views", label: "Views", type: "text" },
+    { key: "youtubeUrl", label: "YouTube Link or ID", type: "text", placeholder: "https://youtube.com/shorts/… (thumbnail auto-pulled)" },
     { key: "sortOrder", label: "Sort Order", type: "number" },
-    { key: "thumbnailUrl", label: "Thumbnail", type: "image" },
+    { key: "thumbnailUrl", label: "Thumbnail override (optional — leave empty to use YouTube's)", type: "image" },
   ];
   const demoFields: FieldDef[] = [
     { key: "category", label: "Category (age/gender/geography)", type: "text" },
@@ -211,11 +213,11 @@ function Dashboard() {
         )}
         {tab === "Videos" && (
           <ResourceEditor title="Videos" description="Featured video + grid. Mark one as Featured for the hero." items={content.videos} fields={videoFields} titleKey="title"
-            newDraft={() => ({ title: "", tags: [], views: "", duration: "", thumbnailUrl: "", featured: false, sortOrder: nextSort(content.videos) })} {...wire(video)} />
+            newDraft={() => ({ title: "", tags: [], views: "", duration: "", youtubeUrl: "", thumbnailUrl: "", featured: false, sortOrder: nextSort(content.videos) })} {...wire(video)} />
         )}
         {tab === "Shorts" && (
           <ResourceEditor title="Shorts" description="The shorts carousel." items={content.shorts} fields={shortFields} titleKey="title"
-            newDraft={() => ({ title: "", views: "", thumbnailUrl: "", sortOrder: nextSort(content.shorts) })} {...wire(short)} />
+            newDraft={() => ({ title: "", views: "", youtubeUrl: "", thumbnailUrl: "", sortOrder: nextSort(content.shorts) })} {...wire(short)} />
         )}
         {tab === "Demographics" && (
           <ResourceEditor title="Demographics" description="Age, gender, geography bars. Category must be age, gender, or geography." items={content.demographics} fields={demoFields} titleKey="label"

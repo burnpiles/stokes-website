@@ -10,6 +10,7 @@ export interface ShortUpdate {
   /** @minLength 1 */
   title?: string;
   views?: string;
+  youtubeUrl?: string;
   thumbnailUrl?: string;
   sortOrder?: number;
 }

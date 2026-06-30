@@ -815,7 +815,7 @@ components:
 
     Video:
       type: object
-      required: [id, title, tags, views, duration, thumbnailUrl, featured, sortOrder]
+      required: [id, title, tags, views, duration, youtubeUrl, thumbnailUrl, featured, sortOrder]
       properties:
         id: { type: integer }
         title: { type: string }
@@ -824,6 +824,7 @@ components:
           items: { type: string }
         views: { type: string }
         duration: { type: string }
+        youtubeUrl: { type: string }
         thumbnailUrl: { type: string }
         featured: { type: boolean }
         sortOrder: { type: integer }
@@ -837,6 +838,7 @@ components:
           items: { type: string }
         views: { type: string }
         duration: { type: string }
+        youtubeUrl: { type: string }
         thumbnailUrl: { type: string }
         featured: { type: boolean }
         sortOrder: { type: integer }
@@ -849,17 +851,19 @@ components:
           items: { type: string }
         views: { type: string }
         duration: { type: string }
+        youtubeUrl: { type: string }
         thumbnailUrl: { type: string }
         featured: { type: boolean }
         sortOrder: { type: integer }
 
     Short:
       type: object
-      required: [id, title, views, thumbnailUrl, sortOrder]
+      required: [id, title, views, youtubeUrl, thumbnailUrl, sortOrder]
       properties:
         id: { type: integer }
         title: { type: string }
         views: { type: string }
+        youtubeUrl: { type: string }
         thumbnailUrl: { type: string }
         sortOrder: { type: integer }
     ShortInput:
@@ -868,6 +872,7 @@ components:
       properties:
         title: { type: string, minLength: 1 }
         views: { type: string }
+        youtubeUrl: { type: string }
         thumbnailUrl: { type: string }
         sortOrder: { type: integer }
     ShortUpdate:
@@ -875,6 +880,7 @@ components:
       properties:
         title: { type: string, minLength: 1 }
         views: { type: string }
+        youtubeUrl: { type: string }
         thumbnailUrl: { type: string }
         sortOrder: { type: integer }
 
