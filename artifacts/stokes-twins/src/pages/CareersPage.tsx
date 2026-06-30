@@ -44,7 +44,7 @@ export default function CareersPage() {
           </p>
 
           <div className="font-mono font-bold text-sm tracking-widest border-b border-[#F4F1EA]/10 pb-6 mb-8">
-            <span className="text-[#E13B2C]">{filteredRoles.length}</span> OPEN ROLES · NOW HIRING
+            <span className="text-[#E13B2C]">{activeJobs.length}</span> OPEN ROLES · NOW HIRING
           </div>
 
           <div className="flex flex-wrap gap-3">
