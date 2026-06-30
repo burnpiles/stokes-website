@@ -15,23 +15,21 @@ export function Wordmark({ size = "md", className = "" }: WordmarkProps) {
 
   return (
     <div 
-      className={`font-display inline-flex items-center text-foreground uppercase tracking-tight ${sizeMap[size]} ${className}`}
+      className={`font-display inline-flex items-baseline leading-none text-foreground uppercase tracking-tight ${sizeMap[size]} ${className}`}
       style={{ textShadow: "0.052em 0.052em 0 #E13B2C" }}
     >
       <span>ST</span>
-      <span className="inline-flex items-center justify-center relative mx-[0.02em]">
-        <svg 
-          viewBox="3 3 58 78"
-          fill="none" 
-          stroke="currentColor" 
-          strokeWidth="13" 
-          strokeLinejoin="miter"
-          className="text-foreground inline-block w-[0.56em] h-[0.72em]"
-          style={{ filter: "drop-shadow(0.052em 0.052em 0 #E13B2C)" }}
-        >
-          <polygon points="13,9 55,42 13,75" />
-        </svg>
-      </span>
+      <svg 
+        viewBox="0 0 72 84"
+        fill="none" 
+        stroke="currentColor" 
+        strokeWidth="13" 
+        strokeLinejoin="miter"
+        className="text-foreground inline-block w-[0.62em] h-[0.72em] mx-[0.03em] self-baseline"
+        style={{ filter: "drop-shadow(0.052em 0.052em 0 #E13B2C)" }}
+      >
+        <polygon points="8,12 62,42 8,72" />
+      </svg>
       <span>KES</span>
     </div>
   );
