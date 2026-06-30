@@ -641,10 +641,10 @@ export default function LandingPage() {
       {/* Section 02 - THE ENGINE (YouTube) */}
       <section id="youtube" className="py-32 px-6 bg-[#0A0A0A] border-t border-[#F4F1EA]/10" data-testid="section-youtube">
         <div className="max-w-[1440px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-end mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-[1.6fr_1fr] gap-12 items-end mb-16">
             <div>
               <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">{settings.youtubeSection.eyebrow}</h3>
-              <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1]">{settings.youtubeSection.headline}</h2>
+              <h2 className="font-display text-[44px] md:text-[clamp(2.5rem,4vw,3.75rem)] leading-[1.1] lg:whitespace-nowrap">{settings.youtubeSection.headline}</h2>
             </div>
             <YouTubeCountUp counter={settings.youtubeCounter} />
           </div>
