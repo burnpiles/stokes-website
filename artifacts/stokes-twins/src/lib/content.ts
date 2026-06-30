@@ -1,0 +1,206 @@
+import { useMemo } from "react";
+import { useGetContent } from "@workspace/api-client-react";
+import type { Content, Settings } from "@workspace/api-client-react";
+
+export const defaultSettings: Settings = {
+  hero: {
+    eyebrow: "CREATOR-LED FAMILY ENTERTAINMENT STUDIO",
+    tagline:
+      "The largest creator-led family entertainment studio — 250 million followers, a transmedia slate, and a global tentpole event every single month.",
+    ctaLabel: "PARTNER WITH US →",
+    ctaHref: "#partner",
+  },
+  marqueeText: "GAMING · OUTDOOR · MYSTERY · TROPHY · CHALLENGES · SHORTS · ",
+  socials: {
+    tiktok: { value: "30.8M", url: "https://www.tiktok.com/@stokestwins?lang=en" },
+    youtube: { value: "141M", url: "https://www.youtube.com/@stokestwins" },
+    instagram: { value: "4.9M", url: "https://www.instagram.com/stokestwins/?hl=en" },
+  },
+  youtubeCounter: {
+    base: 140000000,
+    target: 141000000,
+    perMinute: 100,
+    anchorIso: "2026-06-30T00:00:00Z",
+    subLabel: "Subscribers and counting",
+  },
+  statsSection: {
+    eyebrow: "01 — THE NUMBERS",
+    headline: "An audience that doesn't scroll past.",
+    description:
+      "Alan and Alex Stokes turn stories into global franchises — a transmedia studio spanning blockbuster YouTube formats, unscripted, scripted, animation, and live, operating at the scale of a tentpole event every month.",
+  },
+  youtubeSection: {
+    eyebrow: "02 — THE ENGINE",
+    headline: "YouTube is the Engine.",
+    description: "",
+  },
+  networkSection: {
+    eyebrow: "03 — THE NETWORK",
+    headline: "One audience, every platform.",
+    description:
+      "A native presence on every platform that matters — a connected network that moves as one.",
+  },
+  demographicsSection: {
+    eyebrow: "04 — WHO'S WATCHING",
+    headline: "Gen-Z and young millennials, leaning all the way in.",
+    ageSubcopy:
+      "More than half the audience is under 25 — the demographic brands fight hardest to reach.",
+    genderSubcopy:
+      "A balanced, family-first audience — co-viewing across parents and kids drives a broad, brand-safe reach.",
+    geographySubcopy:
+      "A truly global footprint — anchored in the US, with strength across 190+ markets.",
+  },
+  engagement: {
+    avgRetention: 71,
+    likes: "2.4M",
+    comments: "84K",
+    shares: "1.1M",
+  },
+  partnerSection: {
+    eyebrow: "05 — PRESS PLAY WITH US",
+    headline: "Put Your Brand In Play",
+    subcopy:
+      "Custom integrations, title sponsorships, and cross-platform campaigns designed for the world's largest family audience.",
+    email: "partnerships@stokestwins.com",
+    mediaKitUrl: "#",
+    brandsLogline: "TRUSTED BY BRANDS THAT GO BIG",
+  },
+  careersSection: {
+    eyebrow: "CAREERS · PRESS PLAY WITH US",
+    headline: "Join the production.",
+    body: "We're building the team behind the numbers — editors, producers, strategists, and story minds who move at the speed of the feed. Pick a role, hit apply, and tell us why you live loud.",
+  },
+  footer: {
+    description: "CREATOR-LED FAMILY ENTERTAINMENT STUDIO",
+    copyright: "© 2026 STOKES TWINS LLC",
+    slogan: "PRESS PLAY · LIVE LOUD · NEVER PAUSE",
+  },
+};
+
+export const defaultContent: Content = {
+  settings: defaultSettings,
+  stats: [
+    { id: 1, label: "FOLLOWERS", value: 250, suffix: "M+", description: "Across every platform", sortOrder: 1 },
+    { id: 2, label: "MONTHLY VIEWS", value: 1.2, suffix: "B", description: "Every 30 days, and climbing", sortOrder: 2 },
+    { id: 3, label: "LIFETIME VIEWS", value: 62, suffix: "B", description: "Since the first upload", sortOrder: 3 },
+    { id: 4, label: "OWNED CHANNELS", value: 9, suffix: "", description: "One connected network", sortOrder: 4 },
+  ],
+  platforms: [
+    { id: 1, name: "YouTube", value: "141M", handle: "9 channels", color: "#FF0000", iconKey: "youtube", url: "https://www.youtube.com/@stokestwins", sortOrder: 1 },
+    { id: 2, name: "TikTok", value: "30.8M", handle: "@stokestwins", color: "#F4F1EA", iconKey: "tiktok", url: "https://www.tiktok.com/@stokestwins?lang=en", sortOrder: 2 },
+    { id: 3, name: "Snapchat", value: "38M", handle: "stokestwins", color: "#FFFC00", iconKey: "snapchat", url: null, sortOrder: 3 },
+    { id: 4, name: "Instagram", value: "4.9M", handle: "@stokestwins", color: "#E1306C", iconKey: "instagram", url: "https://www.instagram.com/stokestwins/?hl=en", sortOrder: 4 },
+    { id: 5, name: "Facebook", value: "18M", handle: "Stokes Twins", color: "#1877F2", iconKey: "facebook", url: null, sortOrder: 5 },
+    { id: 6, name: "X", value: "9M", handle: "@stokestwins", color: "#F4F1EA", iconKey: "x", url: null, sortOrder: 6 },
+  ],
+  videos: [
+    { id: 1, title: "Last To Leave The Mystery Vault Keeps $100,000", tags: ["Mystery", "Competition", "Survival", "48 Hours"], views: "82M", duration: "21:14", thumbnailUrl: "seed/mystery-cat.png", featured: true, sortOrder: 0 },
+    { id: 2, title: "We Survived 100 Hours In Hardcore Mode", tags: ["Gaming", "Challenge"], views: "41M", duration: "18:02", thumbnailUrl: "seed/gaming-cat.png", featured: false, sortOrder: 1 },
+    { id: 3, title: "Stranded On A Deserted Island For 7 Days", tags: ["Outdoor", "Survival"], views: "37M", duration: "24:51", thumbnailUrl: "seed/outdoor-cat.png", featured: false, sortOrder: 2 },
+    { id: 4, title: "First To Find The Golden Trophy Wins It", tags: ["Trophy", "Competition"], views: "29M", duration: "16:33", thumbnailUrl: "seed/trophy-cat.png", featured: false, sortOrder: 3 },
+  ],
+  shorts: [
+    { id: 1, title: "He never saw it coming", views: "12M", thumbnailUrl: "seed/work-beat.png", sortOrder: 1 },
+    { id: 2, title: "Last one found wins", views: "8.4M", thumbnailUrl: "seed/work-hide.png", sortOrder: 2 },
+    { id: 3, title: "Speedrun gone wrong", views: "15M", thumbnailUrl: "seed/gaming-cat.png", sortOrder: 3 },
+    { id: 4, title: "The circle of trust", views: "6.1M", thumbnailUrl: "seed/work-circle.png", sortOrder: 4 },
+    { id: 5, title: "48 hours in the wild", views: "9.7M", thumbnailUrl: "seed/outdoor-cat.png", sortOrder: 5 },
+    { id: 6, title: "Winner takes the trophy", views: "11M", thumbnailUrl: "seed/work-trophy.png", sortOrder: 6 },
+    { id: 7, title: "Inside the mystery box", views: "20M", thumbnailUrl: "seed/mystery-cat.png", sortOrder: 7 },
+    { id: 8, title: "Double or nothing", views: "7.3M", thumbnailUrl: "seed/work-double.png", sortOrder: 8 },
+    { id: 9, title: "10K on the line", views: "5.9M", thumbnailUrl: "seed/trophy-cat.png", sortOrder: 9 },
+  ],
+  demographics: [
+    { id: 1, category: "age", label: "13–17", percent: 22, highlight: false, sortOrder: 1 },
+    { id: 2, category: "age", label: "18–24", percent: 31, highlight: true, sortOrder: 2 },
+    { id: 3, category: "age", label: "25–34", percent: 27, highlight: false, sortOrder: 3 },
+    { id: 4, category: "age", label: "35–44", percent: 13, highlight: false, sortOrder: 4 },
+    { id: 5, category: "age", label: "45+", percent: 7, highlight: false, sortOrder: 5 },
+    { id: 6, category: "gender", label: "Male", percent: 58, highlight: false, sortOrder: 1 },
+    { id: 7, category: "gender", label: "Female", percent: 40, highlight: false, sortOrder: 2 },
+    { id: 8, category: "gender", label: "Other / Undisclosed", percent: 2, highlight: false, sortOrder: 3 },
+    { id: 9, category: "geography", label: "United States", percent: 38, highlight: false, sortOrder: 1 },
+    { id: 10, category: "geography", label: "United Kingdom", percent: 9, highlight: false, sortOrder: 2 },
+    { id: 11, category: "geography", label: "Brazil", percent: 7, highlight: false, sortOrder: 3 },
+    { id: 12, category: "geography", label: "India", percent: 6, highlight: false, sortOrder: 4 },
+    { id: 13, category: "geography", label: "Canada", percent: 5, highlight: false, sortOrder: 5 },
+    { id: 14, category: "geography", label: "Rest of World", percent: 35, highlight: false, sortOrder: 6 },
+  ],
+  brands: [
+    {
+      id: 1, name: "Adobe", logoUrl: "seed/adobe.png", campaign: '"Create Bold" Integration',
+      formats: "Pre-roll + Product Integration + Custom Short",
+      quote: "Integrated natively into a challenge format that the audience already loves — zero ad-fatigue, full brand recall.",
+      stats: [
+        { label: "Impressions", value: "142M+" }, { label: "Views", value: "88M+" }, { label: "Engagement", value: "4.8%" },
+        { label: "Awareness", value: "+23%" }, { label: "CTR", value: "3.1%" }, { label: "Retention", value: "71%" },
+      ],
+      sortOrder: 1,
+    },
+    {
+      id: 2, name: "Buldak", logoUrl: "seed/buldak.png", campaign: "Buldak Challenge Activation",
+      formats: "Challenge + Product Feature + Shorts Series",
+      quote: "A challenge format purpose-built for the product — the audience became the campaign, and it went everywhere.",
+      stats: [
+        { label: "Impressions", value: "98M+" }, { label: "Views", value: "72M+" }, { label: "Engagement", value: "7.4%" },
+        { label: "Purchase Intent", value: "+41%" }, { label: "UGC", value: "12K+" }, { label: "Retention", value: "68%" },
+      ],
+      sortOrder: 2,
+    },
+    {
+      id: 3, name: "Netflix", logoUrl: "seed/netflix.png", campaign: "Series Launch Integration",
+      formats: "Dedicated Video + Shorts Series + Cross-Platform Reels",
+      quote: "The Stokes network put the show in front of exactly the right demo — at scale, in a format they actually watch.",
+      stats: [
+        { label: "Impressions", value: "215M+" }, { label: "Views", value: "134M+" }, { label: "Engagement", value: "6.1%" },
+        { label: "Awareness", value: "+31%" }, { label: "Tune-In Intent", value: "+28%" }, { label: "Retention", value: "74%" },
+      ],
+      sortOrder: 3,
+    },
+    {
+      id: 4, name: "#TeamWater", logoUrl: "seed/teamwater.png", campaign: '"Stay Hydrated" Mission Integration',
+      formats: "Mission Video + Behind-the-Scenes + Instagram Reels",
+      quote: "The mission matched the audience's values — authentic integration that felt like content, not an ad.",
+      stats: [
+        { label: "Impressions", value: "67M+" }, { label: "Views", value: "51M+" }, { label: "Engagement", value: "5.2%" },
+        { label: "Recall", value: "+28%" }, { label: "Sign-Ups", value: "84K+" }, { label: "Retention", value: "69%" },
+      ],
+      sortOrder: 4,
+    },
+  ],
+  jobs: [
+    { id: 1, title: "Head of Production", brand: null, department: "Leadership", location: "LA", type: "On-site · Full-time", applyUrl: "#", active: true, sortOrder: 1 },
+    { id: 2, title: "Head of Creative", brand: null, department: "Leadership", location: "LA", type: "On-site · Full-time", applyUrl: "#", active: true, sortOrder: 2 },
+    { id: 3, title: "Producer", brand: null, department: "Production", location: "LA", type: "On-site · Full-time", applyUrl: "#", active: true, sortOrder: 3 },
+    { id: 4, title: "Story Editor", brand: null, department: "Editorial", location: "LA", type: "Hybrid · Full-time", applyUrl: "#", active: true, sortOrder: 4 },
+    { id: 5, title: "Shorts Strategist", brand: null, department: "Strategy", location: "Remote (US)", type: "Full-time", applyUrl: "#", active: true, sortOrder: 5 },
+    { id: 6, title: "Compilation Content Strategist", brand: null, department: "Strategy", location: "Remote (US)", type: "Full-time", applyUrl: "#", active: true, sortOrder: 6 },
+    { id: 7, title: "Shorts Editor", brand: null, department: "Post-Production", location: "Remote (US)", type: "Full-time", applyUrl: "#", active: true, sortOrder: 7 },
+    { id: 8, title: "Assistant Editor", brand: null, department: "Post-Production", location: "Remote (US)", type: "Contract", applyUrl: "#", active: true, sortOrder: 8 },
+    { id: 9, title: "Video Editor", brand: "Stokes Twins / Kat", department: "Post-Production", location: "Remote (US)", type: "Full-time", applyUrl: "#", active: true, sortOrder: 9 },
+    { id: 10, title: "Assistant Editor", brand: "Stokes Twins / Kat", department: "Post-Production", location: "Remote (US)", type: "Contract", applyUrl: "#", active: true, sortOrder: 10 },
+  ],
+};
+
+function pick<T>(arr: T[] | undefined | null, fallback: T[]): T[] {
+  return arr && arr.length > 0 ? arr : fallback;
+}
+
+export function mergeContent(data: Content | undefined): Content {
+  if (!data) return defaultContent;
+  return {
+    settings: data.settings ?? defaultContent.settings,
+    stats: pick(data.stats, defaultContent.stats),
+    platforms: pick(data.platforms, defaultContent.platforms),
+    videos: pick(data.videos, defaultContent.videos),
+    shorts: pick(data.shorts, defaultContent.shorts),
+    demographics: pick(data.demographics, defaultContent.demographics),
+    brands: pick(data.brands, defaultContent.brands),
+    jobs: pick(data.jobs, defaultContent.jobs),
+  };
+}
+
+export function useContent(): Content {
+  const { data } = useGetContent();
+  return useMemo(() => mergeContent(data), [data]);
+}

@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "wouter";
 import { Wordmark } from "./Wordmark";
+import { useContent } from "@/lib/content";
 
 export function Footer() {
+  const { settings } = useContent();
   return (
     <footer className="bg-[#070707] py-20 px-6 border-t border-[#F4F1EA]/10">
       <div className="max-w-[1440px] mx-auto">
@@ -10,7 +12,7 @@ export function Footer() {
           <div className="md:col-span-2">
             <Wordmark size="lg" className="mb-4" />
             <p className="font-mono text-sm text-[#F4F1EA]/50 tracking-wide">
-              CREATOR-LED FAMILY ENTERTAINMENT STUDIO
+              {settings.footer.description}
             </p>
           </div>
           
@@ -34,8 +36,8 @@ export function Footer() {
         </div>
         
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-[#F4F1EA]/10 font-mono text-xs text-[#F4F1EA]/40 tracking-widest">
-          <p>© 2026 STOKES TWINS LLC</p>
-          <p className="mt-4 md:mt-0">PRESS PLAY · LIVE LOUD · NEVER PAUSE</p>
+          <p>{settings.footer.copyright}</p>
+          <p className="mt-4 md:mt-0">{settings.footer.slogan}</p>
         </div>
       </div>
     </footer>

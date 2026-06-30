@@ -10,6 +10,12 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: content
+    description: Public site content
+  - name: admin
+    description: Admin authentication and content management
+  - name: Storage
+    description: Object storage upload and serving endpoints.
 paths:
   /healthz:
     get:
@@ -24,7 +30,546 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /content:
+    get:
+      operationId: getContent
+      tags: [content]
+      summary: Get all public site content
+      responses:
+        "200":
+          description: Full site content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Content"
+
+  /admin/login:
+    post:
+      operationId: adminLogin
+      tags: [admin]
+      summary: Log in with the admin password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginInput"
+      responses:
+        "200":
+          description: Authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthStatus"
+        "401":
+          description: Invalid password
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+
+  /admin/logout:
+    post:
+      operationId: adminLogout
+      tags: [admin]
+      summary: Log out
+      responses:
+        "204":
+          description: Logged out
+
+  /admin/session:
+    get:
+      operationId: getAdminSession
+      tags: [admin]
+      summary: Check current admin session
+      responses:
+        "200":
+          description: Session status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthStatus"
+
+  /admin/settings:
+    put:
+      operationId: updateSettings
+      tags: [admin]
+      summary: Update site settings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Settings"
+      responses:
+        "200":
+          description: Updated settings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Settings"
+
+  /admin/stats:
+    post:
+      operationId: createStat
+      tags: [admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StatInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Stat"
+  /admin/stats/{id}:
+    patch:
+      operationId: updateStat
+      tags: [admin]
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StatUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Stat"
+    delete:
+      operationId: deleteStat
+      tags: [admin]
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Deleted
+
+  /admin/platforms:
+    post:
+      operationId: createPlatform
+      tags: [admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Platform"
+  /admin/platforms/{id}:
+    patch:
+      operationId: updatePlatform
+      tags: [admin]
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Platform"
+    delete:
+      operationId: deletePlatform
+      tags: [admin]
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Deleted
+
+  /admin/videos:
+    post:
+      operationId: createVideo
+      tags: [admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VideoInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Video"
+  /admin/videos/{id}:
+    patch:
+      operationId: updateVideo
+      tags: [admin]
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VideoUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Video"
+    delete:
+      operationId: deleteVideo
+      tags: [admin]
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Deleted
+
+  /admin/shorts:
+    post:
+      operationId: createShort
+      tags: [admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ShortInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Short"
+  /admin/shorts/{id}:
+    patch:
+      operationId: updateShort
+      tags: [admin]
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ShortUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Short"
+    delete:
+      operationId: deleteShort
+      tags: [admin]
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Deleted
+
+  /admin/demographics:
+    post:
+      operationId: createDemographic
+      tags: [admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DemographicInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Demographic"
+  /admin/demographics/{id}:
+    patch:
+      operationId: updateDemographic
+      tags: [admin]
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DemographicUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Demographic"
+    delete:
+      operationId: deleteDemographic
+      tags: [admin]
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Deleted
+
+  /admin/brands:
+    post:
+      operationId: createBrand
+      tags: [admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BrandInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Brand"
+  /admin/brands/{id}:
+    patch:
+      operationId: updateBrand
+      tags: [admin]
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BrandUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Brand"
+    delete:
+      operationId: deleteBrand
+      tags: [admin]
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Deleted
+
+  /admin/jobs:
+    post:
+      operationId: createJob
+      tags: [admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JobInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Job"
+  /admin/jobs/{id}:
+    patch:
+      operationId: updateJob
+      tags: [admin]
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JobUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Job"
+    delete:
+      operationId: deleteJob
+      tags: [admin]
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Deleted
+
+  /admin/media:
+    get:
+      operationId: listMedia
+      tags: [admin]
+      responses:
+        "200":
+          description: Media list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Media"
+    post:
+      operationId: createMedia
+      tags: [admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MediaInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Media"
+  /admin/media/{id}:
+    delete:
+      operationId: deleteMedia
+      tags: [admin]
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Deleted
+
+  /storage/uploads/request-url:
+    post:
+      tags: [Storage]
+      operationId: requestUploadUrl
+      summary: Request a presigned URL for file upload
+      description: |
+        Returns a presigned GCS URL for direct upload. The client sends JSON
+        metadata here, then uploads the file directly to the returned URL.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UploadUrlRequest"
+      responses:
+        "200":
+          description: Presigned upload URL generated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UploadUrlResponse"
+        "400":
+          description: Missing or invalid required fields.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "500":
+          description: Failed to generate upload URL.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+  /storage/public-objects/{filePath}:
+    get:
+      tags: [Storage]
+      operationId: getPublicObject
+      summary: Serve a public asset from PUBLIC_OBJECT_SEARCH_PATHS
+      parameters:
+        - name: filePath
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Relative file path within the public search paths.
+      responses:
+        "200":
+          description: Object content streamed with correct Content-Type.
+          content:
+            "*/*":
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: File not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "500":
+          description: Failed to serve public object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+  /storage/objects/{objectPath}:
+    get:
+      tags: [Storage]
+      operationId: getStorageObject
+      summary: Serve an object entity from PRIVATE_OBJECT_DIR
+      parameters:
+        - name: objectPath
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Object path within the private object dir.
+      responses:
+        "200":
+          description: Object content streamed with correct Content-Type.
+          content:
+            "*/*":
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: Object not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "500":
+          description: Failed to serve object.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+
 components:
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
   schemas:
     HealthStatus:
       type: object
@@ -34,3 +579,455 @@ components:
       required:
         - status
 
+    ErrorEnvelope:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+
+    AuthStatus:
+      type: object
+      required: [authenticated]
+      properties:
+        authenticated:
+          type: boolean
+
+    LoginInput:
+      type: object
+      required: [password]
+      properties:
+        password:
+          type: string
+
+    Content:
+      type: object
+      required:
+        - settings
+        - stats
+        - platforms
+        - videos
+        - shorts
+        - demographics
+        - brands
+        - jobs
+      properties:
+        settings:
+          $ref: "#/components/schemas/Settings"
+        stats:
+          type: array
+          items:
+            $ref: "#/components/schemas/Stat"
+        platforms:
+          type: array
+          items:
+            $ref: "#/components/schemas/Platform"
+        videos:
+          type: array
+          items:
+            $ref: "#/components/schemas/Video"
+        shorts:
+          type: array
+          items:
+            $ref: "#/components/schemas/Short"
+        demographics:
+          type: array
+          items:
+            $ref: "#/components/schemas/Demographic"
+        brands:
+          type: array
+          items:
+            $ref: "#/components/schemas/Brand"
+        jobs:
+          type: array
+          items:
+            $ref: "#/components/schemas/Job"
+
+    SocialLink:
+      type: object
+      required: [value, url]
+      properties:
+        value:
+          type: string
+        url:
+          type: string
+
+    Settings:
+      type: object
+      required:
+        - hero
+        - marqueeText
+        - socials
+        - youtubeCounter
+        - statsSection
+        - youtubeSection
+        - networkSection
+        - demographicsSection
+        - engagement
+        - partnerSection
+        - careersSection
+        - footer
+      properties:
+        hero:
+          type: object
+          required: [eyebrow, tagline, ctaLabel, ctaHref]
+          properties:
+            eyebrow: { type: string }
+            tagline: { type: string }
+            ctaLabel: { type: string }
+            ctaHref: { type: string }
+        marqueeText:
+          type: string
+        socials:
+          type: object
+          required: [tiktok, youtube, instagram]
+          properties:
+            tiktok: { $ref: "#/components/schemas/SocialLink" }
+            youtube: { $ref: "#/components/schemas/SocialLink" }
+            instagram: { $ref: "#/components/schemas/SocialLink" }
+        youtubeCounter:
+          type: object
+          required: [base, target, perMinute, anchorIso, subLabel]
+          properties:
+            base: { type: integer }
+            target: { type: integer }
+            perMinute: { type: integer }
+            anchorIso: { type: string }
+            subLabel: { type: string }
+        statsSection:
+          $ref: "#/components/schemas/SectionHeading"
+        youtubeSection:
+          $ref: "#/components/schemas/SectionHeading"
+        networkSection:
+          $ref: "#/components/schemas/SectionHeading"
+        demographicsSection:
+          type: object
+          required: [eyebrow, headline, ageSubcopy, genderSubcopy, geographySubcopy]
+          properties:
+            eyebrow: { type: string }
+            headline: { type: string }
+            ageSubcopy: { type: string }
+            genderSubcopy: { type: string }
+            geographySubcopy: { type: string }
+        engagement:
+          type: object
+          required: [avgRetention, likes, comments, shares]
+          properties:
+            avgRetention: { type: integer }
+            likes: { type: string }
+            comments: { type: string }
+            shares: { type: string }
+        partnerSection:
+          type: object
+          required: [eyebrow, headline, subcopy, email, mediaKitUrl, brandsLogline]
+          properties:
+            eyebrow: { type: string }
+            headline: { type: string }
+            subcopy: { type: string }
+            email: { type: string }
+            mediaKitUrl: { type: string }
+            brandsLogline: { type: string }
+        careersSection:
+          type: object
+          required: [eyebrow, headline, body]
+          properties:
+            eyebrow: { type: string }
+            headline: { type: string }
+            body: { type: string }
+        footer:
+          type: object
+          required: [description, copyright, slogan]
+          properties:
+            description: { type: string }
+            copyright: { type: string }
+            slogan: { type: string }
+
+    SectionHeading:
+      type: object
+      required: [eyebrow, headline, description]
+      properties:
+        eyebrow: { type: string }
+        headline: { type: string }
+        description: { type: string }
+
+    Stat:
+      type: object
+      required: [id, label, value, suffix, description, sortOrder]
+      properties:
+        id: { type: integer }
+        label: { type: string }
+        value: { type: number }
+        suffix: { type: string }
+        description: { type: string }
+        sortOrder: { type: integer }
+    StatInput:
+      type: object
+      required: [label, value]
+      properties:
+        label: { type: string, minLength: 1 }
+        value: { type: number }
+        suffix: { type: string }
+        description: { type: string }
+        sortOrder: { type: integer }
+    StatUpdate:
+      type: object
+      properties:
+        label: { type: string, minLength: 1 }
+        value: { type: number }
+        suffix: { type: string }
+        description: { type: string }
+        sortOrder: { type: integer }
+
+    Platform:
+      type: object
+      required: [id, name, value, handle, color, iconKey, sortOrder]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        value: { type: string }
+        handle: { type: string }
+        color: { type: string }
+        iconKey: { type: string }
+        url: { type: ["string", "null"] }
+        sortOrder: { type: integer }
+    PlatformInput:
+      type: object
+      required: [name, value, iconKey]
+      properties:
+        name: { type: string, minLength: 1 }
+        value: { type: string }
+        handle: { type: string }
+        color: { type: string }
+        iconKey: { type: string }
+        url: { type: ["string", "null"] }
+        sortOrder: { type: integer }
+    PlatformUpdate:
+      type: object
+      properties:
+        name: { type: string, minLength: 1 }
+        value: { type: string }
+        handle: { type: string }
+        color: { type: string }
+        iconKey: { type: string }
+        url: { type: ["string", "null"] }
+        sortOrder: { type: integer }
+
+    Video:
+      type: object
+      required: [id, title, tags, views, duration, thumbnailUrl, featured, sortOrder]
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        tags:
+          type: array
+          items: { type: string }
+        views: { type: string }
+        duration: { type: string }
+        thumbnailUrl: { type: string }
+        featured: { type: boolean }
+        sortOrder: { type: integer }
+    VideoInput:
+      type: object
+      required: [title]
+      properties:
+        title: { type: string, minLength: 1 }
+        tags:
+          type: array
+          items: { type: string }
+        views: { type: string }
+        duration: { type: string }
+        thumbnailUrl: { type: string }
+        featured: { type: boolean }
+        sortOrder: { type: integer }
+    VideoUpdate:
+      type: object
+      properties:
+        title: { type: string, minLength: 1 }
+        tags:
+          type: array
+          items: { type: string }
+        views: { type: string }
+        duration: { type: string }
+        thumbnailUrl: { type: string }
+        featured: { type: boolean }
+        sortOrder: { type: integer }
+
+    Short:
+      type: object
+      required: [id, title, views, thumbnailUrl, sortOrder]
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        views: { type: string }
+        thumbnailUrl: { type: string }
+        sortOrder: { type: integer }
+    ShortInput:
+      type: object
+      required: [title]
+      properties:
+        title: { type: string, minLength: 1 }
+        views: { type: string }
+        thumbnailUrl: { type: string }
+        sortOrder: { type: integer }
+    ShortUpdate:
+      type: object
+      properties:
+        title: { type: string, minLength: 1 }
+        views: { type: string }
+        thumbnailUrl: { type: string }
+        sortOrder: { type: integer }
+
+    Demographic:
+      type: object
+      required: [id, category, label, percent, highlight, sortOrder]
+      properties:
+        id: { type: integer }
+        category: { type: string }
+        label: { type: string }
+        percent: { type: number }
+        highlight: { type: boolean }
+        sortOrder: { type: integer }
+    DemographicInput:
+      type: object
+      required: [category, label, percent]
+      properties:
+        category: { type: string, minLength: 1 }
+        label: { type: string, minLength: 1 }
+        percent: { type: number }
+        highlight: { type: boolean }
+        sortOrder: { type: integer }
+    DemographicUpdate:
+      type: object
+      properties:
+        category: { type: string, minLength: 1 }
+        label: { type: string, minLength: 1 }
+        percent: { type: number }
+        highlight: { type: boolean }
+        sortOrder: { type: integer }
+
+    BrandStat:
+      type: object
+      required: [label, value]
+      properties:
+        label: { type: string }
+        value: { type: string }
+    Brand:
+      type: object
+      required: [id, name, logoUrl, campaign, formats, quote, stats, sortOrder]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        logoUrl: { type: string }
+        campaign: { type: string }
+        formats: { type: string }
+        quote: { type: string }
+        stats:
+          type: array
+          items: { $ref: "#/components/schemas/BrandStat" }
+        sortOrder: { type: integer }
+    BrandInput:
+      type: object
+      required: [name]
+      properties:
+        name: { type: string, minLength: 1 }
+        logoUrl: { type: string }
+        campaign: { type: string }
+        formats: { type: string }
+        quote: { type: string }
+        stats:
+          type: array
+          items: { $ref: "#/components/schemas/BrandStat" }
+        sortOrder: { type: integer }
+    BrandUpdate:
+      type: object
+      properties:
+        name: { type: string, minLength: 1 }
+        logoUrl: { type: string }
+        campaign: { type: string }
+        formats: { type: string }
+        quote: { type: string }
+        stats:
+          type: array
+          items: { $ref: "#/components/schemas/BrandStat" }
+        sortOrder: { type: integer }
+
+    Job:
+      type: object
+      required: [id, title, department, location, type, applyUrl, active, sortOrder]
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        brand: { type: ["string", "null"] }
+        department: { type: string }
+        location: { type: string }
+        type: { type: string }
+        applyUrl: { type: string }
+        active: { type: boolean }
+        sortOrder: { type: integer }
+    JobInput:
+      type: object
+      required: [title]
+      properties:
+        title: { type: string, minLength: 1 }
+        brand: { type: ["string", "null"] }
+        department: { type: string }
+        location: { type: string }
+        type: { type: string }
+        applyUrl: { type: string }
+        active: { type: boolean }
+        sortOrder: { type: integer }
+    JobUpdate:
+      type: object
+      properties:
+        title: { type: string, minLength: 1 }
+        brand: { type: ["string", "null"] }
+        department: { type: string }
+        location: { type: string }
+        type: { type: string }
+        applyUrl: { type: string }
+        active: { type: boolean }
+        sortOrder: { type: integer }
+
+    Media:
+      type: object
+      required: [id, filename, objectPath, contentType, size, createdAt]
+      properties:
+        id: { type: integer }
+        filename: { type: string }
+        objectPath: { type: string }
+        contentType: { type: string }
+        size: { type: integer }
+        createdAt: { type: string }
+    MediaInput:
+      type: object
+      required: [filename, objectPath]
+      properties:
+        filename: { type: string, minLength: 1 }
+        objectPath: { type: string, minLength: 1 }
+        contentType: { type: string }
+        size: { type: integer }
+
+    UploadUrlRequest:
+      type: object
+      required: [name, size, contentType]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        size:
+          type: integer
+          minimum: 1
+        contentType:
+          type: string
+          minLength: 1
+    UploadUrlResponse:
+      type: object
+      required: [uploadURL, objectPath]
+      properties:
+        uploadURL:
+          type: string
+          format: uri
+        objectPath:
+          type: string
+        metadata:
+          $ref: "#/components/schemas/UploadUrlRequest"
