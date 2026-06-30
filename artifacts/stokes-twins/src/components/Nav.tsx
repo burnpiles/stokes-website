@@ -17,25 +17,35 @@ export function Nav({ isCareers = false }: NavProps) {
         {!isCareers ? (
           <>
             <div className="hidden md:flex items-center gap-8">
-              {['AUDIENCE', 'CATEGORIES', 'CHANNELS', 'WORK', 'CAREERS'].map(link => (
-                <Link 
-                  key={link} 
-                  href={link === 'CAREERS' ? '/careers' : `/#${link.toLowerCase()}`}
-                  className="font-mono font-semibold text-[12px] tracking-[0.12em] text-[#F4F1EA]/72 hover:text-[#E13B2C] transition-colors"
-                >
-                  {link}
-                </Link>
-              ))}
+              {['AUDIENCE', 'CATEGORIES', 'CHANNELS', 'WORK', 'CAREERS'].map(link =>
+                link === 'CAREERS' ? (
+                  <Link 
+                    key={link} 
+                    href="/careers"
+                    className="font-mono font-semibold text-[12px] tracking-[0.12em] text-[#F4F1EA]/72 hover:text-[#E13B2C] transition-colors"
+                  >
+                    {link}
+                  </Link>
+                ) : (
+                  <a 
+                    key={link} 
+                    href={`#${link.toLowerCase()}`}
+                    className="font-mono font-semibold text-[12px] tracking-[0.12em] text-[#F4F1EA]/72 hover:text-[#E13B2C] transition-colors"
+                  >
+                    {link}
+                  </a>
+                )
+              )}
             </div>
 
-            <Link 
+            <a 
               href="#partner" 
               className="bg-[#E13B2C] text-white font-mono font-bold text-[12px] tracking-[0.08em] px-[18px] py-[11px] rounded-[3px] flex items-center gap-2 hover:bg-white hover:text-[#0A0A0A] transition-colors"
               data-testid="nav-partner-cta"
             >
               PARTNER WITH US
               <span className="inline-block w-2 h-2 bg-current" style={{ clipPath: "polygon(0 0, 0 100%, 100% 50%)" }}></span>
-            </Link>
+            </a>
           </>
         ) : (
           <div className="flex items-center">

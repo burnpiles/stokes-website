@@ -475,14 +475,14 @@ export default function LandingPage() {
             The largest creator-led family entertainment studio — 250 million followers, a transmedia slate, and a global tentpole event every single month.
           </p>
 
-          <Link 
+          <a 
             href="#partner"
             className="animate-rise bg-white text-[#0A0A0A] font-display text-[17px] px-[34px] py-[18px] rounded-[3px] hover:bg-[#E13B2C] hover:text-white transition-colors"
             style={{ animationDelay: '0.4s' }}
             data-testid="hero-cta-btn"
           >
             PARTNER WITH US →
-          </Link>
+          </a>
         </div>
       </section>
 
