@@ -321,8 +321,8 @@ function DemographicsTabs({ demographics, settings }: { demographics: Demographi
 
 function liveYouTubeCount(c: Settings["youtubeCounter"]): number {
   const anchor = Date.parse(c.anchorIso);
-  const minutes = Math.max(0, Math.floor((Date.now() - anchor) / 60_000));
-  return Math.min(c.target, c.base + minutes * c.perMinute);
+  const minutes = Math.max(0, (Date.now() - anchor) / 60_000);
+  return Math.min(c.target, Math.floor(c.base + minutes * c.perMinute));
 }
 
 function YouTubeCountUp({ counter }: { counter: Settings["youtubeCounter"] }) {
