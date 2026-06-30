@@ -770,7 +770,7 @@ export default function LandingPage() {
       <section id="partner" className="py-32 px-6 bg-[#E13B2C] text-white text-center" data-testid="section-partner-cta">
         <div className="max-w-[1000px] mx-auto">
           <div className="font-mono font-bold text-xs tracking-[0.4em] mb-8">PRESS PLAY WITH US</div>
-          <h2 className="font-display text-[clamp(48px,8vw,88px)] leading-[1] mb-8 drop-shadow-md">Put your brand in the play button.</h2>
+          <h2 className="font-display text-[clamp(48px,8vw,88px)] leading-[1] mb-8 drop-shadow-md">Put Your Brand In Play</h2>
           <p className="font-sans text-xl md:text-2xl font-medium max-w-[800px] mx-auto mb-16 opacity-90">
             Custom integrations, title sponsorships, and cross-platform campaigns designed for the world's largest family audience.
           </p>
