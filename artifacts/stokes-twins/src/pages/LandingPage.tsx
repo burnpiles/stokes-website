@@ -153,19 +153,6 @@ function BrandModal({ brand, onClose }: { brand: Brand | null; onClose: () => vo
   );
 }
 
-function StatCounter({ end, suffix, label }: { end: number, suffix: string, label: string }) {
-  const { ref, isVisible } = useReveal();
-  const count = useCountUp(isVisible ? end : 0);
-  return (
-    <div ref={ref} className="text-center font-mono">
-      <div className="text-[32px] md:text-[48px] font-bold text-[#E13B2C] mb-2">
-        {count}{suffix}
-      </div>
-      <div className="text-[#F4F1EA]/60 text-sm tracking-widest">{label}</div>
-    </div>
-  );
-}
-
 function StatBandItem({ end, suffix, label, desc, delay }: { end: number, suffix: string, label: string, desc: string, delay: number }) {
   const { ref, isVisible } = useReveal(delay);
   const count = useCountUp(isVisible ? end : 0);
@@ -494,16 +481,6 @@ export default function LandingPage() {
           {Array(4).fill("GAMING · OUTDOOR · MYSTERY · TROPHY · CHALLENGES · SHORTS · ").map((text, i) => (
             <span key={i} className="font-display text-2xl md:text-3xl text-[#F4F1EA]/20 mx-4">{text}</span>
           ))}
-        </div>
-      </div>
-
-      {/* Stats Ticker */}
-      <div className="bg-[#0A0A0A]/80 backdrop-blur-sm border-b border-[#F4F1EA]/10 py-12 px-6">
-        <div className="max-w-[1440px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-          <StatCounter end={250} suffix="M+" label="FOLLOWERS" />
-          <StatCounter end={1.2} suffix="B" label="MONTHLY VIEWS" />
-          <StatCounter end={190} suffix="+" label="GLOBAL MARKETS" />
-          <StatCounter end={71} suffix="%" label="AVG. RETENTION" />
         </div>
       </div>
 
