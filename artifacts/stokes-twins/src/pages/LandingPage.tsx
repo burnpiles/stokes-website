@@ -366,44 +366,124 @@ function VideoCard({ video, featured = false }: { video: Video; featured?: boole
   const ytId = extractYouTubeId(video.youtubeUrl);
   const override = video.thumbnailUrl.trim();
   const src = override ? resolveImg(override) : youtubeThumb(video.youtubeUrl, "max");
+  const [playing, setPlaying] = useState(false);
+  const canPlay = ytId !== "";
   return (
     <div className="group relative rounded-[6px] overflow-hidden bg-[#141210] border border-[#F4F1EA]/10 hover:border-[#E13B2C]/50 transition-colors duration-300">
       <div className="relative aspect-video overflow-hidden">
-        <img
-          src={src}
-          alt={video.title}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          onError={(e) => {
-            const img = e.currentTarget;
-            if (!override && ytId && img.dataset.fallback !== "1") {
-              img.dataset.fallback = "1";
-              img.src = `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`;
-            }
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/10 to-transparent" />
-        <div className="absolute top-4 left-4 flex flex-wrap gap-2 max-w-[80%]">
-          {video.tags.map((t) => (
-            <span key={t} className="font-mono text-[10px] tracking-widest uppercase bg-[#0A0A0A]/70 backdrop-blur-sm border border-white/15 px-2.5 py-1 rounded-full text-[#F4F1EA]">
-              {t}
-            </span>
-          ))}
-        </div>
-        {video.duration.trim() && (
-          <div className="absolute bottom-3 right-3 font-mono text-[11px] bg-[#0A0A0A]/85 px-2 py-0.5 rounded text-[#F4F1EA]">
-            {video.duration}
-          </div>
+        {playing && canPlay ? (
+          <iframe
+            className="absolute inset-0 w-full h-full"
+            src={`https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1`}
+            title={video.title}
+            allow="accelerated-display; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            data-testid="video-iframe"
+          />
+        ) : (
+          <>
+            <img
+              src={src}
+              alt={video.title}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              onError={(e) => {
+                const img = e.currentTarget;
+                if (!override && ytId && img.dataset.fallback !== "1") {
+                  img.dataset.fallback = "1";
+                  img.src = `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`;
+                }
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/10 to-transparent" />
+            <div className="absolute top-4 left-4 flex flex-wrap gap-2 max-w-[80%]">
+              {video.tags.map((t) => (
+                <span key={t} className="font-mono text-[10px] tracking-widest uppercase bg-[#0A0A0A]/70 backdrop-blur-sm border border-white/15 px-2.5 py-1 rounded-full text-[#F4F1EA]">
+                  {t}
+                </span>
+              ))}
+            </div>
+            {video.duration.trim() && (
+              <div className="absolute bottom-3 right-3 font-mono text-[11px] bg-[#0A0A0A]/85 px-2 py-0.5 rounded text-[#F4F1EA]">
+                {video.duration}
+              </div>
+            )}
+            <button
+              type="button"
+              onClick={() => canPlay && setPlaying(true)}
+              disabled={!canPlay}
+              aria-label={canPlay ? `Play ${video.title}` : video.title}
+              className="absolute inset-0 flex items-center justify-center disabled:cursor-default"
+              data-testid="video-play"
+            >
+              <span className={`${featured ? "w-20 h-20" : "w-14 h-14"} rounded-full bg-[#E13B2C] flex items-center justify-center scale-90 opacity-85 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 shadow-[0_0_30px_rgba(225,59,44,0.5)]`}>
+                <svg viewBox="0 0 24 24" className={`${featured ? "w-8 h-8" : "w-5 h-5"} fill-white ml-1`}><path d="M8 5v14l11-7z" /></svg>
+              </span>
+            </button>
+          </>
         )}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className={`${featured ? "w-20 h-20" : "w-14 h-14"} rounded-full bg-[#E13B2C] flex items-center justify-center scale-90 opacity-85 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 shadow-[0_0_30px_rgba(225,59,44,0.5)]`}>
-            <svg viewBox="0 0 24 24" className={`${featured ? "w-8 h-8" : "w-5 h-5"} fill-white ml-1`}><path d="M8 5v14l11-7z" /></svg>
-          </div>
-        </div>
       </div>
       <div className={featured ? "p-7" : "p-5"}>
         <h4 className={`font-display ${featured ? "text-2xl md:text-[34px]" : "text-lg"} leading-tight mb-2`}>{video.title}</h4>
         {video.views.trim() && <div className="font-mono text-xs text-[#F4F1EA]/50 tracking-wide">{video.views} VIEWS</div>}
       </div>
+    </div>
+  );
+}
+
+function ShortCard({ short: s }: { short: Short }) {
+  const ytId = extractYouTubeId(s.youtubeUrl);
+  const override = s.thumbnailUrl.trim();
+  const src = override ? resolveImg(override) : youtubeThumb(s.youtubeUrl, "max");
+  const [playing, setPlaying] = useState(false);
+  const canPlay = ytId !== "";
+  return (
+    <div className="group relative shrink-0 w-[190px] md:w-[230px] aspect-[9/16] rounded-[8px] overflow-hidden bg-[#141210] border border-[#F4F1EA]/10">
+      {playing && canPlay ? (
+        <iframe
+          className="absolute inset-0 w-full h-full"
+          src={`https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+          title={s.title}
+          allow="accelerated-display; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          data-testid="short-iframe"
+        />
+      ) : (
+        <>
+          <img
+            src={src}
+            alt={s.title}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            onError={(e) => {
+              const img = e.currentTarget;
+              if (!override && ytId && img.dataset.fallback !== "1") {
+                img.dataset.fallback = "1";
+                img.src = `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`;
+              }
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-[#0A0A0A]/10" />
+          <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-[#0A0A0A]/60 backdrop-blur-sm px-2 py-1 rounded-full">
+            <svg viewBox="0 0 24 24" className="w-3 h-3 fill-[#E13B2C]"><path d="M8 5v14l11-7z" /></svg>
+            <span className="font-mono text-[9px] tracking-widest text-white/85 uppercase">Short</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => canPlay && setPlaying(true)}
+            disabled={!canPlay}
+            aria-label={canPlay ? `Play ${s.title}` : s.title}
+            className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 disabled:cursor-default"
+            data-testid="short-play"
+          >
+            <span className="w-12 h-12 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white ml-0.5"><path d="M8 5v14l11-7z" /></svg>
+            </span>
+          </button>
+          <div className="pointer-events-none absolute bottom-0 left-0 right-0 p-4">
+            <div className="font-sans font-bold text-sm text-white leading-tight mb-1 line-clamp-2">{s.title}</div>
+            {s.views.trim() && <div className="font-mono text-[10px] text-[#F4F1EA]/60">{s.views} views</div>}
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -466,41 +546,9 @@ function ShortsCarousel({ shorts }: { shorts: Short[] }) {
         className="flex gap-4 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         data-testid="shorts-carousel"
       >
-        {shorts.map((s) => {
-          const ytId = extractYouTubeId(s.youtubeUrl);
-          const override = s.thumbnailUrl.trim();
-          const src = override ? resolveImg(override) : youtubeThumb(s.youtubeUrl, "max");
-          return (
-          <div key={s.id} className="group relative shrink-0 w-[190px] md:w-[230px] aspect-[9/16] rounded-[8px] overflow-hidden bg-[#141210] border border-[#F4F1EA]/10">
-            <img
-              src={src}
-              alt={s.title}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              onError={(e) => {
-                const img = e.currentTarget;
-                if (!override && ytId && img.dataset.fallback !== "1") {
-                  img.dataset.fallback = "1";
-                  img.src = `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`;
-                }
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-[#0A0A0A]/10" />
-            <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-[#0A0A0A]/60 backdrop-blur-sm px-2 py-1 rounded-full">
-              <svg viewBox="0 0 24 24" className="w-3 h-3 fill-[#E13B2C]"><path d="M8 5v14l11-7z" /></svg>
-              <span className="font-mono text-[9px] tracking-widest text-white/85 uppercase">Short</span>
-            </div>
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="w-12 h-12 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white ml-0.5"><path d="M8 5v14l11-7z" /></svg>
-              </div>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 p-4">
-              <div className="font-sans font-bold text-sm text-white leading-tight mb-1 line-clamp-2">{s.title}</div>
-              {s.views.trim() && <div className="font-mono text-[10px] text-[#F4F1EA]/60">{s.views} views</div>}
-            </div>
-          </div>
-          );
-        })}
+        {shorts.map((s) => (
+          <ShortCard key={s.id} short={s} />
+        ))}
       </div>
       <div className="pointer-events-none absolute inset-y-0 left-0 w-16 md:w-24 bg-gradient-to-r from-[#0A0A0A] to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-16 md:w-24 bg-gradient-to-l from-[#0A0A0A] to-transparent" />
