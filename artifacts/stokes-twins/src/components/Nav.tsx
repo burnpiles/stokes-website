@@ -17,22 +17,28 @@ export function Nav({ isCareers = false }: NavProps) {
         {!isCareers ? (
           <>
             <div className="hidden md:flex items-center gap-8">
-              {['AUDIENCE', 'CATEGORIES', 'CHANNELS', 'WORK', 'CAREERS'].map(link =>
-                link === 'CAREERS' ? (
+              {[
+                { label: 'NUMBERS', href: '#audience' },
+                { label: 'YOUTUBE', href: '#youtube' },
+                { label: 'CHANNELS', href: '#channels' },
+                { label: 'AUDIENCE', href: '#demographics' },
+                { label: 'CAREERS', href: '/careers' },
+              ].map(link =>
+                link.href.startsWith('/') ? (
                   <Link 
-                    key={link} 
-                    href="/careers"
+                    key={link.label} 
+                    href={link.href}
                     className="font-mono font-semibold text-[12px] tracking-[0.12em] text-[#F4F1EA]/72 hover:text-[#E13B2C] transition-colors"
                   >
-                    {link}
+                    {link.label}
                   </Link>
                 ) : (
                   <a 
-                    key={link} 
-                    href={`#${link.toLowerCase()}`}
+                    key={link.label} 
+                    href={link.href}
                     className="font-mono font-semibold text-[12px] tracking-[0.12em] text-[#F4F1EA]/72 hover:text-[#E13B2C] transition-colors"
                   >
-                    {link}
+                    {link.label}
                   </a>
                 )
               )}

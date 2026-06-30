@@ -168,43 +168,195 @@ function StatBandItem({ end, suffix, label, desc, delay }: { end: number, suffix
   );
 }
 
-function BarChartRow({ label, percent, delay }: { label: string, percent: number, delay: number }) {
-  const { ref, isVisible } = useReveal(delay);
-  const width = useBarGrow(isVisible ? percent : 0);
+const PLATFORMS = [
+  { name: "YouTube", total: "141M", handle: "9 channels", color: "#FF0000", path: "M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" },
+  { name: "TikTok", total: "30.8M", handle: "@stokestwins", color: "#F4F1EA", path: "M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.08-.14 1.62.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" },
+  { name: "Snapchat", total: "38M", handle: "stokestwins", color: "#FFFC00", path: "M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.299 4.847l-.003.06c-.012.18-.022.345-.03.51.075.045.203.09.401.09.3-.016.659-.12 1.033-.301.165-.088.344-.104.464-.104.182 0 .359.029.509.09.45.149.734.479.734.838.015.449-.39.839-1.213 1.168-.089.029-.209.075-.344.119-.45.135-1.139.36-1.333.81-.09.224-.061.524.12.868l.015.015c.06.136 1.526 3.475 4.791 4.014.255.044.435.27.42.509 0 .075-.015.149-.045.225-.24.569-1.273.988-3.146 1.271-.059.091-.12.375-.164.57-.029.135-.06.255-.09.39-.045.179-.18.27-.405.27h-.015c-.135 0-.313-.029-.54-.074-.36-.075-.765-.135-1.273-.135-.3 0-.615.015-.93.074-.555.09-1.005.39-1.526.72-.795.524-1.711 1.107-3.07 1.107-.06 0-.12-.015-.18-.015-.075 0-.149.015-.225.015-1.356 0-2.272-.583-3.067-1.107-.524-.33-.975-.629-1.529-.72-.315-.045-.63-.074-.93-.074-.54 0-.96.089-1.273.149-.225.045-.404.074-.54.074-.314 0-.435-.18-.479-.36-.03-.119-.061-.249-.09-.389-.044-.195-.105-.479-.164-.57-1.873-.283-2.906-.703-3.146-1.272-.03-.075-.045-.149-.045-.225-.015-.24.165-.464.42-.509 3.265-.54 4.731-3.879 4.791-4.02l.016-.029c.18-.345.224-.645.119-.869-.195-.434-.884-.658-1.332-.809-.121-.029-.24-.074-.346-.119-1.107-.434-1.257-.928-1.197-1.273.09-.434.674-.733 1.168-.733.135 0 .256.029.36.074.405.194.764.299 1.064.299.234 0 .375-.06.45-.09l-.045-.569c-.105-1.62-.225-3.644.299-4.832C7.844 1.069 11.186.793 12.206.793z" },
+  { name: "Instagram", total: "4.9M", handle: "@stokestwins", color: "#E1306C", path: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" },
+  { name: "Facebook", total: "18M", handle: "Stokes Twins", color: "#1877F2", path: "M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" },
+  { name: "X", total: "9M", handle: "@stokestwins", color: "#F4F1EA", path: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" },
+];
 
+function PlatformCard({ p, i }: { p: typeof PLATFORMS[number]; i: number }) {
+  const { ref, isVisible } = useReveal(i * 80);
   return (
-    <div ref={ref} className={`mb-6 transition-all duration-500 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
-      <div className="flex justify-between font-mono text-sm mb-2">
-        <span className="text-[#F4F1EA]">{label}</span>
-        <span className="text-[#E13B2C] font-bold">{percent}%</span>
+    <div
+      ref={ref}
+      className={`group bg-[#141210] border border-[#F4F1EA]/10 rounded-[6px] p-6 md:p-8 flex flex-col items-center text-center transition-all duration-500 hover:border-[#E13B2C]/40 hover:-translate-y-1 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+    >
+      <svg viewBox="0 0 24 24" className="w-12 h-12 md:w-14 md:h-14 mb-6 transition-transform duration-300 group-hover:scale-110" style={{ color: p.color }} fill="currentColor" aria-hidden="true">
+        <path d={p.path} />
+      </svg>
+      <div className="font-display text-3xl md:text-[40px] text-[#F4F1EA] leading-none mb-2">{p.total}</div>
+      <div className="font-mono text-xs tracking-widest text-[#F4F1EA]/70 mb-1">{p.name.toUpperCase()}</div>
+      <div className="font-mono text-[11px] text-[#F4F1EA]/40">{p.handle}</div>
+    </div>
+  );
+}
+
+const DEMO_TABS = ["AGE", "GENDER", "GEOGRAPHY", "ENGAGEMENT"] as const;
+type DemoTab = typeof DEMO_TABS[number];
+
+function VBarLight({ label, percent, peak, delay }: { label: string; percent: number; peak: boolean; delay: number }) {
+  const { ref, isVisible } = useReveal(delay);
+  const height = useBarGrow(isVisible ? (percent / 35) * 100 : 0);
+  return (
+    <div ref={ref} className="flex flex-col items-center justify-end h-[280px]">
+      <div className="w-full relative flex items-end justify-center flex-grow mb-4">
+        <div
+          className={`w-full max-w-[56px] rounded-t-sm transition-all duration-75 ${peak ? 'bg-[#E13B2C]' : 'bg-[#141210]'}`}
+          style={{ height: `${height}%` }}
+        >
+          <div className={`absolute -top-7 left-1/2 -translate-x-1/2 font-mono text-sm font-bold ${peak ? 'text-[#E13B2C]' : 'text-[#0A0A0A]/70'}`}>
+            {percent}%
+          </div>
+        </div>
       </div>
-      <div className="h-2 w-full bg-[#141210] rounded-full overflow-hidden">
-        <div 
-          className="h-full bg-[#E13B2C] transition-all duration-75"
-          style={{ width: `${width}%` }}
-        />
+      <div className="font-mono text-xs text-[#0A0A0A]/60">{label}</div>
+    </div>
+  );
+}
+
+function HBar({ label, percent, max, accent, delay }: { label: string; percent: number; max: number; accent?: boolean; delay: number }) {
+  const { ref, isVisible } = useReveal(delay);
+  const width = useBarGrow(isVisible ? (percent / max) * 100 : 0);
+  return (
+    <div ref={ref} className="flex items-center gap-4">
+      <div className="w-32 md:w-40 font-mono text-sm text-[#0A0A0A]/80">{label}</div>
+      <div className="flex-grow h-3 bg-[#0A0A0A]/10 rounded-full overflow-hidden">
+        <div className={`h-full ${accent ? 'bg-[#E13B2C]' : 'bg-[#141210]'} transition-all duration-75`} style={{ width: `${width}%` }} />
+      </div>
+      <div className="w-12 text-right font-mono font-bold text-sm text-[#0A0A0A]">{percent}%</div>
+    </div>
+  );
+}
+
+function RetentionRing({ percent, delay }: { percent: number; delay: number }) {
+  const { ref, isVisible } = useReveal(delay);
+  const grow = useBarGrow(isVisible ? percent : 0);
+  const display = useCountUp(isVisible ? percent : 0);
+  const r = 78;
+  const circ = 2 * Math.PI * r;
+  const offset = circ - (grow / 100) * circ;
+  return (
+    <div ref={ref} className="relative flex items-center justify-center w-[200px] h-[200px]">
+      <svg width="200" height="200" viewBox="0 0 200 200" className="-rotate-90">
+        <circle cx="100" cy="100" r={r} fill="none" stroke="#0A0A0A" strokeOpacity="0.1" strokeWidth="16" />
+        <circle cx="100" cy="100" r={r} fill="none" stroke="#E13B2C" strokeWidth="16" strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={offset} style={{ transition: 'stroke-dashoffset 0.075s linear' }} />
+      </svg>
+      <div className="absolute text-center">
+        <div className="font-display text-[56px] leading-none text-[#0A0A0A]">{display}%</div>
+        <div className="font-mono text-[10px] tracking-[0.2em] text-[#0A0A0A]/50 mt-1">AVG RETENTION</div>
       </div>
     </div>
   );
 }
 
-function VerticalBar({ label, percent, isPeak, delay }: { label: string, percent: number, isPeak: boolean, delay: number }) {
+function MetricCard({ value, label, delay }: { value: string; label: string; delay: number }) {
   const { ref, isVisible } = useReveal(delay);
-  const height = useBarGrow(isVisible ? percent : 0);
-
   return (
-    <div ref={ref} className="flex flex-col items-center justify-end h-[240px]">
-      <div className="w-full relative flex items-end justify-center h-full mb-4">
-        <div 
-          className={`w-full max-w-[40px] rounded-t-sm transition-all duration-75 ${isPeak ? 'bg-[#E13B2C]' : 'bg-[#141210]'}`}
-          style={{ height: `${height}%` }}
-        >
-          <div className={`absolute -top-6 left-1/2 -translate-x-1/2 font-mono text-xs font-bold ${isPeak ? 'text-[#E13B2C]' : 'text-[#F4F1EA]/60'} opacity-0 transition-opacity duration-300 delay-500 ${isVisible ? 'opacity-100' : ''}`}>
-            {percent}%
-          </div>
-        </div>
+    <div ref={ref} className={`border-t-2 border-[#E13B2C] pt-5 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+      <div className="font-display text-4xl md:text-5xl text-[#0A0A0A] leading-none mb-2">{value}</div>
+      <div className="font-mono text-[11px] tracking-widest text-[#0A0A0A]/50">{label}</div>
+    </div>
+  );
+}
+
+function GenderBar({ percent, color, label, delay }: { percent: number; color: string; label: string; delay: number }) {
+  const { ref, isVisible } = useReveal(delay);
+  const width = useBarGrow(isVisible ? percent : 0);
+  return (
+    <div ref={ref}>
+      <div className="flex justify-between font-mono text-sm mb-2">
+        <span className="text-[#0A0A0A]/80">{label}</span>
+        <span className="font-bold" style={{ color }}>{percent}%</span>
       </div>
-      <div className="font-mono text-xs text-[#F4F1EA]/60">{label}</div>
+      <div className="h-4 bg-[#0A0A0A]/10 rounded-full overflow-hidden">
+        <div className="h-full rounded-full transition-all duration-75" style={{ width: `${width}%`, backgroundColor: color }} />
+      </div>
+    </div>
+  );
+}
+
+function DemographicsTabs() {
+  const [tab, setTab] = useState<DemoTab>("AGE");
+  return (
+    <div>
+      <div role="tablist" aria-label="Audience demographics" className="flex flex-wrap gap-1 mb-12 border-b border-[#0A0A0A]/10">
+        {DEMO_TABS.map((t, i) => (
+          <button
+            key={t}
+            role="tab"
+            id={`demo-tab-${t.toLowerCase()}`}
+            aria-selected={tab === t}
+            aria-controls="demo-panel"
+            tabIndex={tab === t ? 0 : -1}
+            onClick={() => setTab(t)}
+            onKeyDown={(e) => {
+              if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+                e.preventDefault();
+                const dir = e.key === "ArrowRight" ? 1 : -1;
+                setTab(DEMO_TABS[(i + dir + DEMO_TABS.length) % DEMO_TABS.length]);
+              }
+            }}
+            data-testid={`demo-tab-${t.toLowerCase()}`}
+            className={`font-mono text-xs tracking-[0.15em] px-5 py-3 -mb-px border-b-2 transition-colors ${tab === t ? 'border-[#E13B2C] text-[#0A0A0A]' : 'border-transparent text-[#0A0A0A]/40 hover:text-[#0A0A0A]'}`}
+          >
+            {t}
+          </button>
+        ))}
+      </div>
+
+      <div key={tab} role="tabpanel" id="demo-panel" aria-labelledby={`demo-tab-${tab.toLowerCase()}`} style={{ animation: 'rise 0.5s cubic-bezier(0.16,1,0.3,1) both' }} className="min-h-[340px]">
+        {tab === "AGE" && (
+          <div className="max-w-[760px]">
+            <p className="font-sans text-lg text-[#0A0A0A]/60 mb-12 max-w-[520px]">More than half the audience is under 25 — the demographic brands fight hardest to reach.</p>
+            <div className="grid grid-cols-5 gap-4 border-b border-[#0A0A0A]/20 pb-4">
+              <VBarLight label="13-17" percent={22} peak={false} delay={0} />
+              <VBarLight label="18-24" percent={31} peak={true} delay={80} />
+              <VBarLight label="25-34" percent={27} peak={false} delay={160} />
+              <VBarLight label="35-44" percent={13} peak={false} delay={240} />
+              <VBarLight label="45+" percent={7} peak={false} delay={320} />
+            </div>
+          </div>
+        )}
+
+        {tab === "GENDER" && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-[1000px]">
+            <div className="space-y-8">
+              <GenderBar label="Male" percent={58} color="#E13B2C" delay={0} />
+              <GenderBar label="Female" percent={40} color="#141210" delay={120} />
+              <GenderBar label="Other / Undisclosed" percent={2} color="#9C9488" delay={240} />
+            </div>
+            <p className="font-sans text-lg text-[#0A0A0A]/60">A balanced, family-first audience — co-viewing across parents and kids drives a broad, brand-safe reach.</p>
+          </div>
+        )}
+
+        {tab === "GEOGRAPHY" && (
+          <div className="max-w-[760px] space-y-6">
+            <p className="font-sans text-lg text-[#0A0A0A]/60 mb-10 max-w-[520px]">A truly global footprint — anchored in the US, with strength across 190+ markets.</p>
+            <HBar label="United States" percent={38} max={40} accent delay={0} />
+            <HBar label="United Kingdom" percent={9} max={40} delay={100} />
+            <HBar label="Brazil" percent={7} max={40} delay={200} />
+            <HBar label="India" percent={6} max={40} delay={300} />
+            <HBar label="Canada" percent={5} max={40} delay={400} />
+            <HBar label="Rest of World" percent={35} max={40} delay={500} />
+          </div>
+        )}
+
+        {tab === "ENGAGEMENT" && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="flex justify-center lg:justify-start">
+              <RetentionRing percent={71} delay={0} />
+            </div>
+            <div className="grid grid-cols-3 gap-8">
+              <MetricCard value="2.4M" label="LIKES / VIDEO" delay={120} />
+              <MetricCard value="84K" label="COMMENTS / VIDEO" delay={240} />
+              <MetricCard value="1.1M" label="SHARES / VIDEO" delay={360} />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -508,67 +660,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Section 02 - WHAT THEY WATCH */}
-      <section id="categories" className="py-32 px-6 bg-[#F4F1EA] text-[#0A0A0A]" data-testid="section-categories">
-        <div className="max-w-[1440px] mx-auto">
-          <div className="mb-20">
-            <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">02 — WHAT THEY WATCH</h3>
-            <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1]">Four worlds. One audience.</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { cat: "GAMING", pct: 34, color: "#2BB6D9", img: gamingImg, desc: "High-stakes gaming formats." },
-              { cat: "OUTDOOR", pct: 26, color: "#1F8A5B", img: outdoorImg, desc: "Massive IRL survival challenges." },
-              { cat: "MYSTERY", pct: 22, color: "#6B3FB5", img: mysteryImg, desc: "Escape rooms and puzzles." },
-              { cat: "TROPHY", pct: 18, color: "#E8B547", img: trophyImg, desc: "Luxury and prize-based events." }
-            ].map((item, i) => (
-              <div 
-                key={item.cat}
-                className="bg-[#141210] rounded-[4px] overflow-hidden group hover:-translate-y-[7px] transition-transform duration-300 relative border border-transparent hover:border-[#F4F1EA]/20 flex flex-col"
-              >
-                <div className="h-[5px] w-full" style={{ backgroundColor: item.color }} />
-                <div className="h-[188px] relative overflow-hidden bg-[#0A0A0A]">
-                  <img src={item.img} alt={item.cat} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105" />
-                  <div className="absolute top-4 left-4 font-mono text-[10px] font-bold tracking-widest px-2 py-1 rounded bg-[#0A0A0A]/80 text-white backdrop-blur border border-white/10" style={{ color: item.color }}>
-                    {item.cat}
-                  </div>
-                </div>
-                <div className="p-8 flex-grow flex flex-col">
-                  <div className="font-display text-[64px] leading-none mb-2 text-white">{item.pct}%</div>
-                  <div className="font-mono text-sm tracking-widest text-[#F4F1EA]/60 mb-4">{item.cat} VOD</div>
-                  <p className="font-sans text-[#F4F1EA]/80 mt-auto">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Section 03 - WHERE THEY WATCH */}
-      <section id="channels" className="py-32 px-6 bg-[#0A0A0A]" data-testid="section-channels">
-        <div className="max-w-[800px] mx-auto">
-          <div className="text-center mb-20">
-            <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">03 — WHERE THEY WATCH</h3>
-            <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1]">Native everywhere it matters.</h2>
-          </div>
-
-          <div className="space-y-2">
-            <BarChartRow label="YouTube" percent={52} delay={0} />
-            <BarChartRow label="YouTube Shorts" percent={28} delay={100} />
-            <BarChartRow label="TikTok" percent={11} delay={200} />
-            <BarChartRow label="Instagram Reels" percent={6} delay={300} />
-            <BarChartRow label="Facebook" percent={3} delay={400} />
-          </div>
-        </div>
-      </section>
-
-      {/* Section 04 - THE ENGINE (YouTube) */}
+      {/* Section 02 - THE ENGINE (YouTube) */}
       <section id="youtube" className="py-32 px-6 bg-[#0A0A0A] border-t border-[#F4F1EA]/10" data-testid="section-youtube">
         <div className="max-w-[1440px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-end mb-16">
             <div>
-              <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">04 — THE ENGINE</h3>
+              <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">02 — THE ENGINE</h3>
               <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1]">YouTube is the Engine.</h2>
             </div>
             <YouTubeCountUp />
@@ -597,158 +694,55 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Section 05 - WHO'S WATCHING */}
-      <section id="demographics" className="py-32 px-6 bg-[#F4F1EA] text-[#0A0A0A]" data-testid="section-demographics">
+      {/* Section 03 - THE NETWORK */}
+      <section id="channels" className="py-32 px-6 bg-[#0A0A0A] border-t border-[#F4F1EA]/10" data-testid="section-channels">
         <div className="max-w-[1440px] mx-auto">
-          <div className="mb-20">
-            <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">05 — WHO'S WATCHING</h3>
-            <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1] max-w-[800px]">Gen-Z and young millennials, leaning all the way in.</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-end mb-16">
+            <div>
+              <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">03 — THE NETWORK</h3>
+              <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1]">One audience, every platform.</h2>
+            </div>
+            <p className="font-sans text-xl text-[#F4F1EA]/70 leading-relaxed font-medium md:pb-3">
+              A native presence on every platform that matters — a connected network that moves as one.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 mb-24">
-            {/* Age Bar Chart */}
-            <div>
-              <h4 className="font-mono font-bold text-sm tracking-widest mb-12 border-b border-[#0A0A0A]/10 pb-4">AGE DISTRIBUTION</h4>
-              <div className="grid grid-cols-5 gap-4 h-[240px] items-end border-b border-[#0A0A0A]/20 pb-4">
-                <VerticalBar label="13-17" percent={22} isPeak={false} delay={0} />
-                <VerticalBar label="18-24" percent={31} isPeak={true} delay={100} />
-                <VerticalBar label="25-34" percent={27} isPeak={false} delay={200} />
-                <VerticalBar label="35-44" percent={13} isPeak={false} delay={300} />
-                <VerticalBar label="45+" percent={7} isPeak={false} delay={400} />
-              </div>
-            </div>
-
-            {/* Gender & Geo */}
-            <div>
-              <div className="mb-16">
-                <h4 className="font-mono font-bold text-sm tracking-widest mb-8 border-b border-[#0A0A0A]/10 pb-4">GENDER SPLIT</h4>
-                <div className="flex h-8 rounded-sm overflow-hidden mb-4">
-                  <div className="bg-[#E13B2C] h-full flex items-center px-4 text-xs font-bold font-mono text-white" style={{ width: '58%' }}>58%</div>
-                  <div className="bg-[#141210] h-full flex items-center px-4 text-xs font-bold font-mono text-white" style={{ width: '40%' }}>40%</div>
-                  <div className="bg-[#0A0A0A]/20 h-full" style={{ width: '2%' }}></div>
-                </div>
-                <div className="flex gap-6 font-mono text-xs">
-                  <div className="flex items-center gap-2"><div className="w-3 h-3 bg-[#E13B2C]"></div> Male</div>
-                  <div className="flex items-center gap-2"><div className="w-3 h-3 bg-[#141210]"></div> Female</div>
-                  <div className="flex items-center gap-2"><div className="w-3 h-3 bg-[#0A0A0A]/20"></div> Other</div>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="font-mono font-bold text-sm tracking-widest mb-8 border-b border-[#0A0A0A]/10 pb-4">TOP MARKETS</h4>
-                <div className="space-y-4">
-                  {[
-                    { country: "United States", pct: 38 },
-                    { country: "United Kingdom", pct: 9 },
-                    { country: "Brazil", pct: 7 },
-                    { country: "India", pct: 6 },
-                    { country: "Canada", pct: 5 }
-                  ].map((market, i) => (
-                    <div key={market.country} className="flex items-center gap-4">
-                      <div className="w-32 font-mono text-sm">{market.country}</div>
-                      <div className="flex-grow h-2 bg-[#0A0A0A]/10 rounded-full overflow-hidden">
-                        <div className="h-full bg-[#141210]" style={{ width: `${market.pct}%` }}></div>
-                      </div>
-                      <div className="w-12 text-right font-mono font-bold text-sm">{market.pct}%</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+            {PLATFORMS.map((p, i) => (
+              <PlatformCard key={p.name} p={p} i={i} />
+            ))}
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 border-t border-[#0A0A0A]/10">
-            <div className="font-mono text-center">
-              <div className="text-3xl font-bold mb-1">71%</div>
-              <div className="text-xs tracking-widest text-[#0A0A0A]/60">AVG RETENTION</div>
-            </div>
-            <div className="font-mono text-center">
-              <div className="text-3xl font-bold mb-1">2.4M</div>
-              <div className="text-xs tracking-widest text-[#0A0A0A]/60">LIKES/VIDEO</div>
-            </div>
-            <div className="font-mono text-center">
-              <div className="text-3xl font-bold mb-1">84K</div>
-              <div className="text-xs tracking-widest text-[#0A0A0A]/60">COMMENTS/VIDEO</div>
-            </div>
-            <div className="font-mono text-center">
-              <div className="text-3xl font-bold mb-1">1.1M</div>
-              <div className="text-xs tracking-widest text-[#0A0A0A]/60">SHARES/VIDEO</div>
+          {/* More to come */}
+          <div className="mt-16 pt-10 border-t border-[#F4F1EA]/10 flex flex-col md:flex-row md:items-center gap-6">
+            <div className="font-mono text-[10px] tracking-[0.3em] text-[#E13B2C] font-bold whitespace-nowrap">MORE TO COME</div>
+            <div className="flex flex-wrap gap-3">
+              {["Netflix", "Prime Video", "Roblox", "Spotify", "Theatrical"].map((name) => (
+                <span key={name} className="font-mono text-xs tracking-widest text-[#F4F1EA]/45 border border-dashed border-[#F4F1EA]/20 rounded-full px-4 py-2">
+                  {name}
+                </span>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section 06 - THE WORK */}
-      <section id="work" className="py-32 px-6 bg-[#0A0A0A]" data-testid="section-work">
+      {/* Section 04 - WHO'S WATCHING */}
+      <section id="demographics" className="py-32 px-6 bg-[#F4F1EA] text-[#0A0A0A]" data-testid="section-demographics">
         <div className="max-w-[1440px] mx-auto">
-          <div className="mb-20">
-            <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">06 — THE WORK</h3>
-            <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1]">Productions brands wanted in on.</h2>
+          <div className="mb-16">
+            <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">04 — WHO'S WATCHING</h3>
+            <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1] max-w-[800px]">Gen-Z and young millennials, leaning all the way in.</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Featured */}
-            <div className="lg:col-span-2 group relative rounded-[4px] overflow-hidden bg-[#141210] block cursor-pointer">
-              <div className="aspect-[2/1] relative">
-                <img src={workDouble} alt="Double or Nothing" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-[1.02]" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
-                <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full">
-                  <div className="flex flex-wrap items-center gap-4 mb-4">
-                    <span className="font-mono text-[10px] font-bold tracking-widest px-2 py-1 rounded bg-[#E13B2C] text-white">CHALLENGES</span>
-                    <span className="font-mono text-sm text-[#F4F1EA]/80 font-bold">312M VIEWS</span>
-                  </div>
-                  <h3 className="font-display text-4xl md:text-5xl mb-4 group-hover:text-[#E13B2C] transition-colors">Double or Nothing</h3>
-                  <div className="font-mono text-xs tracking-widest text-[#F4F1EA]/60 border-t border-[#F4F1EA]/20 pt-4 inline-block">PRESENTED BY — YOUR BRAND HERE</div>
-                </div>
-                <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#E13B2C]/50 rounded-[4px] pointer-events-none transition-colors duration-300" />
-              </div>
-            </div>
-
-            {/* Card 2 */}
-            <div className="group relative rounded-[4px] overflow-hidden bg-[#141210] cursor-pointer">
-              <div className="aspect-[4/3] lg:aspect-auto lg:h-full relative">
-                <img src={workCircle} alt="Last to Leave the Circle" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-[1.02]" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
-                <div className="absolute bottom-0 left-0 p-8 w-full">
-                  <div className="flex flex-wrap items-center gap-4 mb-4">
-                    <span className="font-mono text-[10px] font-bold tracking-widest px-2 py-1 rounded bg-[#1F8A5B] text-white">OUTDOOR</span>
-                    <span className="font-mono text-sm text-[#E13B2C] font-bold">188M VIEWS</span>
-                  </div>
-                  <h3 className="font-display text-2xl group-hover:text-[#E13B2C] transition-colors">Last to Leave the Circle</h3>
-                </div>
-                <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#E13B2C]/50 rounded-[4px] pointer-events-none transition-colors duration-300" />
-              </div>
-            </div>
-
-            {/* Cards 3-5 */}
-            {[
-              { title: "$100K Hide & Seek", cat: "MYSTERY", views: "241M", color: "#6B3FB5", img: workHide },
-              { title: "Beat the Pro", cat: "GAMING", views: "156M", color: "#2BB6D9", img: workBeat },
-              { title: "Trophy Run: Finale", cat: "TROPHY", views: "203M", color: "#E8B547", img: workTrophy }
-            ].map((item, i) => (
-              <div key={i} className="group relative rounded-[4px] overflow-hidden bg-[#141210] cursor-pointer">
-                <div className="aspect-[4/3] relative">
-                  <img src={item.img} alt={item.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-[1.02]" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
-                  <div className="absolute bottom-0 left-0 p-8 w-full">
-                    <div className="flex flex-wrap items-center gap-4 mb-4">
-                      <span className="font-mono text-[10px] font-bold tracking-widest px-2 py-1 rounded text-white" style={{ backgroundColor: item.color }}>{item.cat}</span>
-                      <span className="font-mono text-sm text-[#E13B2C] font-bold">{item.views} VIEWS</span>
-                    </div>
-                    <h3 className="font-display text-2xl group-hover:text-[#E13B2C] transition-colors">{item.title}</h3>
-                  </div>
-                  <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#E13B2C]/50 rounded-[4px] pointer-events-none transition-colors duration-300" />
-                </div>
-              </div>
-            ))}
-          </div>
+          <DemographicsTabs />
         </div>
       </section>
 
       {/* Partner CTA */}
       <section id="partner" className="py-32 px-6 bg-[#E13B2C] text-white text-center" data-testid="section-partner-cta">
         <div className="max-w-[1000px] mx-auto">
-          <div className="font-mono font-bold text-xs tracking-[0.4em] mb-8">PRESS PLAY WITH US</div>
+          <h3 className="font-mono font-bold text-xs tracking-[0.3em] mb-8 text-white/90">05 — PRESS PLAY WITH US</h3>
           <h2 className="font-display text-[clamp(48px,8vw,88px)] leading-[1] mb-8 drop-shadow-md">Put Your Brand In Play</h2>
           <p className="font-sans text-xl md:text-2xl font-medium max-w-[800px] mx-auto mb-16 opacity-90">
             Custom integrations, title sponsorships, and cross-platform campaigns designed for the world's largest family audience.
