@@ -392,6 +392,8 @@ export default function LandingPage() {
     if (window.location.hash) {
       const el = document.querySelector(window.location.hash);
       if (el) requestAnimationFrame(() => el.scrollIntoView());
+    } else {
+      window.scrollTo(0, 0);
     }
   }, []);
 

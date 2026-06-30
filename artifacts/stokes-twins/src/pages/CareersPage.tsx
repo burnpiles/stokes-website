@@ -23,6 +23,7 @@ export default function CareersPage() {
   useEffect(() => {
     document.title = "Careers | Stokes Twins";
     document.body.style.backgroundColor = "#0A0A0A";
+    window.scrollTo(0, 0);
   }, []);
 
   const filteredRoles = ROLES.filter(role => filter === "All" || role.dept === filter);
