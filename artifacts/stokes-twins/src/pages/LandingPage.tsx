@@ -416,15 +416,15 @@ function VideoCard({ video, featured = false }: { video: Video; featured?: boole
               className="absolute inset-0 flex items-center justify-center disabled:cursor-default"
               data-testid="video-play"
             >
-              <span className={`${featured ? "w-20 h-20" : "w-14 h-14"} rounded-full bg-[#E13B2C] flex items-center justify-center scale-90 opacity-85 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 shadow-[0_0_30px_rgba(225,59,44,0.5)]`}>
-                <svg viewBox="0 0 24 24" className={`${featured ? "w-8 h-8" : "w-5 h-5"} fill-white ml-1`}><path d="M8 5v14l11-7z" /></svg>
+              <span className={`${featured ? "w-14 h-14 md:w-20 md:h-20" : "w-14 h-14"} rounded-full bg-[#E13B2C] flex items-center justify-center scale-90 opacity-85 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 shadow-[0_0_30px_rgba(225,59,44,0.5)]`}>
+                <svg viewBox="0 0 24 24" className={`${featured ? "w-5 h-5 md:w-8 md:h-8" : "w-5 h-5"} fill-white ml-1`}><path d="M8 5v14l11-7z" /></svg>
               </span>
             </button>
           </>
         )}
       </div>
-      <div className={featured ? "p-7" : "p-5"}>
-        <h4 className={`font-display ${featured ? "text-2xl md:text-[34px]" : "text-lg"} leading-tight mb-2`}>{video.title}</h4>
+      <div className={featured ? "p-5 md:p-7" : "p-5"}>
+        <h4 className={`font-display ${featured ? "text-lg md:text-[34px]" : "text-lg"} leading-tight mb-2`}>{video.title}</h4>
         {video.views.trim() && <div className="font-mono text-xs text-[#F4F1EA]/50 tracking-wide">{video.views} VIEWS</div>}
       </div>
     </div>
@@ -712,15 +712,15 @@ export default function LandingPage() {
       </div>
 
       {/* Section 01 - THE NUMBERS */}
-      <section id="audience" className="py-32 px-6 bg-[#0A0A0A]" data-testid="section-numbers">
+      <section id="audience" className="py-20 md:py-32 px-6 bg-[#0A0A0A]" data-testid="section-numbers">
         <div className="max-w-[1440px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 mb-12 md:mb-24">
             <div>
-              <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">{settings.statsSection.eyebrow}</h3>
-              <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1] mb-8">{settings.statsSection.headline}</h2>
+              <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-4 md:mb-6">{settings.statsSection.eyebrow}</h3>
+              <h2 className="font-display text-[40px] md:text-[64px] leading-[1.1]">{settings.statsSection.headline}</h2>
             </div>
             <div>
-              <h3 className="font-mono text-sm tracking-[0.2em] font-bold mb-6 invisible select-none" aria-hidden="true">{settings.statsSection.eyebrow}</h3>
+              <h3 className="font-mono text-sm tracking-[0.2em] font-bold mb-6 invisible select-none hidden md:block" aria-hidden="true">{settings.statsSection.eyebrow}</h3>
               <p className="font-sans text-xl md:text-2xl text-[#F4F1EA]/70 leading-relaxed font-medium">
                 {settings.statsSection.description}
               </p>
@@ -736,9 +736,9 @@ export default function LandingPage() {
       </section>
 
       {/* Section 02 - THE ENGINE (YouTube) */}
-      <section id="youtube" className="py-32 px-6 bg-[#0A0A0A] border-t border-[#F4F1EA]/10" data-testid="section-youtube">
+      <section id="youtube" className="py-20 md:py-32 px-6 bg-[#0A0A0A] border-t border-[#F4F1EA]/10" data-testid="section-youtube">
         <div className="max-w-[1440px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-[1.6fr_1fr] gap-12 items-end mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-[1.6fr_1fr] gap-4 md:gap-12 items-end mb-8 md:mb-16">
             <div>
               <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">{settings.youtubeSection.eyebrow}</h3>
               <h2 className="font-display text-[44px] md:text-[clamp(2.5rem,4vw,3.75rem)] leading-[1.1] lg:whitespace-nowrap">{settings.youtubeSection.headline}</h2>
@@ -754,7 +754,7 @@ export default function LandingPage() {
           )}
 
           {/* More videos, 16:9 */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 md:mb-24">
             {gridVideos.map((v) => (
               <VideoCard key={v.id} video={v} />
             ))}
@@ -772,10 +772,10 @@ export default function LandingPage() {
       </section>
 
       {/* Section 03 - THE NETWORK */}
-      <section id="channels" className="relative overflow-hidden py-32 px-6 bg-[#0A0A0A] border-t border-[#F4F1EA]/10" data-testid="section-channels">
+      <section id="channels" className="relative overflow-hidden py-20 md:py-32 px-6 bg-[#0A0A0A] border-t border-[#F4F1EA]/10" data-testid="section-channels">
         <BackgroundVideo base="image23" className="absolute inset-0 z-0" overlayClassName="absolute inset-0 bg-[#0A0A0A]/80" />
         <div className="relative z-10 max-w-[1440px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-[1.6fr_1fr] gap-12 items-end mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-[1.6fr_1fr] gap-4 md:gap-12 items-end mb-8 md:mb-16">
             <div>
               <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">{settings.networkSection.eyebrow}</h3>
               <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1]">
@@ -828,9 +828,9 @@ export default function LandingPage() {
       </section>
 
       {/* Section 04 - WHO'S WATCHING */}
-      <section id="demographics" className="py-32 px-6 bg-[#F4F1EA] text-[#0A0A0A]" data-testid="section-demographics">
+      <section id="demographics" className="py-20 md:py-32 px-6 bg-[#F4F1EA] text-[#0A0A0A]" data-testid="section-demographics">
         <div className="max-w-[1440px] mx-auto">
-          <div className="mb-16">
+          <div className="mb-10 md:mb-16">
             <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">{settings.demographicsSection.eyebrow}</h3>
             <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1] max-w-[800px]">{settings.demographicsSection.headline}</h2>
           </div>
@@ -840,16 +840,16 @@ export default function LandingPage() {
       </section>
 
       {/* Partner CTA */}
-      <section id="partner" className="py-32 px-6 bg-[#E13B2C] text-white text-center" data-testid="section-partner-cta">
+      <section id="partner" className="py-20 md:py-32 px-6 bg-[#E13B2C] text-white text-center" data-testid="section-partner-cta">
         <div className="max-w-[1000px] mx-auto">
           <h3 className="font-mono font-bold text-xs tracking-[0.3em] mb-8 text-white/90">{settings.partnerSection.eyebrow}</h3>
           <h2 className="font-display text-[clamp(48px,8vw,88px)] leading-[1] mb-8 drop-shadow-md">
             <PlayHeadline text={settings.partnerSection.headline} />
           </h2>
-          <p className="font-sans text-xl md:text-2xl font-medium max-w-[800px] mx-auto mb-16 opacity-90">
+          <p className="font-sans text-xl md:text-2xl font-medium max-w-[800px] mx-auto mb-10 md:mb-16 opacity-90">
             {settings.partnerSection.subcopy}
           </p>
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-24">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12 md:mb-24">
             <a
               href={`mailto:${settings.partnerSection.email}`}
               className="bg-[#0A0A0A] text-white font-display text-lg px-8 py-5 rounded-[3px] hover:bg-white hover:text-[#0A0A0A] transition-colors w-full sm:w-auto text-center"
@@ -899,8 +899,8 @@ export default function LandingPage() {
       </section>
 
       {/* Careers Teaser */}
-      <section className="py-32 px-6 bg-[#141210] border-t border-[#F4F1EA]/10" data-testid="section-careers-teaser">
-        <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <section className="py-20 md:py-32 px-6 bg-[#141210] border-t border-[#F4F1EA]/10" data-testid="section-careers-teaser">
+        <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
             <div className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">{activeJobs.length} ROLES OPEN · NOW HIRING</div>
             <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1]">{settings.careersSection.headline}</h2>
