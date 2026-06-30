@@ -20,6 +20,23 @@ import type {
   Video,
 } from "@workspace/api-client-react";
 
+function PlayHeadline({ text }: { text: string }) {
+  const match = text.match(/play/i);
+  if (!match || match.index === undefined) return <>{text}</>;
+  const start = match.index;
+  const end = start + match[0].length;
+  return (
+    <>
+      {text.slice(0, start)}
+      <span className="relative inline-block text-[#0A0A0A] origin-bottom animate-[playPulse_2.4s_cubic-bezier(0.34,1.56,0.64,1)_infinite]">
+        {text.slice(start, end)}
+        <span className="absolute left-0 -bottom-1 h-[6px] w-full origin-left rounded-full bg-[#0A0A0A] animate-[playUnderline_2.4s_ease-in-out_infinite]" />
+      </span>
+      {text.slice(end)}
+    </>
+  );
+}
+
 function BrandModal({ brand, onClose, logline }: { brand: Brand | null; onClose: () => void; logline: string }) {
   return (
     <Dialog open={!!brand} onOpenChange={(open) => { if (!open) onClose(); }}>
@@ -718,7 +735,9 @@ export default function LandingPage() {
       <section id="partner" className="py-32 px-6 bg-[#E13B2C] text-white text-center" data-testid="section-partner-cta">
         <div className="max-w-[1000px] mx-auto">
           <h3 className="font-mono font-bold text-xs tracking-[0.3em] mb-8 text-white/90">{settings.partnerSection.eyebrow}</h3>
-          <h2 className="font-display text-[clamp(48px,8vw,88px)] leading-[1] mb-8 drop-shadow-md">{settings.partnerSection.headline}</h2>
+          <h2 className="font-display text-[clamp(48px,8vw,88px)] leading-[1] mb-8 drop-shadow-md">
+            <PlayHeadline text={settings.partnerSection.headline} />
+          </h2>
           <p className="font-sans text-xl md:text-2xl font-medium max-w-[800px] mx-auto mb-16 opacity-90">
             {settings.partnerSection.subcopy}
           </p>
@@ -728,12 +747,6 @@ export default function LandingPage() {
               className="bg-[#0A0A0A] text-white font-display text-lg px-8 py-5 rounded-[3px] hover:bg-white hover:text-[#0A0A0A] transition-colors w-full sm:w-auto text-center"
             >
               START A PARTNERSHIP →
-            </a>
-            <a
-              href={settings.partnerSection.mediaKitUrl}
-              className="bg-transparent border-2 border-white/30 text-white font-display text-lg px-8 py-5 rounded-[3px] hover:bg-white hover:text-[#E13B2C] transition-colors w-full sm:w-auto text-center"
-            >
-              DOWNLOAD MEDIA KIT
             </a>
           </div>
 

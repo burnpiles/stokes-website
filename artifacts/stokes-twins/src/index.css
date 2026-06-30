@@ -95,6 +95,17 @@
   100% { background-position: -200% center; }
 }
 
+@keyframes playPulse {
+  0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+  45% { transform: translateY(-6px) scale(1.08) rotate(-2deg); }
+  70% { transform: translateY(0) scale(1.02) rotate(1deg); }
+}
+
+@keyframes playUnderline {
+  0%, 100% { transform: scaleX(0.2); opacity: 0.4; }
+  50% { transform: scaleX(1); opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
