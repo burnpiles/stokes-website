@@ -752,7 +752,7 @@ export default function LandingPage() {
 
           <div>
             <div className="font-mono text-[10px] tracking-widest opacity-60 mb-10 uppercase">{settings.partnerSection.brandsLogline}</div>
-            <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 md:gap-10 max-w-[760px] mx-auto justify-items-center">
               {brands.map((brand, i) => {
                 const interactive = settings.partnerSection.showBrandModal;
                 return (
@@ -762,7 +762,7 @@ export default function LandingPage() {
                     disabled={!interactive}
                     data-testid={`brand-logo-${brand.name.toLowerCase().replace(/[^a-z]/g, '')}`}
                     title={interactive ? `View ${brand.name} partnership stats` : brand.name}
-                    className={`group relative w-[160px] h-[160px] rounded-[6px] overflow-hidden ${interactive ? "cursor-pointer" : "cursor-default"}`}
+                    className={`group relative w-full max-w-[160px] aspect-square rounded-[6px] overflow-hidden ${interactive ? "cursor-pointer" : "cursor-default"}`}
                     style={{
                       animation: `brandReveal 0.6s cubic-bezier(0.16,1,0.3,1) both`,
                       animationDelay: `${0.1 + i * 0.12}s`,
