@@ -108,6 +108,11 @@ export const seedShorts: InsertShort[] = [
   { title: "WORLD'S SHORTEST WOMAN", views: "", youtubeUrl: "https://www.youtube.com/shorts/SV3b20W0sS0", thumbnailUrl: "", sortOrder: 3 },
   { title: "Walking On Water Prank!", views: "", youtubeUrl: "https://www.youtube.com/shorts/MhxtHVk2dqc", thumbnailUrl: "", sortOrder: 4 },
   { title: "Who Will Win The World Cup?", views: "", youtubeUrl: "https://www.youtube.com/shorts/8X5IDuPm8Pw", thumbnailUrl: "", sortOrder: 5 },
+  { title: "World’s Strongest Man vs Unliftable Dumbbell!", views: "", youtubeUrl: "https://www.youtube.com/shorts/cCWmiNhbii0", thumbnailUrl: "", sortOrder: 6 },
+  { title: "Don’t Hit The Wrong Rumi..", views: "", youtubeUrl: "https://www.youtube.com/shorts/XQO2ObC9IEc", thumbnailUrl: "", sortOrder: 7 },
+  { title: "This Is The End.. @markwahlberg", views: "", youtubeUrl: "https://www.youtube.com/shorts/D8xBPn3TT84", thumbnailUrl: "", sortOrder: 8 },
+  { title: "I Can’t Believe This Worked..", views: "", youtubeUrl: "https://www.youtube.com/shorts/Juvg3nwVgK8", thumbnailUrl: "", sortOrder: 9 },
+  { title: "How Much Food Can You Sneak Into The Movies?", views: "", youtubeUrl: "https://www.youtube.com/shorts/UESe5zBsuIA", thumbnailUrl: "", sortOrder: 10 },
 ];
 
 export const seedDemographics: InsertDemographic[] = [
