@@ -14,9 +14,9 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-[#070707] py-20 px-6 border-t border-[#F4F1EA]/10">
+    <footer className="bg-[#070707] py-16 px-6 border-t border-[#F4F1EA]/10">
       <div className="max-w-[1440px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-10 mb-12">
           {/* Brand */}
           <div>
             <Wordmark size="lg" className="mb-4" />
@@ -25,26 +25,14 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Links */}
-          <div>
-            <h4 className="font-mono font-bold text-xs tracking-widest text-[#F4F1EA] mb-6">COMPANY</h4>
-            <ul className="space-y-4 font-mono text-sm text-[#F4F1EA]/60">
-              <li>
-                <Link href="/careers" className="hover:text-[#E13B2C] transition-colors">Careers</Link>
-              </li>
-              <li>
-                <a href="mailto:partnerships@stokestwins.com" className="hover:text-[#E13B2C] transition-colors">Contact Us</a>
-              </li>
-              <li>
-                <Link href="/privacy" className="hover:text-[#E13B2C] transition-colors">Privacy Policy</Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Socials */}
-          <div className="md:text-right">
-            <h4 className="font-mono font-bold text-xs tracking-widest text-[#F4F1EA] mb-6">FOLLOW</h4>
-            <div className="flex gap-4 md:justify-end">
+          {/* Links + Socials */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-8">
+            <nav className="flex items-center gap-8 font-mono text-sm text-[#F4F1EA]/60">
+              <Link href="/careers" className="hover:text-[#E13B2C] transition-colors">Careers</Link>
+              <a href="mailto:partnerships@stokestwins.com" className="hover:text-[#E13B2C] transition-colors">Contact Us</a>
+              <Link href="/privacy" className="hover:text-[#E13B2C] transition-colors">Privacy Policy</Link>
+            </nav>
+            <div className="flex gap-3">
               {socials.map((s) => (
                 <a
                   key={s.key}
@@ -52,9 +40,9 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="w-11 h-11 flex items-center justify-center rounded-full border border-[#F4F1EA]/15 text-[#F4F1EA]/70 hover:text-[#0A0A0A] hover:bg-[#E13B2C] hover:border-[#E13B2C] transition-colors"
+                  className="w-10 h-10 flex items-center justify-center rounded-full border border-[#F4F1EA]/15 text-[#F4F1EA]/70 hover:text-[#0A0A0A] hover:bg-[#E13B2C] hover:border-[#E13B2C] transition-colors"
                 >
-                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="w-5 h-5">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="w-[18px] h-[18px]">
                     <path d={platformIcon(s.key)} />
                   </svg>
                 </a>
