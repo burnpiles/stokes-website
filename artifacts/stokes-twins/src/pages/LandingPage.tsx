@@ -353,11 +353,11 @@ function YouTubeCountUp({ counter }: { counter: Settings["youtubeCounter"] }) {
 
   return (
     <div ref={ref} className="md:text-right" data-testid="youtube-countup">
-      <div className="font-display text-[#E13B2C] text-[40px] md:text-[64px] leading-none tabular-nums">
-        {count.toLocaleString()}
-      </div>
-      <div className="font-mono text-xs tracking-[0.2em] text-[#F4F1EA]/60 uppercase mt-3">
+      <div className="font-mono text-xs tracking-[0.2em] text-[#F4F1EA]/60 uppercase mt-3 mb-3 md:mt-0">
         {counter.subLabel}
+      </div>
+      <div className="font-display text-[#E13B2C] text-[40px] md:text-[64px] leading-none md:leading-[1.1] tabular-nums">
+        {count.toLocaleString()}
       </div>
     </div>
   );
