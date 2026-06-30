@@ -22,8 +22,8 @@ export const defaultSettings: SiteSettings = {
     instagram: { value: "4.9M", url: "https://www.instagram.com/stokestwins/?hl=en" },
   },
   youtubeCounter: {
-    base: 140000000,
-    target: 141000000,
+    base: 141000000,
+    target: 150000000,
     perMinute: 100,
     anchorIso: "2026-06-30T00:00:00Z",
     subLabel: "Subscribers and counting",
