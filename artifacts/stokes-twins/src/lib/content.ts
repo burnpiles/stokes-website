@@ -10,7 +10,7 @@ export const defaultSettings: Settings = {
     ctaLabel: "PARTNER WITH US →",
     ctaHref: "#partner",
   },
-  marqueeText: "GAMING · OUTDOOR · MYSTERY · TROPHY · CHALLENGES · SHORTS · ",
+  marqueeText: "ANIMATION · ANIME · BRANDED · CPG · FILMS · GAMES · TECHNOLOGY · ",
   socials: {
     tiktok: { value: "30.8M", url: "https://www.tiktok.com/@stokestwins?lang=en" },
     youtube: { value: "141M", url: "https://www.youtube.com/@stokestwins" },
