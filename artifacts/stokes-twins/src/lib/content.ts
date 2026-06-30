@@ -84,7 +84,6 @@ export const defaultContent: Content = {
     { id: 1, label: "FOLLOWERS", value: 250, suffix: "M+", description: "Across every platform", sortOrder: 1 },
     { id: 2, label: "MONTHLY VIEWS", value: 1.2, suffix: "B", description: "Every 30 days, and climbing", sortOrder: 2 },
     { id: 3, label: "LIFETIME VIEWS", value: 62, suffix: "B", description: "Since the first upload", sortOrder: 3 },
-    { id: 4, label: "OWNED CHANNELS", value: 9, suffix: "", description: "One connected network", sortOrder: 4 },
   ],
   platforms: [
     { id: 1, name: "YouTube", value: "141M", handle: "9 channels", color: "#FF0000", iconKey: "youtube", url: "https://www.youtube.com/@stokestwins", sortOrder: 1 },

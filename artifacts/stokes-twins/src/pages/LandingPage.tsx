@@ -682,7 +682,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-12">
             {stats.map((s: Stat, i) => (
               <StatBandItem key={s.id} end={s.value} suffix={s.suffix} label={s.label} desc={s.description} delay={i * 60} />
             ))}
