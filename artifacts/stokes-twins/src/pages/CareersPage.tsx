@@ -38,7 +38,7 @@ export default function CareersPage() {
 
         <div className="max-w-[1000px] mx-auto relative z-10">
           <div className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">{settings.careersSection.eyebrow}</div>
-          <h1 className="font-display text-[64px] md:text-[88px] leading-[1] mb-8">{settings.careersSection.headline}</h1>
+          <h1 className="font-display text-[44px] sm:text-[64px] md:text-[88px] leading-[1.02] mb-8 break-words">{settings.careersSection.headline}</h1>
           <p className="font-sans text-xl md:text-2xl text-[#F4F1EA]/70 leading-relaxed font-medium max-w-[800px] mb-12">
             {settings.careersSection.body}
           </p>

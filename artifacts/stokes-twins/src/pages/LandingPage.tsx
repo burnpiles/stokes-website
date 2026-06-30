@@ -718,33 +718,36 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {platforms.map((p, i) => (
               <PlatformCard key={p.id} p={p} i={i} />
             ))}
-          </div>
 
-          {/* More to come — centered teaser */}
-          <div className="mt-20 pt-14 border-t border-[#F4F1EA]/10 text-center" data-testid="more-to-come">
-            <div className="font-mono text-[10px] tracking-[0.45em] text-[#F4F1EA]/40 mb-5 animate-pulse">THE NETWORK IS EXPANDING</div>
-            <h3
-              className="font-display text-[44px] md:text-[80px] leading-none inline-block bg-clip-text text-transparent"
-              style={{
-                backgroundImage: "linear-gradient(110deg, rgba(244,241,234,0.55) 30%, #FFFFFF 47%, #E13B2C 50%, #FFFFFF 53%, rgba(244,241,234,0.55) 70%)",
-                backgroundSize: "200% auto",
-                animation: "shimmer 5s linear infinite",
-              }}
+            {/* More to come — sits in the grid, to the right of the platforms */}
+            <div
+              className="group relative overflow-hidden bg-gradient-to-br from-[#141210] to-[#17100e] border border-dashed border-[#E13B2C]/30 rounded-[6px] p-6 md:p-8 flex flex-col items-center justify-center text-center min-h-[180px] transition-colors duration-500 hover:border-[#E13B2C]/60"
+              data-testid="more-to-come"
             >
-              More to come
-            </h3>
-            <div className="flex justify-center gap-2 mt-7">
-              {[0, 1, 2].map((d) => (
-                <span
-                  key={d}
-                  className="w-1.5 h-1.5 rounded-full bg-[#E13B2C] animate-pulse"
-                  style={{ animationDelay: `${d * 0.25}s` }}
-                />
-              ))}
+              <div className="font-mono text-[9px] md:text-[10px] tracking-[0.35em] text-[#F4F1EA]/40 mb-4 animate-pulse">EXPANDING</div>
+              <h3
+                className="font-display text-[30px] md:text-[34px] leading-[1.05] bg-clip-text text-transparent"
+                style={{
+                  backgroundImage: "linear-gradient(110deg, rgba(244,241,234,0.55) 30%, #FFFFFF 47%, #E13B2C 50%, #FFFFFF 53%, rgba(244,241,234,0.55) 70%)",
+                  backgroundSize: "200% auto",
+                  animation: "shimmer 5s linear infinite",
+                }}
+              >
+                More to come
+              </h3>
+              <div className="flex justify-center gap-2 mt-5">
+                {[0, 1, 2].map((d) => (
+                  <span
+                    key={d}
+                    className="w-1.5 h-1.5 rounded-full bg-[#E13B2C] animate-pulse"
+                    style={{ animationDelay: `${d * 0.25}s` }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
