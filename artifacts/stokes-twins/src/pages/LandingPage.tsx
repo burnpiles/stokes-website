@@ -625,8 +625,10 @@ export default function LandingPage() {
 
         {/* Hero Content */}
         <div className="relative z-20 flex flex-col items-center text-center px-6 max-w-[1000px] mt-20">
-          <div className="animate-rise font-mono font-bold text-[#E13B2C] text-[12px] tracking-[0.4em] mb-8">
-            {settings.hero.eyebrow}
+          <div className="animate-rise mb-8">
+            <span className="inline-block font-mono font-bold text-[#E13B2C] text-[12px] tracking-[0.4em] bg-[#0A0A0A]/80 rounded-full px-5 py-2.5">
+              {settings.hero.eyebrow}
+            </span>
           </div>
 
           <div className="animate-rise" style={{ animationDelay: '0.1s' }}>
