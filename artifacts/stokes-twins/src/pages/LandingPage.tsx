@@ -168,9 +168,6 @@ function PlatformCard({ p, i }: { p: Platform; i: number }) {
   );
 }
 
-const DEMO_TABS = ["AGE", "GENDER", "GEOGRAPHY", "ENGAGEMENT"] as const;
-type DemoTab = typeof DEMO_TABS[number];
-
 function VBarLight({ label, percent, peak, delay }: { label: string; percent: number; peak: boolean; delay: number }) {
   const { ref, isVisible } = useReveal(delay);
   const height = useBarGrow(isVisible ? (percent / 35) * 100 : 0);
@@ -254,8 +251,20 @@ function GenderBar({ percent, color, label, delay }: { percent: number; color: s
 
 const GENDER_COLORS = ["#E13B2C", "#141210", "#9C9488"];
 
-function DemographicsTabs({ demographics, settings }: { demographics: Demographic[]; settings: Settings }) {
-  const [tab, setTab] = useState<DemoTab>("AGE");
+function DemoPanel({ label, subcopy, className = "", children }: { label: string; subcopy?: string; className?: string; children: React.ReactNode }) {
+  return (
+    <div className={`relative rounded-2xl border border-[#0A0A0A]/10 bg-white/55 backdrop-blur-sm p-7 md:p-9 ${className}`}>
+      <div className="flex items-center gap-2.5 mb-1">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#E13B2C]" />
+        <h4 className="font-mono text-[11px] tracking-[0.25em] font-bold text-[#0A0A0A]/70">{label}</h4>
+      </div>
+      {subcopy && <p className="font-sans text-[15px] text-[#0A0A0A]/55 leading-relaxed mb-8 max-w-[440px]">{subcopy}</p>}
+      <div className={subcopy ? "" : "mt-7"}>{children}</div>
+    </div>
+  );
+}
+
+function DemographicsPanel({ demographics, settings }: { demographics: Demographic[]; settings: Settings }) {
   const byCat = (cat: string) =>
     demographics.filter((d) => d.category === cat).sort((a, b) => a.sortOrder - b.sortOrder);
   const age = byCat("age");
@@ -266,76 +275,48 @@ function DemographicsTabs({ demographics, settings }: { demographics: Demographi
   const eng = settings.engagement;
 
   return (
-    <div>
-      <div role="tablist" aria-label="Audience demographics" className="flex flex-wrap gap-1 mb-12 border-b border-[#0A0A0A]/10">
-        {DEMO_TABS.map((t, i) => (
-          <button
-            key={t}
-            role="tab"
-            id={`demo-tab-${t.toLowerCase()}`}
-            aria-selected={tab === t}
-            aria-controls="demo-panel"
-            tabIndex={tab === t ? 0 : -1}
-            onClick={() => setTab(t)}
-            onKeyDown={(e) => {
-              if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-                e.preventDefault();
-                const dir = e.key === "ArrowRight" ? 1 : -1;
-                setTab(DEMO_TABS[(i + dir + DEMO_TABS.length) % DEMO_TABS.length]);
-              }
-            }}
-            data-testid={`demo-tab-${t.toLowerCase()}`}
-            className={`font-mono text-xs tracking-[0.15em] px-5 py-3 -mb-px border-b-2 transition-colors ${tab === t ? 'border-[#E13B2C] text-[#0A0A0A]' : 'border-transparent text-[#0A0A0A]/40 hover:text-[#0A0A0A]'}`}
-          >
-            {t}
-          </button>
-        ))}
+    <div className="space-y-6">
+      {/* Row 1 — Age + Gender */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <DemoPanel label="AGE" subcopy={demoCopy.ageSubcopy} className="lg:col-span-7">
+          <div className="grid gap-4" style={{ gridTemplateColumns: `repeat(${age.length || 1}, minmax(0, 1fr))` }}>
+            {age.map((d, i) => (
+              <VBarLight key={d.id} label={d.label} percent={d.percent} peak={d.highlight} delay={i * 80} />
+            ))}
+          </div>
+        </DemoPanel>
+
+        <DemoPanel label="GENDER" subcopy={demoCopy.genderSubcopy} className="lg:col-span-5">
+          <div className="space-y-7">
+            {gender.map((d, i) => (
+              <GenderBar key={d.id} label={d.label} percent={d.percent} color={GENDER_COLORS[i] ?? "#9C9488"} delay={i * 120} />
+            ))}
+          </div>
+        </DemoPanel>
       </div>
 
-      <div key={tab} role="tabpanel" id="demo-panel" aria-labelledby={`demo-tab-${tab.toLowerCase()}`} style={{ animation: 'rise 0.5s cubic-bezier(0.16,1,0.3,1) both' }} className="min-h-[340px]">
-        {tab === "AGE" && (
-          <div className="max-w-[760px]">
-            <p className="font-sans text-lg text-[#0A0A0A]/60 mb-12 max-w-[520px]">{demoCopy.ageSubcopy}</p>
-            <div className="grid gap-4 border-b border-[#0A0A0A]/20 pb-4" style={{ gridTemplateColumns: `repeat(${age.length || 1}, minmax(0, 1fr))` }}>
-              {age.map((d, i) => (
-                <VBarLight key={d.id} label={d.label} percent={d.percent} peak={d.highlight} delay={i * 80} />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {tab === "GENDER" && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-[1000px]">
-            <div className="space-y-8">
-              {gender.map((d, i) => (
-                <GenderBar key={d.id} label={d.label} percent={d.percent} color={GENDER_COLORS[i] ?? "#9C9488"} delay={i * 120} />
-              ))}
-            </div>
-            <p className="font-sans text-lg text-[#0A0A0A]/60">{demoCopy.genderSubcopy}</p>
-          </div>
-        )}
-
-        {tab === "GEOGRAPHY" && (
-          <div className="max-w-[760px] space-y-6">
-            <p className="font-sans text-lg text-[#0A0A0A]/60 mb-10 max-w-[520px]">{demoCopy.geographySubcopy}</p>
+      {/* Row 2 — Geography + Engagement */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <DemoPanel label="GEOGRAPHY" subcopy={demoCopy.geographySubcopy} className="lg:col-span-5">
+          <div className="space-y-6">
             {geo.map((d, i) => (
               <HBar key={d.id} label={d.label} percent={d.percent} max={geoMax} accent={d.percent === geoMax} delay={i * 100} />
             ))}
           </div>
-        )}
+        </DemoPanel>
 
-        {tab === "ENGAGEMENT" && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="flex justify-center lg:justify-start">
+        <DemoPanel label="ENGAGEMENT" className="lg:col-span-7">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 items-center">
+            <div className="flex justify-center sm:justify-start">
               <RetentionRing percent={eng.avgRetention} delay={0} />
             </div>
-            <div className="grid grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 gap-6">
               <MetricCard value={eng.likes} label="LIKES / VIDEO" delay={120} />
               <MetricCard value={eng.comments} label="COMMENTS / VIDEO" delay={240} />
               <MetricCard value={eng.shares} label="SHARES / VIDEO" delay={360} />
             </div>
           </div>
-        )}
+        </DemoPanel>
       </div>
     </div>
   );
@@ -799,7 +780,7 @@ export default function LandingPage() {
             <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1] max-w-[800px]">{settings.demographicsSection.headline}</h2>
           </div>
 
-          <DemographicsTabs demographics={demographics} settings={settings} />
+          <DemographicsPanel demographics={demographics} settings={settings} />
         </div>
       </section>
 
