@@ -36,7 +36,7 @@ export const defaultSettings: Settings = {
   },
   networkSection: {
     eyebrow: "03 — THE NETWORK",
-    headline: "One audience, every platform.",
+    headline: "Global audience, multiple platforms.",
     description:
       "A native presence on every platform that matters — a connected network that moves as one.",
   },
@@ -88,10 +88,7 @@ export const defaultContent: Content = {
   platforms: [
     { id: 1, name: "YouTube", value: "141M", handle: "9 channels", color: "#FF0000", iconKey: "youtube", url: "https://www.youtube.com/@stokestwins", sortOrder: 1 },
     { id: 2, name: "TikTok", value: "30.8M", handle: "@stokestwins", color: "#F4F1EA", iconKey: "tiktok", url: "https://www.tiktok.com/@stokestwins?lang=en", sortOrder: 2 },
-    { id: 3, name: "Snapchat", value: "38M", handle: "stokestwins", color: "#FFFC00", iconKey: "snapchat", url: null, sortOrder: 3 },
-    { id: 4, name: "Instagram", value: "4.9M", handle: "@stokestwins", color: "#E1306C", iconKey: "instagram", url: "https://www.instagram.com/stokestwins/?hl=en", sortOrder: 4 },
-    { id: 5, name: "Facebook", value: "18M", handle: "Stokes Twins", color: "#1877F2", iconKey: "facebook", url: null, sortOrder: 5 },
-    { id: 6, name: "X", value: "9M", handle: "@stokestwins", color: "#F4F1EA", iconKey: "x", url: null, sortOrder: 6 },
+    { id: 4, name: "Instagram", value: "4.9M", handle: "@stokestwins", color: "#E1306C", iconKey: "instagram", url: "https://www.instagram.com/stokestwins/?hl=en", sortOrder: 3 },
   ],
   videos: [
     { id: 1, title: "Last To Leave The Mystery Vault Keeps $100,000", tags: ["Mystery", "Competition", "Survival", "48 Hours"], views: "82M", duration: "21:14", youtubeUrl: "", thumbnailUrl: "seed/mystery-cat.png", featured: true, sortOrder: 0 },

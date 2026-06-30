@@ -41,7 +41,7 @@ export const defaultSettings: SiteSettings = {
   },
   networkSection: {
     eyebrow: "03 — THE NETWORK",
-    headline: "One audience, every platform.",
+    headline: "Global audience, multiple platforms.",
     description:
       "A native presence on every platform that matters — a connected network that moves as one.",
   },
