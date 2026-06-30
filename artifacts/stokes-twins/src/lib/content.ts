@@ -171,7 +171,7 @@ export const defaultContent: Content = {
     { id: 7, title: "Shorts Editor", brand: null, department: "Post-Production", location: "Remote (US)", type: "Full-time", applyUrl: "https://forms.gle/pj2jrsjbVEBgS7cd9", active: true, sortOrder: 7 },
     { id: 8, title: "Assistant Editor", brand: null, department: "Post-Production", location: "Remote (US)", type: "Contract", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfW5xtcx3t8JwFeLgO_xnz5ugddMLHntwqM3so7Q-8wqdeOTQ/viewform?usp=dialog", active: true, sortOrder: 8 },
     { id: 9, title: "Video Editor", brand: "Stokes Twins / Kat", department: "Post-Production", location: "Remote (US)", type: "Full-time", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLScY649WaT44WfOmFpj52jv-nPTTTDSov-N0t97ldKglCOW77A/viewform?usp=dialog", active: true, sortOrder: 9 },
-    { id: 10, title: "Assistant Editor", brand: "Stokes Twins / Kat", department: "Post-Production", location: "Remote (US)", type: "Contract", applyUrl: "#", active: true, sortOrder: 10 },
+    { id: 10, title: "Assistant Editor", brand: "Stokes Twins / Kat", department: "Post-Production", location: "Remote (US)", type: "Contract", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSf6UAZwon0zjg5ALaWhUvvQmpOIQguQMGPO6TGnHmnB1ujHkA/viewform?usp=dialog", active: true, sortOrder: 10 },
   ],
 };
 
