@@ -684,7 +684,8 @@ export default function LandingPage() {
               <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">{settings.statsSection.eyebrow}</h3>
               <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1] mb-8">{settings.statsSection.headline}</h2>
             </div>
-            <div className="flex items-end pb-4">
+            <div>
+              <h3 className="font-mono text-sm tracking-[0.2em] font-bold mb-6 invisible select-none" aria-hidden="true">{settings.statsSection.eyebrow}</h3>
               <p className="font-sans text-xl md:text-2xl text-[#F4F1EA]/70 leading-relaxed font-medium">
                 {settings.statsSection.description}
               </p>
