@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
@@ -6,6 +6,12 @@ import { Wordmark } from "@/components/Wordmark";
 import { useCountUp } from "@/hooks/useCountUp";
 import { useReveal } from "@/hooks/useReveal";
 import { useBarGrow } from "@/hooks/useBarGrow";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+
+import adobeLogo from "@assets/adobe-final_1782849545963.png";
+import buldakLogo from "@assets/buldak-final_1782849545963.png";
+import netflixLogo from "@assets/netflix-final_1782849545963.png";
+import teamwaterLogo from "@assets/teamwater-final_1782849545963.png";
 
 import gamingImg from "@/assets/gaming-cat.png";
 import outdoorImg from "@/assets/outdoor-cat.png";
@@ -16,6 +22,136 @@ import workCircle from "@/assets/work-circle.png";
 import workHide from "@/assets/work-hide.png";
 import workBeat from "@/assets/work-beat.png";
 import workTrophy from "@/assets/work-trophy.png";
+
+type BrandStat = { label: string; value: string };
+type Brand = {
+  name: string;
+  logo: string;
+  campaign: string;
+  formats: string;
+  stats: BrandStat[];
+  quote: string;
+};
+
+const BRANDS: Brand[] = [
+  {
+    name: "Adobe",
+    logo: adobeLogo,
+    campaign: '"Create Bold" Integration',
+    formats: "Pre-roll + Product Integration + Custom Short",
+    stats: [
+      { label: "Total Impressions", value: "142M+" },
+      { label: "Views Delivered", value: "88M+" },
+      { label: "Avg. Engagement Rate", value: "4.8%" },
+      { label: "Brand Awareness Lift", value: "+23%" },
+      { label: "Click-Through Rate", value: "3.1%" },
+      { label: "Audience Retention", value: "71%" },
+    ],
+    quote: "Integrated natively into a challenge format that the audience already loves — zero ad-fatigue, full brand recall.",
+  },
+  {
+    name: "Buldak",
+    logo: buldakLogo,
+    campaign: "Buldak Challenge Activation",
+    formats: "Challenge + Product Feature + Shorts Series",
+    stats: [
+      { label: "Total Impressions", value: "98M+" },
+      { label: "Views Delivered", value: "72M+" },
+      { label: "Avg. Engagement Rate", value: "7.4%" },
+      { label: "Purchase Intent Lift", value: "+41%" },
+      { label: "UGC Response Videos", value: "12K+" },
+      { label: "Audience Retention", value: "68%" },
+    ],
+    quote: "A challenge format purpose-built for the product — the audience became the campaign, and it went everywhere.",
+  },
+  {
+    name: "Netflix",
+    logo: netflixLogo,
+    campaign: "Series Launch Integration",
+    formats: "Dedicated Video + Shorts Series + Cross-Platform Reels",
+    stats: [
+      { label: "Total Impressions", value: "215M+" },
+      { label: "Views Delivered", value: "134M+" },
+      { label: "Avg. Engagement Rate", value: "6.1%" },
+      { label: "Show Awareness Lift", value: "+31%" },
+      { label: "Tune-In Intent", value: "+28%" },
+      { label: "Audience Retention", value: "74%" },
+    ],
+    quote: "The Stokes network put the show in front of exactly the right demo — at scale, in a format they actually watch.",
+  },
+  {
+    name: "#TeamWater",
+    logo: teamwaterLogo,
+    campaign: '"Stay Hydrated" Mission Integration',
+    formats: "Mission Video + Behind-the-Scenes + Instagram Reels",
+    stats: [
+      { label: "Total Impressions", value: "67M+" },
+      { label: "Views Delivered", value: "51M+" },
+      { label: "Avg. Engagement Rate", value: "5.2%" },
+      { label: "Brand Recall Lift", value: "+28%" },
+      { label: "Community Sign-Ups", value: "84K+" },
+      { label: "Audience Retention", value: "69%" },
+    ],
+    quote: "The mission matched the audience's values — authentic integration that felt like content, not an ad.",
+  },
+];
+
+function BrandModal({ brand, onClose }: { brand: Brand | null; onClose: () => void }) {
+  return (
+    <Dialog open={!!brand} onOpenChange={(open) => { if (!open) onClose(); }}>
+      <DialogContent className="bg-[#0A0A0A] border border-[#F4F1EA]/10 text-[#F4F1EA] max-w-2xl p-0 overflow-hidden">
+        {brand && (
+          <>
+            <div className="bg-[#141210] border-b border-[#F4F1EA]/10 px-8 py-6 flex items-center gap-6">
+              <div className="w-24 h-14 flex items-center justify-center bg-black rounded-[4px] overflow-hidden flex-none">
+                <img src={brand.logo} alt={brand.name} className="w-full h-full object-contain" />
+              </div>
+              <div>
+                <div className="font-mono text-[10px] tracking-[0.3em] text-[#E13B2C] mb-1">PARTNER SPOTLIGHT</div>
+                <DialogHeader>
+                  <DialogTitle className="font-display text-2xl text-[#F4F1EA] text-left">{brand.name}</DialogTitle>
+                </DialogHeader>
+                <div className="font-mono text-[11px] text-[#F4F1EA]/50 tracking-[0.08em] mt-1">{brand.campaign}</div>
+              </div>
+            </div>
+
+            <div className="px-8 py-6">
+              <div className="font-mono text-[10px] tracking-[0.24em] text-[#F4F1EA]/40 mb-3">FORMATS</div>
+              <div className="font-sans text-sm text-[#F4F1EA]/70 mb-6">{brand.formats}</div>
+
+              <div className="font-mono text-[10px] tracking-[0.24em] text-[#F4F1EA]/40 mb-4">CAMPAIGN RESULTS</div>
+              <div className="grid grid-cols-3 gap-0 border-t border-[#F4F1EA]/10">
+                {brand.stats.map((s, i) => (
+                  <div
+                    key={i}
+                    className="py-4 px-3 border-b border-r border-[#F4F1EA]/10 last:border-r-0 [&:nth-child(3n)]:border-r-0"
+                  >
+                    <div className="font-display text-[28px] leading-none text-[#E13B2C] mb-2">{s.value}</div>
+                    <div className="font-mono text-[10px] tracking-[0.12em] text-[#F4F1EA]/45 uppercase">{s.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 border-l-2 border-[#E13B2C] pl-4">
+                <p className="font-sans text-sm text-[#F4F1EA]/60 italic leading-relaxed">{brand.quote}</p>
+              </div>
+
+              <div className="mt-6 pt-6 border-t border-[#F4F1EA]/10 flex items-center justify-between">
+                <span className="font-mono text-[10px] tracking-[0.2em] text-[#F4F1EA]/35">READY TO BUILD YOUR CAMPAIGN?</span>
+                <a
+                  href="mailto:partnerships@stokestwins.com"
+                  className="bg-[#E13B2C] text-white font-display text-[13px] px-5 py-3 rounded-[3px] hover:bg-white hover:text-[#0A0A0A] transition-colors"
+                >
+                  START A PARTNERSHIP →
+                </a>
+              </div>
+            </div>
+          </>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+}
 
 function StatCounter({ end, suffix, label }: { end: number, suffix: string, label: string }) {
   const { ref, isVisible } = useReveal();
@@ -88,7 +224,8 @@ function VerticalBar({ label, percent, isPeak, delay }: { label: string, percent
 
 export default function LandingPage() {
   const heroRef = useRef<HTMLDivElement>(null);
-  
+  const [activeBrand, setActiveBrand] = useState<Brand | null>(null);
+
   useEffect(() => {
     document.title = "Stokes Twins | Media Kit";
     document.body.style.backgroundColor = "#0A0A0A";
@@ -440,9 +577,12 @@ export default function LandingPage() {
             Custom integrations, title sponsorships, and cross-platform campaigns designed for the world's largest family audience.
           </p>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-24">
-            <button className="bg-[#0A0A0A] text-white font-display text-lg px-8 py-5 rounded-[3px] hover:bg-white hover:text-[#0A0A0A] transition-colors w-full sm:w-auto">
+            <a
+              href="mailto:partnerships@stokestwins.com"
+              className="bg-[#0A0A0A] text-white font-display text-lg px-8 py-5 rounded-[3px] hover:bg-white hover:text-[#0A0A0A] transition-colors w-full sm:w-auto text-center"
+            >
               START A PARTNERSHIP →
-            </button>
+            </a>
             <button className="bg-transparent border-2 border-white/30 text-white font-display text-lg px-8 py-5 rounded-[3px] hover:bg-white hover:text-[#E13B2C] transition-colors w-full sm:w-auto">
               DOWNLOAD MEDIA KIT
             </button>
@@ -450,13 +590,24 @@ export default function LandingPage() {
 
           <div>
             <div className="font-mono text-[10px] tracking-widest opacity-60 mb-8 uppercase">TRUSTED BY BRANDS THAT GO BIG</div>
-            <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-50">
-              <div className="w-[120px] h-[40px] bg-white/20 rounded"></div>
-              <div className="w-[140px] h-[30px] bg-white/20 rounded"></div>
-              <div className="w-[100px] h-[50px] bg-white/20 rounded"></div>
-              <div className="w-[160px] h-[35px] bg-white/20 rounded"></div>
-              <div className="w-[130px] h-[45px] bg-white/20 rounded"></div>
+            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-14">
+              {BRANDS.map((brand) => (
+                <button
+                  key={brand.name}
+                  onClick={() => setActiveBrand(brand)}
+                  data-testid={`brand-logo-${brand.name.toLowerCase().replace(/[^a-z]/g, '')}`}
+                  className="w-[120px] h-[64px] flex items-center justify-center bg-black/30 rounded-[4px] border border-white/10 overflow-hidden opacity-70 hover:opacity-100 hover:border-white/30 hover:scale-105 transition-all duration-200 cursor-pointer group"
+                  title={`View ${brand.name} partnership stats`}
+                >
+                  <img
+                    src={brand.logo}
+                    alt={brand.name}
+                    className="w-full h-full object-contain"
+                  />
+                </button>
+              ))}
             </div>
+            <div className="mt-5 font-mono text-[10px] tracking-[0.2em] opacity-40 uppercase">Click a logo to see campaign results</div>
           </div>
         </div>
       </section>
@@ -484,6 +635,8 @@ export default function LandingPage() {
       </section>
 
       <Footer />
+
+      <BrandModal brand={activeBrand} onClose={() => setActiveBrand(null)} />
     </div>
   );
 }
