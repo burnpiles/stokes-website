@@ -21,12 +21,12 @@ export function Wordmark({ size = "md", className = "" }: WordmarkProps) {
       <span>ST</span>
       <span className="inline-flex items-center justify-center relative mx-[0.02em]">
         <svg 
-          viewBox="0 0 64 84" 
+          viewBox="3 3 58 78"
           fill="none" 
           stroke="currentColor" 
           strokeWidth="13" 
           strokeLinejoin="miter"
-          className="text-foreground inline-block w-[0.66em] h-[0.84em]"
+          className="text-foreground inline-block w-[0.56em] h-[0.72em]"
           style={{ filter: "drop-shadow(0.052em 0.052em 0 #E13B2C)" }}
         >
           <polygon points="13,9 55,42 13,75" />
