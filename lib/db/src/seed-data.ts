@@ -93,10 +93,7 @@ export const seedStats: InsertStat[] = [
 export const seedPlatforms: InsertPlatform[] = [
   { name: "YouTube", value: "141M", handle: "9 channels", color: "#FF0000", iconKey: "youtube", url: "https://www.youtube.com/@stokestwins", sortOrder: 1 },
   { name: "TikTok", value: "30.8M", handle: "@stokestwins", color: "#F4F1EA", iconKey: "tiktok", url: "https://www.tiktok.com/@stokestwins?lang=en", sortOrder: 2 },
-  { name: "Snapchat", value: "38M", handle: "stokestwins", color: "#FFFC00", iconKey: "snapchat", url: null, sortOrder: 3 },
-  { name: "Instagram", value: "4.9M", handle: "@stokestwins", color: "#E1306C", iconKey: "instagram", url: "https://www.instagram.com/stokestwins/?hl=en", sortOrder: 4 },
-  { name: "Facebook", value: "18M", handle: "Stokes Twins", color: "#1877F2", iconKey: "facebook", url: null, sortOrder: 5 },
-  { name: "X", value: "9M", handle: "@stokestwins", color: "#F4F1EA", iconKey: "x", url: null, sortOrder: 6 },
+  { name: "Instagram", value: "4.9M", handle: "@stokestwins", color: "#E1306C", iconKey: "instagram", url: "https://www.instagram.com/stokestwins/?hl=en", sortOrder: 3 },
 ];
 
 export const seedVideos: InsertVideo[] = [
