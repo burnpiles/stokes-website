@@ -64,6 +64,7 @@ export const defaultSettings: Settings = {
     email: "partnerships@stokestwins.com",
     mediaKitUrl: "#",
     brandsLogline: "TRUSTED BY BRANDS THAT GO BIG",
+    showBrandModal: false,
   },
   careersSection: {
     eyebrow: "CAREERS · PRESS PLAY WITH US",

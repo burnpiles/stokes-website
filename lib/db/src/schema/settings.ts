@@ -43,6 +43,7 @@ export interface SiteSettings {
     email: string;
     mediaKitUrl: string;
     brandsLogline: string;
+    showBrandModal: boolean;
   };
   careersSection: { eyebrow: string; headline: string; body: string };
   footer: { description: string; copyright: string; slogan: string };

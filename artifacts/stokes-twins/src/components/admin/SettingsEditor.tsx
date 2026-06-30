@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { Settings } from "@workspace/api-client-react";
-import { TextField, TextAreaField, NumberField, adminCardCls, adminBtnPrimary } from "./AdminPrimitives";
+import { TextField, TextAreaField, NumberField, BoolField, adminCardCls, adminBtnPrimary } from "./AdminPrimitives";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -118,6 +118,7 @@ export function SettingsEditor({ settings, onSave }: { settings: Settings; onSav
           <TextField label="Contact Email" value={s.partnerSection.email} onChange={(v) => patch("partnerSection", { ...s.partnerSection, email: v })} />
           <TextField label="Media Kit URL" value={s.partnerSection.mediaKitUrl} onChange={(v) => patch("partnerSection", { ...s.partnerSection, mediaKitUrl: v })} />
           <TextField label="Brands Logline" value={s.partnerSection.brandsLogline} onChange={(v) => patch("partnerSection", { ...s.partnerSection, brandsLogline: v })} full />
+          <BoolField label="Show brand stats pop-up (click a logo to open campaign data)" value={s.partnerSection.showBrandModal} onChange={(v) => patch("partnerSection", { ...s.partnerSection, showBrandModal: v })} />
         </Section>
 
         <Section title="Careers Section">

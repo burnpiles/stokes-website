@@ -740,29 +740,39 @@ export default function LandingPage() {
           <div>
             <div className="font-mono text-[10px] tracking-widest opacity-60 mb-10 uppercase">{settings.partnerSection.brandsLogline}</div>
             <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
-              {brands.map((brand, i) => (
-                <button
-                  key={brand.id}
-                  onClick={() => setActiveBrand(brand)}
-                  data-testid={`brand-logo-${brand.name.toLowerCase().replace(/[^a-z]/g, '')}`}
-                  title={`View ${brand.name} partnership stats`}
-                  className="group relative w-[160px] h-[160px] rounded-[6px] overflow-hidden cursor-pointer"
-                  style={{
-                    animation: `brandReveal 0.6s cubic-bezier(0.16,1,0.3,1) both`,
-                    animationDelay: `${0.1 + i * 0.12}s`,
-                  }}
-                >
-                  <img
-                    src={resolveImg(brand.logoUrl)}
-                    alt={brand.name}
-                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 rounded-[6px]" />
-                  <div className="absolute inset-0 rounded-[6px] ring-0 group-hover:ring-2 group-hover:ring-white/40 transition-all duration-300" />
-                </button>
-              ))}
+              {brands.map((brand, i) => {
+                const interactive = settings.partnerSection.showBrandModal;
+                return (
+                  <button
+                    key={brand.id}
+                    onClick={interactive ? () => setActiveBrand(brand) : undefined}
+                    disabled={!interactive}
+                    data-testid={`brand-logo-${brand.name.toLowerCase().replace(/[^a-z]/g, '')}`}
+                    title={interactive ? `View ${brand.name} partnership stats` : brand.name}
+                    className={`group relative w-[160px] h-[160px] rounded-[6px] overflow-hidden ${interactive ? "cursor-pointer" : "cursor-default"}`}
+                    style={{
+                      animation: `brandReveal 0.6s cubic-bezier(0.16,1,0.3,1) both`,
+                      animationDelay: `${0.1 + i * 0.12}s`,
+                    }}
+                  >
+                    <img
+                      src={resolveImg(brand.logoUrl)}
+                      alt={brand.name}
+                      className={`w-full h-full object-cover transition-transform duration-500 ease-out ${interactive ? "group-hover:scale-110" : ""}`}
+                    />
+                    {interactive && (
+                      <>
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 rounded-[6px]" />
+                        <div className="absolute inset-0 rounded-[6px] ring-0 group-hover:ring-2 group-hover:ring-white/40 transition-all duration-300" />
+                      </>
+                    )}
+                  </button>
+                );
+              })}
             </div>
-            <div className="mt-6 font-mono text-[10px] tracking-[0.2em] opacity-40 uppercase">Click a logo to see campaign results</div>
+            {settings.partnerSection.showBrandModal && (
+              <div className="mt-6 font-mono text-[10px] tracking-[0.2em] opacity-40 uppercase">Click a logo to see campaign results</div>
+            )}
           </div>
         </div>
       </section>

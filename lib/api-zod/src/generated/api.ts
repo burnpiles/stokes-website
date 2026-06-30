@@ -84,7 +84,8 @@ export const GetContentResponse = zod.object({
   "subcopy": zod.string(),
   "email": zod.string(),
   "mediaKitUrl": zod.string(),
-  "brandsLogline": zod.string()
+  "brandsLogline": zod.string(),
+  "showBrandModal": zod.boolean()
 }),
   "careersSection": zod.object({
   "eyebrow": zod.string(),
@@ -259,7 +260,8 @@ export const UpdateSettingsBody = zod.object({
   "subcopy": zod.string(),
   "email": zod.string(),
   "mediaKitUrl": zod.string(),
-  "brandsLogline": zod.string()
+  "brandsLogline": zod.string(),
+  "showBrandModal": zod.boolean()
 }),
   "careersSection": zod.object({
   "eyebrow": zod.string(),
@@ -336,7 +338,8 @@ export const UpdateSettingsResponse = zod.object({
   "subcopy": zod.string(),
   "email": zod.string(),
   "mediaKitUrl": zod.string(),
-  "brandsLogline": zod.string()
+  "brandsLogline": zod.string(),
+  "showBrandModal": zod.boolean()
 }),
   "careersSection": zod.object({
   "eyebrow": zod.string(),

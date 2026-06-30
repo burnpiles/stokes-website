@@ -75,6 +75,7 @@ export type SettingsPartnerSection = {
   email: string;
   mediaKitUrl: string;
   brandsLogline: string;
+  showBrandModal: boolean;
 };
 
 export type SettingsCareersSection = {

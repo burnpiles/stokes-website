@@ -719,7 +719,7 @@ components:
             shares: { type: string }
         partnerSection:
           type: object
-          required: [eyebrow, headline, subcopy, email, mediaKitUrl, brandsLogline]
+          required: [eyebrow, headline, subcopy, email, mediaKitUrl, brandsLogline, showBrandModal]
           properties:
             eyebrow: { type: string }
             headline: { type: string }
@@ -727,6 +727,7 @@ components:
             email: { type: string }
             mediaKitUrl: { type: string }
             brandsLogline: { type: string }
+            showBrandModal: { type: boolean }
         careersSection:
           type: object
           required: [eyebrow, headline, body]
