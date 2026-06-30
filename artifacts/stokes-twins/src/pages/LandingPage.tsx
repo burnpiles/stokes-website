@@ -589,25 +589,31 @@ export default function LandingPage() {
           </div>
 
           <div>
-            <div className="font-mono text-[10px] tracking-widest opacity-60 mb-8 uppercase">TRUSTED BY BRANDS THAT GO BIG</div>
-            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-14">
-              {BRANDS.map((brand) => (
+            <div className="font-mono text-[10px] tracking-widest opacity-60 mb-10 uppercase">TRUSTED BY BRANDS THAT GO BIG</div>
+            <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
+              {BRANDS.map((brand, i) => (
                 <button
                   key={brand.name}
                   onClick={() => setActiveBrand(brand)}
                   data-testid={`brand-logo-${brand.name.toLowerCase().replace(/[^a-z]/g, '')}`}
-                  className="w-[120px] h-[64px] flex items-center justify-center bg-black/30 rounded-[4px] border border-white/10 overflow-hidden opacity-70 hover:opacity-100 hover:border-white/30 hover:scale-105 transition-all duration-200 cursor-pointer group"
                   title={`View ${brand.name} partnership stats`}
+                  className="group relative w-[160px] h-[160px] rounded-[6px] overflow-hidden cursor-pointer"
+                  style={{
+                    animation: `brandReveal 0.6s cubic-bezier(0.16,1,0.3,1) both`,
+                    animationDelay: `${0.1 + i * 0.12}s`,
+                  }}
                 >
                   <img
                     src={brand.logo}
                     alt={brand.name}
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
                   />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 rounded-[6px]" />
+                  <div className="absolute inset-0 rounded-[6px] ring-0 group-hover:ring-2 group-hover:ring-white/40 transition-all duration-300" />
                 </button>
               ))}
             </div>
-            <div className="mt-5 font-mono text-[10px] tracking-[0.2em] opacity-40 uppercase">Click a logo to see campaign results</div>
+            <div className="mt-6 font-mono text-[10px] tracking-[0.2em] opacity-40 uppercase">Click a logo to see campaign results</div>
           </div>
         </div>
       </section>

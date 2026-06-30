@@ -85,6 +85,11 @@
   100% { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes brandReveal {
+  0% { opacity: 0; transform: translateY(28px) scale(0.92); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 :root, .dark {
   --background: 0 0% 4%; /* #0A0A0A */
   --foreground: 42 33% 94%; /* #F4F1EA */
