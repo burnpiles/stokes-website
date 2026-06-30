@@ -589,23 +589,44 @@ export default function LandingPage() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-4 mb-10 animate-rise" style={{ animationDelay: '0.2s' }}>
-            <div className="flex items-center gap-3 bg-[#0A0A0A]/40 backdrop-blur-md border border-[#F4F1EA]/10 px-5 py-2.5 rounded-full">
+            <a
+              href="https://www.tiktok.com/@stokestwins?lang=en"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="hero-social-tiktok"
+              aria-label="Stokes Twins on TikTok"
+              className="flex items-center gap-3 bg-[#0A0A0A]/40 backdrop-blur-md border border-[#F4F1EA]/10 px-5 py-2.5 rounded-full transition-colors hover:border-[#F4F1EA]/40 hover:bg-[#0A0A0A]/60"
+            >
               <div className="w-3 h-3 rounded-full bg-[#25F4EE] shadow-[2px_0_0_#FE2C55]" />
               <span className="font-mono text-xs tracking-widest font-bold">TIKTOK</span>
               <span className="font-mono text-xs text-[#F4F1EA]/60">30.8M</span>
-            </div>
+            </a>
             
-            <div className="flex items-center gap-3 bg-gradient-to-r from-[#E13B2C] to-[#7B1A12] px-5 py-2.5 rounded-full shadow-[0_0_20px_rgba(225,59,44,0.3)]">
+            <a
+              href="https://www.youtube.com/@stokestwins"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="hero-social-youtube"
+              aria-label="Stokes Twins on YouTube"
+              className="flex items-center gap-3 bg-gradient-to-r from-[#E13B2C] to-[#7B1A12] px-5 py-2.5 rounded-full shadow-[0_0_20px_rgba(225,59,44,0.3)] transition-transform hover:scale-[1.03]"
+            >
               <svg viewBox="0 0 24 24" className="w-4 h-4 fill-white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
               <span className="font-mono text-xs tracking-widest font-bold">YOUTUBE</span>
               <span className="font-mono text-xs text-white/80">141M</span>
-            </div>
+            </a>
 
-            <div className="flex items-center gap-3 bg-[#0A0A0A]/40 backdrop-blur-md border border-[#F4F1EA]/10 px-5 py-2.5 rounded-full">
+            <a
+              href="https://www.instagram.com/stokestwins/?hl=en"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="hero-social-instagram"
+              aria-label="Stokes Twins on Instagram"
+              className="flex items-center gap-3 bg-[#0A0A0A]/40 backdrop-blur-md border border-[#F4F1EA]/10 px-5 py-2.5 rounded-full transition-colors hover:border-[#F4F1EA]/40 hover:bg-[#0A0A0A]/60"
+            >
               <div className="w-3 h-3 rounded-full bg-gradient-to-tr from-[#FFDC80] via-[#F56040] to-[#C13584]" />
               <span className="font-mono text-xs tracking-widest font-bold">INSTAGRAM</span>
               <span className="font-mono text-xs text-[#F4F1EA]/60">4.9M</span>
-            </div>
+            </a>
           </div>
 
           <p 
