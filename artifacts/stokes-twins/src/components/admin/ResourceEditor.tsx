@@ -34,6 +34,7 @@ interface ResourceEditorProps {
   onUpdate: (id: number, data: Draft) => Promise<unknown>;
   onDelete: (id: number) => Promise<unknown>;
   titleKey: string;
+  maxItems?: number;
 }
 
 function BrandStatsEditor({ value, onChange }: { value: BrandStat[]; onChange: (v: BrandStat[]) => void }) {
@@ -189,7 +190,8 @@ function CreateRow({ fields, newDraft, onCreate }: { fields: FieldDef[]; newDraf
   );
 }
 
-export function ResourceEditor({ title, description, items, fields, newDraft, onCreate, onUpdate, onDelete, titleKey }: ResourceEditorProps) {
+export function ResourceEditor({ title, description, items, fields, newDraft, onCreate, onUpdate, onDelete, titleKey, maxItems }: ResourceEditorProps) {
+  const atMax = typeof maxItems === "number" && items.length >= maxItems;
   return (
     <div>
       <div className="mb-6">
@@ -200,7 +202,13 @@ export function ResourceEditor({ title, description, items, fields, newDraft, on
         {items.map((item) => (
           <ItemRow key={item.id} item={item as { id: number } & Record<string, unknown>} fields={fields} titleKey={titleKey} onUpdate={onUpdate} onDelete={onDelete} />
         ))}
-        <CreateRow fields={fields} newDraft={newDraft} onCreate={onCreate} />
+        {atMax ? (
+          <div className="border-2 border-dashed border-[#F4F1EA]/10 rounded-[6px] py-4 text-center font-mono text-xs tracking-widest text-[#F4F1EA]/40">
+            MAXIMUM OF {maxItems} REACHED — DELETE ONE TO ADD ANOTHER
+          </div>
+        ) : (
+          <CreateRow fields={fields} newDraft={newDraft} onCreate={onCreate} />
+        )}
       </div>
     </div>
   );

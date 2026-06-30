@@ -212,11 +212,11 @@ function Dashboard() {
             newDraft={() => ({ name: "", value: "", handle: "", color: "#F4F1EA", iconKey: "youtube", url: "", sortOrder: nextSort(content.platforms) })} {...wire(platform)} />
         )}
         {tab === "Videos" && (
-          <ResourceEditor title="Videos" description="Featured video + grid. Mark one as Featured for the hero." items={content.videos} fields={videoFields} titleKey="title"
+          <ResourceEditor title="Videos" description="One hero (the big featured video) + up to 3 full-length videos in the grid. Toggle Featured to set the hero — only one video can be the hero." items={content.videos} fields={videoFields} titleKey="title" maxItems={4}
             newDraft={() => ({ title: "", tags: [], views: "", duration: "", youtubeUrl: "", thumbnailUrl: "", featured: false, sortOrder: nextSort(content.videos) })} {...wire(video)} />
         )}
         {tab === "Shorts" && (
-          <ResourceEditor title="Shorts" description="The shorts carousel." items={content.shorts} fields={shortFields} titleKey="title"
+          <ResourceEditor title="Shorts" description="The shorts carousel — up to 10." items={content.shorts} fields={shortFields} titleKey="title" maxItems={10}
             newDraft={() => ({ title: "", views: "", youtubeUrl: "", thumbnailUrl: "", sortOrder: nextSort(content.shorts) })} {...wire(short)} />
         )}
         {tab === "Demographics" && (

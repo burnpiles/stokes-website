@@ -1,0 +1,1 @@
+- [Environment quirks](environment-quirks.md) — code_execution sandbox has no process.env; bash has no python3 (use node for JSON).

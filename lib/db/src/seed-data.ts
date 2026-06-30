@@ -96,22 +96,18 @@ export const seedPlatforms: InsertPlatform[] = [
 ];
 
 export const seedVideos: InsertVideo[] = [
-  { title: "Last To Leave The Mystery Vault Keeps $100,000", tags: ["Mystery", "Competition", "Survival", "48 Hours"], views: "82M", duration: "21:14", thumbnailUrl: "seed/mystery-cat.png", featured: true, sortOrder: 0 },
-  { title: "We Survived 100 Hours In Hardcore Mode", tags: ["Gaming", "Challenge"], views: "41M", duration: "18:02", thumbnailUrl: "seed/gaming-cat.png", featured: false, sortOrder: 1 },
-  { title: "Stranded On A Deserted Island For 7 Days", tags: ["Outdoor", "Survival"], views: "37M", duration: "24:51", thumbnailUrl: "seed/outdoor-cat.png", featured: false, sortOrder: 2 },
-  { title: "First To Find The Golden Trophy Wins It", tags: ["Trophy", "Competition"], views: "29M", duration: "16:33", thumbnailUrl: "seed/trophy-cat.png", featured: false, sortOrder: 3 },
+  { title: "I Built 4 SECRET Rooms In ONE COLOR!", tags: [], views: "", duration: "", youtubeUrl: "https://www.youtube.com/watch?v=RqKDKaHPPlQ", thumbnailUrl: "", featured: true, sortOrder: 0 },
+  { title: "I Survived The World's STRICTEST School!", tags: [], views: "", duration: "", youtubeUrl: "https://www.youtube.com/watch?v=LnVfvz_CJ1o", thumbnailUrl: "", featured: false, sortOrder: 1 },
+  { title: "I Built 3 SECRET Rooms In School!", tags: [], views: "", duration: "", youtubeUrl: "https://www.youtube.com/watch?v=wSxZzlKl0-U", thumbnailUrl: "", featured: false, sortOrder: 2 },
+  { title: "I Spent 24 Hours With The World’s SMALLEST Woman!", tags: [], views: "", duration: "", youtubeUrl: "https://www.youtube.com/watch?v=TzebVGUMrGU", thumbnailUrl: "", featured: false, sortOrder: 3 },
 ];
 
 export const seedShorts: InsertShort[] = [
-  { title: "He never saw it coming", views: "12M", thumbnailUrl: "seed/work-beat.png", sortOrder: 1 },
-  { title: "Last one found wins", views: "8.4M", thumbnailUrl: "seed/work-hide.png", sortOrder: 2 },
-  { title: "Speedrun gone wrong", views: "15M", thumbnailUrl: "seed/gaming-cat.png", sortOrder: 3 },
-  { title: "The circle of trust", views: "6.1M", thumbnailUrl: "seed/work-circle.png", sortOrder: 4 },
-  { title: "48 hours in the wild", views: "9.7M", thumbnailUrl: "seed/outdoor-cat.png", sortOrder: 5 },
-  { title: "Winner takes the trophy", views: "11M", thumbnailUrl: "seed/work-trophy.png", sortOrder: 6 },
-  { title: "Inside the mystery box", views: "20M", thumbnailUrl: "seed/mystery-cat.png", sortOrder: 7 },
-  { title: "Double or nothing", views: "7.3M", thumbnailUrl: "seed/work-double.png", sortOrder: 8 },
-  { title: "10K on the line", views: "5.9M", thumbnailUrl: "seed/trophy-cat.png", sortOrder: 9 },
+  { title: "My WORST Birthday Ever..", views: "", youtubeUrl: "https://www.youtube.com/shorts/jO1P7y3eEcU", thumbnailUrl: "", sortOrder: 1 },
+  { title: "World’s Most DANGEROUS Theme Park!", views: "", youtubeUrl: "https://www.youtube.com/shorts/P9jqFr3TvSE", thumbnailUrl: "", sortOrder: 2 },
+  { title: "WORLD'S SHORTEST WOMAN", views: "", youtubeUrl: "https://www.youtube.com/shorts/SV3b20W0sS0", thumbnailUrl: "", sortOrder: 3 },
+  { title: "Walking On Water Prank!", views: "", youtubeUrl: "https://www.youtube.com/shorts/MhxtHVk2dqc", thumbnailUrl: "", sortOrder: 4 },
+  { title: "Who Will Win The World Cup?", views: "", youtubeUrl: "https://www.youtube.com/shorts/8X5IDuPm8Pw", thumbnailUrl: "", sortOrder: 5 },
 ];
 
 export const seedDemographics: InsertDemographic[] = [

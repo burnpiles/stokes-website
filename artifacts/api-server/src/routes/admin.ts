@@ -4,7 +4,7 @@ import {
   type Request,
   type Response,
 } from "express";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, and, ne } from "drizzle-orm";
 import {
   db,
   settingsTable,
@@ -138,6 +138,10 @@ interface CrudSchemas {
   updateBody: Zodish;
   createResponse: Zodish;
   updateResponse: Zodish;
+  // Column that may have at most one row set to `true` at a time (e.g. the
+  // featured/hero video). When a write sets it true, all other rows are
+  // cleared within the same transaction so the invariant holds server-side.
+  singleTrueFlag?: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -148,10 +152,14 @@ function registerCrud(base: string, table: any, s: CrudSchemas): void {
       res.status(400).json({ error: "Invalid input" });
       return;
     }
-    const rows = (await db
-      .insert(table)
-      .values(parsed.data as Record<string, unknown>)
-      .returning()) as Record<string, unknown>[];
+    const data = parsed.data as Record<string, unknown>;
+    const flag = s.singleTrueFlag;
+    const rows = (await db.transaction(async (tx) => {
+      if (flag && data[flag] === true) {
+        await tx.update(table).set({ [flag]: false }).where(eq(table[flag], true));
+      }
+      return await tx.insert(table).values(data).returning();
+    })) as Record<string, unknown>[];
     res.status(201).json(s.createResponse.parse(rows[0]));
   });
 
@@ -163,6 +171,7 @@ function registerCrud(base: string, table: any, s: CrudSchemas): void {
       return;
     }
     const values = parsed.data as Record<string, unknown>;
+    const flag = s.singleTrueFlag;
     let row: Record<string, unknown> | undefined;
     if (Object.keys(values).length === 0) {
       const rows = (await db
@@ -171,11 +180,12 @@ function registerCrud(base: string, table: any, s: CrudSchemas): void {
         .where(eq(table.id, id))) as Record<string, unknown>[];
       row = rows[0];
     } else {
-      const rows = (await db
-        .update(table)
-        .set(values)
-        .where(eq(table.id, id))
-        .returning()) as Record<string, unknown>[];
+      const rows = (await db.transaction(async (tx) => {
+        if (flag && values[flag] === true) {
+          await tx.update(table).set({ [flag]: false }).where(and(eq(table[flag], true), ne(table.id, id)));
+        }
+        return await tx.update(table).set(values).where(eq(table.id, id)).returning();
+      })) as Record<string, unknown>[];
       row = rows[0];
     }
     if (!row) {
@@ -208,6 +218,7 @@ registerCrud("/admin/videos", videosTable, {
   updateBody: UpdateVideoBody,
   createResponse: CreateVideoResponse,
   updateResponse: UpdateVideoResponse,
+  singleTrueFlag: "featured",
 });
 registerCrud("/admin/shorts", shortsTable, {
   createBody: CreateShortBody,

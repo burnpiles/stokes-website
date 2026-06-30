@@ -408,9 +408,11 @@ function VideoCard({ video, featured = false }: { video: Video; featured?: boole
             </span>
           ))}
         </div>
-        <div className="absolute bottom-3 right-3 font-mono text-[11px] bg-[#0A0A0A]/85 px-2 py-0.5 rounded text-[#F4F1EA]">
-          {video.duration}
-        </div>
+        {video.duration.trim() && (
+          <div className="absolute bottom-3 right-3 font-mono text-[11px] bg-[#0A0A0A]/85 px-2 py-0.5 rounded text-[#F4F1EA]">
+            {video.duration}
+          </div>
+        )}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className={`${featured ? "w-20 h-20" : "w-14 h-14"} rounded-full bg-[#E13B2C] flex items-center justify-center scale-90 opacity-85 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 shadow-[0_0_30px_rgba(225,59,44,0.5)]`}>
             <svg viewBox="0 0 24 24" className={`${featured ? "w-8 h-8" : "w-5 h-5"} fill-white ml-1`}><path d="M8 5v14l11-7z" /></svg>
@@ -419,7 +421,7 @@ function VideoCard({ video, featured = false }: { video: Video; featured?: boole
       </div>
       <div className={featured ? "p-7" : "p-5"}>
         <h4 className={`font-display ${featured ? "text-2xl md:text-[34px]" : "text-lg"} leading-tight mb-2`}>{video.title}</h4>
-        <div className="font-mono text-xs text-[#F4F1EA]/50 tracking-wide">{video.views} VIEWS</div>
+        {video.views.trim() && <div className="font-mono text-xs text-[#F4F1EA]/50 tracking-wide">{video.views} VIEWS</div>}
       </div>
     </div>
   );
@@ -513,7 +515,7 @@ function ShortsCarousel({ shorts }: { shorts: Short[] }) {
             </div>
             <div className="absolute bottom-0 left-0 right-0 p-4">
               <div className="font-sans font-bold text-sm text-white leading-tight mb-1 line-clamp-2">{s.title}</div>
-              <div className="font-mono text-[10px] text-[#F4F1EA]/60">{s.views} views</div>
+              {s.views.trim() && <div className="font-mono text-[10px] text-[#F4F1EA]/60">{s.views} views</div>}
             </div>
           </div>
           );
