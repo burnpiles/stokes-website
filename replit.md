@@ -1,6 +1,6 @@
-# [Project name]
+# Stokes Twins
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Marketing site for the Stokes Twins creator studio, fully editable through a password-protected `/admin` CMS backed by a database.
 
 ## Run & Operate
 
@@ -22,15 +22,23 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/stokes-twins/` — public React+Vite site + `/admin` CMS UI (`src/pages/AdminPage.tsx`, editors in `src/components/admin/`)
+- `lib/db/src/schema/` — Drizzle tables (source of truth for content model); `lib/db/src/seed-data.ts` — seed values
+- `lib/api-spec/openapi.yaml` — API contract (source of truth); codegen → `lib/api-zod` + `lib/api-client-react`
+- `artifacts/api-server/` — Express routes (content aggregate, admin auth + CRUD, storage)
+- `artifacts/stokes-twins/src/lib/content.ts` — public defaults merged over fetched content so the site never renders empty
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Settings is a singleton `jsonb` row (id=1); all other content is normalized tables. Public site reads one aggregate `GET /api/content`.
+- Admin auth is a simple password compared to the `ADMIN_PASSWORD` secret, issuing a signed httpOnly cookie (SESSION_SECRET). No user accounts.
+- Contract-first: edit `openapi.yaml`, then run codegen. Server validates with `@workspace/api-zod`; client uses generated React Query hooks.
+- The site reads live DB content, so changing only `content.ts` defaults or `seed-data.ts` will NOT change a seeded site — update the DB too.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- Public marketing site (hero, stats, YouTube counter, channels, audience demographics, partnerships, careers).
+- `/admin` CMS: log in with the admin password, then edit every section, manage list resources (stats, platforms, videos, shorts, jobs, brands, demographics), and upload media.
 
 ## User preferences
 
@@ -38,7 +46,9 @@ _Populate as you build — explicit user instructions worth remembering across s
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- The YouTube counter animates from `youtubeCounter.base` up to `target` at `perMinute`; keep `target` well above `base` so it keeps climbing.
+- Live content lives in the DB. Editing `content.ts`/`seed-data.ts` alone won't change an already-seeded site — update the `settings`/content rows directly or via `/admin`.
+- `ADMIN_PASSWORD` and `SESSION_SECRET` must be set; restart the api-server workflow after adding/changing them.
 
 ## Pointers
 
