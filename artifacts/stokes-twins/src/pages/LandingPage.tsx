@@ -390,9 +390,42 @@ const YT_SHORTS: YtShort[] = [
   { img: trophyImg, title: "10K on the line", views: "5.9M" },
 ];
 
+// Live subscriber ticker config. These will be driven by the admin/DB later:
+// when the real count reaches YT_TARGET, bump YT_BASE up to the new floor,
+// set YT_TARGET to the next milestone, and reset YT_ANCHOR_ISO to "now".
+const YT_BASE = 140_000_000; // starting count
+const YT_TARGET = 141_000_000; // cap — the "141M" the admin bumps to 142M when it hits
+const YT_PER_MINUTE = 100; // how many the number gains each minute
+const YT_ANCHOR_ISO = "2026-06-30T00:00:00Z"; // when the live count started
+
+function liveYouTubeCount(): number {
+  const anchor = Date.parse(YT_ANCHOR_ISO);
+  const minutes = Math.max(0, Math.floor((Date.now() - anchor) / 60_000));
+  return Math.min(YT_TARGET, YT_BASE + minutes * YT_PER_MINUTE);
+}
+
 function YouTubeCountUp() {
   const { ref, isVisible } = useReveal();
-  const count = useCountUp(isVisible ? 140000000 : 0, 5000);
+  const [introTarget] = useState(liveYouTubeCount);
+  const [live, setLive] = useState(introTarget);
+  const [introDone, setIntroDone] = useState(false);
+  const intro = useCountUp(isVisible ? introTarget : 0, 5000);
+
+  useEffect(() => {
+    if (!isVisible) return;
+    const t = setTimeout(() => setIntroDone(true), 5100);
+    return () => clearTimeout(t);
+  }, [isVisible]);
+
+  useEffect(() => {
+    if (!introDone) return;
+    setLive(liveYouTubeCount());
+    const id = setInterval(() => setLive(liveYouTubeCount()), 1000);
+    return () => clearInterval(id);
+  }, [introDone]);
+
+  const count = introDone ? live : intro;
+
   return (
     <div ref={ref} className="md:text-right" data-testid="youtube-countup">
       <div className="font-display text-[#E13B2C] text-[40px] md:text-[64px] leading-none tabular-nums">
