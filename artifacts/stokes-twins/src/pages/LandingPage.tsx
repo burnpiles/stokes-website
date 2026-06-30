@@ -661,8 +661,15 @@ export default function LandingPage() {
       {/* Marquee */}
       <div className="border-t border-[#E13B2C] bg-[#0A0A0A] overflow-hidden py-4">
         <div className="whitespace-nowrap flex w-[200%] animate-marq">
-          {Array(4).fill(settings.marqueeText).map((text, i) => (
-            <span key={i} className="font-display text-2xl md:text-3xl text-[#F4F1EA]/20 mx-4">{text}</span>
+          {Array(4).fill(0).map((_, copy) => (
+            <div key={copy} className="flex shrink-0 items-center">
+              {settings.marqueeText.split("·").map((w) => w.trim()).filter(Boolean).map((word, j) => (
+                <span key={j} className="flex items-center font-display text-2xl md:text-3xl text-[#F4F1EA]/20">
+                  {word}
+                  <span className="mx-4 md:mx-6">·</span>
+                </span>
+              ))}
+            </div>
           ))}
         </div>
       </div>
