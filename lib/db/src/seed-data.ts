@@ -235,11 +235,11 @@ export const seedBrands: InsertBrand[] = [
 ];
 
 export const seedJobs: InsertJob[] = [
-  { title: "Head of Production", brand: null, department: "Leadership", location: "LA", type: "On-site · Full-time", applyUrl: "#", active: true, sortOrder: 1 },
-  { title: "Head of Creative", brand: null, department: "Leadership", location: "LA", type: "On-site · Full-time", applyUrl: "#", active: true, sortOrder: 2 },
-  { title: "Producer", brand: null, department: "Production", location: "LA", type: "On-site · Full-time", applyUrl: "#", active: true, sortOrder: 3 },
-  { title: "Story Editor", brand: null, department: "Editorial", location: "LA", type: "Hybrid · Full-time", applyUrl: "#", active: true, sortOrder: 4 },
-  { title: "Shorts Strategist", brand: null, department: "Strategy", location: "Remote (US)", type: "Full-time", applyUrl: "#", active: true, sortOrder: 5 },
+  { title: "Head of Production", brand: null, department: "Leadership", location: "LA", type: "On-site · Full-time", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSdrF5SvcnQfYTF5TxVGS-X5ufcMCevAoo5BC7TrLL16TSLXfg/viewform?usp=dialog", active: true, sortOrder: 1 },
+  { title: "Head of Creative", brand: null, department: "Leadership", location: "LA", type: "On-site · Full-time", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfrV2Rwi57dMyKpWZ6bz0prguf9lJJInblRovFrd-BoPiQddg/viewform?usp=dialog", active: true, sortOrder: 2 },
+  { title: "Producer", brand: null, department: "Production", location: "LA", type: "On-site · Full-time", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSeGPAF7X3b7yoSt2_LHZy2kWUjI4R4Ks0g4TwFlrPFKIQqixw/viewform", active: true, sortOrder: 3 },
+  { title: "Story Editor", brand: null, department: "Editorial", location: "LA", type: "Hybrid · Full-time", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSf2AidLoQixrB7RZJGT0CyFC9Pv5mEDG1h0uCE8srAOMvHrLg/viewform?usp=header", active: true, sortOrder: 4 },
+  { title: "Shorts Strategist", brand: null, department: "Strategy", location: "Remote (US)", type: "Full-time", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSePFMpwqPGwwv3KdPDgaBve2MjLls0BnUvF7rNzOePCoykh0w/viewform?usp=header", active: true, sortOrder: 5 },
   { title: "Compilation Content Strategist", brand: null, department: "Strategy", location: "Remote (US)", type: "Full-time", applyUrl: "#", active: true, sortOrder: 6 },
   { title: "Shorts Editor", brand: null, department: "Post-Production", location: "Remote (US)", type: "Full-time", applyUrl: "#", active: true, sortOrder: 7 },
   { title: "Assistant Editor", brand: null, department: "Post-Production", location: "Remote (US)", type: "Contract", applyUrl: "#", active: true, sortOrder: 8 },
