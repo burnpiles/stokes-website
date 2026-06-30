@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Stokes Twins"
+version = "1.0.0"
+id = "artifacts/stokes-twins"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22302
+
+[services.development]
+run = "pnpm --filter @workspace/stokes-twins run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/stokes-twins", "run", "build" ]
+publicDir = "artifacts/stokes-twins/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22302"
+BASE_PATH = "/"

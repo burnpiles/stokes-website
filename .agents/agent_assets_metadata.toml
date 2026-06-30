@@ -1,0 +1,56 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "K0HBXsWk8fpBLIE2JRZfR"
+uri = "file://artifacts/stokes-twins/src/assets/gaming-cat.png"
+type = "image"
+title = "Gaming category placeholder"
+
+[[generated]]
+id = "8W8DWG1lbRmKZAe8uj3Mq"
+uri = "file://artifacts/stokes-twins/src/assets/outdoor-cat.png"
+type = "image"
+title = "Outdoor category placeholder"
+
+[[generated]]
+id = "CZfnx5jVTzvBryLYG7Biu"
+uri = "file://artifacts/stokes-twins/src/assets/mystery-cat.png"
+type = "image"
+title = "Mystery category placeholder"
+
+[[generated]]
+id = "V_M6SaKAWIMY_zvElTTza"
+uri = "file://artifacts/stokes-twins/src/assets/trophy-cat.png"
+type = "image"
+title = "Trophy category placeholder"
+
+[[generated]]
+id = "qbIvEjb1i3iXlrFSwM4rN"
+uri = "file://artifacts/stokes-twins/src/assets/work-double.png"
+type = "image"
+title = "Double or Nothing thumbnail"
+
+[[generated]]
+id = "Uy9qJLvDvkusGqVJ2jRfX"
+uri = "file://artifacts/stokes-twins/src/assets/work-circle.png"
+type = "image"
+title = "Last to Leave thumbnail"
+
+[[generated]]
+id = "wjX-MBf0O8h3h4C73U6rC"
+uri = "file://artifacts/stokes-twins/src/assets/work-hide.png"
+type = "image"
+title = "Hide and Seek thumbnail"
+
+[[generated]]
+id = "HfeuT-X0Kmt8cr797gmtO"
+uri = "file://artifacts/stokes-twins/src/assets/work-beat.png"
+type = "image"
+title = "Beat the Pro thumbnail"
+
+[[generated]]
+id = "O3OmfqBzMoyuyPzsxCa_n"
+uri = "file://artifacts/stokes-twins/src/assets/work-trophy.png"
+type = "image"
+title = "Trophy Run thumbnail"
