@@ -78,7 +78,7 @@ export const defaultSettings: SiteSettings = {
   },
   footer: {
     description: "CREATOR-LED FAMILY ENTERTAINMENT STUDIO",
-    copyright: "© 2026 STOKES TWINS LLC",
+    copyright: "© 2026 Stokes Empire LLC",
     slogan: "PRESS PLAY · LIVE LOUD · NEVER PAUSE",
   },
 };
