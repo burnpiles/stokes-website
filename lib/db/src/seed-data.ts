@@ -241,7 +241,7 @@ export const seedJobs: InsertJob[] = [
   { title: "Story Editor", brand: null, department: "Editorial", location: "LA", type: "Hybrid · Full-time", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSf2AidLoQixrB7RZJGT0CyFC9Pv5mEDG1h0uCE8srAOMvHrLg/viewform?usp=header", active: true, sortOrder: 4 },
   { title: "Shorts Strategist", brand: null, department: "Strategy", location: "Remote (US)", type: "Full-time", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSePFMpwqPGwwv3KdPDgaBve2MjLls0BnUvF7rNzOePCoykh0w/viewform?usp=header", active: true, sortOrder: 5 },
   { title: "Compilation Content Strategist", brand: null, department: "Strategy", location: "Remote (US)", type: "Full-time", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLScslAGHUagIhJQX3TeU6br6pTufqDI3gcIHL_dPLFx9J_f62A/viewform?usp=publish-editor", active: true, sortOrder: 6 },
-  { title: "Shorts Editor", brand: null, department: "Post-Production", location: "Remote (US)", type: "Full-time", applyUrl: "#", active: true, sortOrder: 7 },
+  { title: "Shorts Editor", brand: null, department: "Post-Production", location: "Remote (US)", type: "Full-time", applyUrl: "https://forms.gle/pj2jrsjbVEBgS7cd9", active: true, sortOrder: 7 },
   { title: "Assistant Editor", brand: null, department: "Post-Production", location: "Remote (US)", type: "Contract", applyUrl: "#", active: true, sortOrder: 8 },
   { title: "Video Editor", brand: "Stokes Twins / Kat", department: "Post-Production", location: "Remote (US)", type: "Full-time", applyUrl: "#", active: true, sortOrder: 9 },
   { title: "Assistant Editor", brand: "Stokes Twins / Kat", department: "Post-Production", location: "Remote (US)", type: "Contract", applyUrl: "#", active: true, sortOrder: 10 },
