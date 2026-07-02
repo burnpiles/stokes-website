@@ -742,6 +742,16 @@ components:
             description: { type: string }
             copyright: { type: string }
             slogan: { type: string }
+        sectionVisibility:
+          type: object
+          required: [numbers, youtube, channels, demographics, partner, careers]
+          properties:
+            numbers: { type: boolean }
+            youtube: { type: boolean }
+            channels: { type: boolean }
+            demographics: { type: boolean }
+            partner: { type: boolean }
+            careers: { type: boolean }
 
     SectionHeading:
       type: object

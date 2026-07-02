@@ -81,6 +81,14 @@ export const defaultSettings: SiteSettings = {
     copyright: "© 2026 Stokes Empire LLC",
     slogan: "PRESS PLAY · LIVE LOUD · NEVER PAUSE",
   },
+  sectionVisibility: {
+    numbers: true,
+    youtube: true,
+    channels: true,
+    demographics: true,
+    partner: true,
+    careers: true,
+  },
 };
 
 export const seedStats: InsertStat[] = [

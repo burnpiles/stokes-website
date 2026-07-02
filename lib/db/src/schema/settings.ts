@@ -47,6 +47,14 @@ export interface SiteSettings {
   };
   careersSection: { eyebrow: string; headline: string; body: string };
   footer: { description: string; copyright: string; slogan: string };
+  sectionVisibility?: {
+    numbers: boolean;
+    youtube: boolean;
+    channels: boolean;
+    demographics: boolean;
+    partner: boolean;
+    careers: boolean;
+  };
 }
 
 export const settingsTable = pgTable("settings", {

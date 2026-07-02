@@ -684,14 +684,26 @@ export default function LandingPage() {
             {settings.hero.tagline}
           </p>
 
-          <a
-            href={settings.hero.ctaHref}
-            className="animate-rise bg-white text-[#0A0A0A] font-display text-[17px] px-[34px] py-[18px] rounded-[3px] hover:bg-[#E13B2C] hover:text-white transition-colors"
-            style={{ animationDelay: '0.4s' }}
-            data-testid="hero-cta-btn"
-          >
-            {settings.hero.ctaLabel}
-          </a>
+          {(() => {
+            const anchorVisibility: Record<string, boolean | undefined> = {
+              "#audience": settings.sectionVisibility?.numbers,
+              "#youtube": settings.sectionVisibility?.youtube,
+              "#channels": settings.sectionVisibility?.channels,
+              "#demographics": settings.sectionVisibility?.demographics,
+              "#partner": settings.sectionVisibility?.partner,
+            };
+            const targetVisible = anchorVisibility[settings.hero.ctaHref] ?? true;
+            return targetVisible ? (
+              <a
+                href={settings.hero.ctaHref}
+                className="animate-rise bg-white text-[#0A0A0A] font-display text-[17px] px-[34px] py-[18px] rounded-[3px] hover:bg-[#E13B2C] hover:text-white transition-colors"
+                style={{ animationDelay: '0.4s' }}
+                data-testid="hero-cta-btn"
+              >
+                {settings.hero.ctaLabel}
+              </a>
+            ) : null;
+          })()}
         </div>
       </section>
 
@@ -712,6 +724,7 @@ export default function LandingPage() {
       </div>
 
       {/* Section 01 - THE NUMBERS */}
+      {(settings.sectionVisibility?.numbers ?? true) && (
       <section id="audience" className="py-20 md:py-32 px-6 bg-[#0A0A0A]" data-testid="section-numbers">
         <div className="max-w-[1440px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 mb-12 md:mb-24">
@@ -734,8 +747,10 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* Section 02 - THE ENGINE (YouTube) */}
+      {(settings.sectionVisibility?.youtube ?? true) && (
       <section id="youtube" className="py-20 md:py-32 px-6 bg-[#0A0A0A] border-t border-[#F4F1EA]/10" data-testid="section-youtube">
         <div className="max-w-[1440px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-[1.6fr_1fr] gap-4 md:gap-12 items-end mb-8 md:mb-16">
@@ -770,8 +785,10 @@ export default function LandingPage() {
           <ShortsCarousel shorts={shorts} />
         </div>
       </section>
+      )}
 
       {/* Section 03 - THE NETWORK */}
+      {(settings.sectionVisibility?.channels ?? true) && (
       <section id="channels" className="relative overflow-hidden py-20 md:py-32 px-6 bg-[#0A0A0A] border-t border-[#F4F1EA]/10" data-testid="section-channels">
         <BackgroundVideo base="image23" className="absolute inset-0 z-0" overlayClassName="absolute inset-0 bg-[#0A0A0A]/80" />
         <div className="relative z-10 max-w-[1440px] mx-auto">
@@ -826,8 +843,10 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* Section 04 - WHO'S WATCHING */}
+      {(settings.sectionVisibility?.demographics ?? true) && (
       <section id="demographics" className="py-20 md:py-32 px-6 bg-[#F4F1EA] text-[#0A0A0A]" data-testid="section-demographics">
         <div className="max-w-[1440px] mx-auto">
           <div className="mb-10 md:mb-16">
@@ -838,8 +857,10 @@ export default function LandingPage() {
           <DemographicsPanel demographics={demographics} settings={settings} />
         </div>
       </section>
+      )}
 
       {/* Partner CTA */}
+      {(settings.sectionVisibility?.partner ?? true) && (
       <section id="partner" className="py-20 md:py-32 px-6 bg-[#E13B2C] text-white text-center" data-testid="section-partner-cta">
         <div className="max-w-[1000px] mx-auto">
           <h3 className="font-mono font-bold text-xs tracking-[0.3em] mb-8 text-white/90">{settings.partnerSection.eyebrow}</h3>
@@ -897,8 +918,10 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* Careers Teaser */}
+      {(settings.sectionVisibility?.careers ?? true) && (
       <section className="py-20 md:py-32 px-6 bg-[#141210] border-t border-[#F4F1EA]/10" data-testid="section-careers-teaser">
         <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
@@ -919,6 +942,7 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+      )}
 
       <Footer />
 

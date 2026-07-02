@@ -34,6 +34,7 @@ export * from './settingsEngagement';
 export * from './settingsFooter';
 export * from './settingsHero';
 export * from './settingsPartnerSection';
+export * from './settingsSectionVisibility';
 export * from './settingsSocials';
 export * from './settingsYoutubeCounter';
 export * from './short';

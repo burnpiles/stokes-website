@@ -12,6 +12,7 @@ import type { SettingsEngagement } from './settingsEngagement';
 import type { SettingsFooter } from './settingsFooter';
 import type { SettingsHero } from './settingsHero';
 import type { SettingsPartnerSection } from './settingsPartnerSection';
+import type { SettingsSectionVisibility } from './settingsSectionVisibility';
 import type { SettingsSocials } from './settingsSocials';
 import type { SettingsYoutubeCounter } from './settingsYoutubeCounter';
 
@@ -28,4 +29,5 @@ export interface Settings {
   partnerSection: SettingsPartnerSection;
   careersSection: SettingsCareersSection;
   footer: SettingsFooter;
+  sectionVisibility?: SettingsSectionVisibility;
 }

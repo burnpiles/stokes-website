@@ -90,6 +90,15 @@ export type SettingsFooter = {
   slogan: string;
 };
 
+export type SettingsSectionVisibility = {
+  numbers: boolean;
+  youtube: boolean;
+  channels: boolean;
+  demographics: boolean;
+  partner: boolean;
+  careers: boolean;
+};
+
 export interface Settings {
   hero: SettingsHero;
   marqueeText: string;
@@ -103,6 +112,7 @@ export interface Settings {
   partnerSection: SettingsPartnerSection;
   careersSection: SettingsCareersSection;
   footer: SettingsFooter;
+  sectionVisibility?: SettingsSectionVisibility;
 }
 
 export interface Stat {

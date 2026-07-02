@@ -96,7 +96,15 @@ export const GetContentResponse = zod.object({
   "description": zod.string(),
   "copyright": zod.string(),
   "slogan": zod.string()
-})
+}),
+  "sectionVisibility": zod.object({
+  "numbers": zod.boolean(),
+  "youtube": zod.boolean(),
+  "channels": zod.boolean(),
+  "demographics": zod.boolean(),
+  "partner": zod.boolean(),
+  "careers": zod.boolean()
+}).optional()
 }),
   "stats": zod.array(zod.object({
   "id": zod.number(),
@@ -274,7 +282,15 @@ export const UpdateSettingsBody = zod.object({
   "description": zod.string(),
   "copyright": zod.string(),
   "slogan": zod.string()
-})
+}),
+  "sectionVisibility": zod.object({
+  "numbers": zod.boolean(),
+  "youtube": zod.boolean(),
+  "channels": zod.boolean(),
+  "demographics": zod.boolean(),
+  "partner": zod.boolean(),
+  "careers": zod.boolean()
+}).optional()
 })
 
 export const UpdateSettingsResponse = zod.object({
@@ -352,7 +368,15 @@ export const UpdateSettingsResponse = zod.object({
   "description": zod.string(),
   "copyright": zod.string(),
   "slogan": zod.string()
-})
+}),
+  "sectionVisibility": zod.object({
+  "numbers": zod.boolean(),
+  "youtube": zod.boolean(),
+  "channels": zod.boolean(),
+  "demographics": zod.boolean(),
+  "partner": zod.boolean(),
+  "careers": zod.boolean()
+}).optional()
 })
 
 

@@ -33,6 +33,17 @@ export function SettingsEditor({ settings, onSave }: { settings: Settings; onSav
   }
 
   const s = draft;
+  const vis = s.sectionVisibility ?? {
+    numbers: true,
+    youtube: true,
+    channels: true,
+    demographics: true,
+    partner: true,
+    careers: true,
+  };
+  function patchVis(key: keyof typeof vis, value: boolean) {
+    patch("sectionVisibility", { ...vis, [key]: value });
+  }
 
   return (
     <div>
@@ -50,6 +61,18 @@ export function SettingsEditor({ settings, onSave }: { settings: Settings; onSav
       </div>
 
       <div className="space-y-4">
+        <Section title="Section Visibility">
+          <p className="col-span-2 font-sans text-xs text-[#F4F1EA]/50 -mt-1">
+            Toggle a section live or hidden on the public site. Changes apply when you hit Save Settings.
+          </p>
+          <BoolField label="01 — The Numbers · LIVE" value={vis.numbers} onChange={(v) => patchVis("numbers", v)} />
+          <BoolField label="02 — The Engine (YouTube) · LIVE" value={vis.youtube} onChange={(v) => patchVis("youtube", v)} />
+          <BoolField label="03 — The Network · LIVE" value={vis.channels} onChange={(v) => patchVis("channels", v)} />
+          <BoolField label="04 — Who's Watching · LIVE" value={vis.demographics} onChange={(v) => patchVis("demographics", v)} />
+          <BoolField label="05 — Partner CTA · LIVE" value={vis.partner} onChange={(v) => patchVis("partner", v)} />
+          <BoolField label="Careers Teaser · LIVE" value={vis.careers} onChange={(v) => patchVis("careers", v)} />
+        </Section>
+
         <Section title="Hero">
           <TextField label="Eyebrow" value={s.hero.eyebrow} onChange={(v) => patch("hero", { ...s.hero, eyebrow: v })} full />
           <TextAreaField label="Tagline" value={s.hero.tagline} onChange={(v) => patch("hero", { ...s.hero, tagline: v })} />

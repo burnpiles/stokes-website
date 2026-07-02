@@ -76,6 +76,14 @@ export const defaultSettings: Settings = {
     copyright: "© 2026 Stokes Empire LLC",
     slogan: "PRESS PLAY · LIVE LOUD · NEVER PAUSE",
   },
+  sectionVisibility: {
+    numbers: true,
+    youtube: true,
+    channels: true,
+    demographics: true,
+    partner: true,
+    careers: true,
+  },
 };
 
 export const defaultContent: Content = {
@@ -187,7 +195,15 @@ function pick<T>(arr: T[] | undefined | null, fallback: T[]): T[] {
 export function mergeContent(data: Content | undefined): Content {
   if (!data) return defaultContent;
   return {
-    settings: data.settings ?? defaultContent.settings,
+    settings: data.settings
+      ? {
+          ...data.settings,
+          sectionVisibility: {
+            ...defaultSettings.sectionVisibility!,
+            ...data.settings.sectionVisibility,
+          },
+        }
+      : defaultContent.settings,
     stats: pick(data.stats, defaultContent.stats),
     platforms: pick(data.platforms, defaultContent.platforms),
     videos: pick(data.videos, defaultContent.videos),
