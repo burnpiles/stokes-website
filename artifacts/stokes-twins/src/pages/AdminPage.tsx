@@ -162,10 +162,10 @@ function Dashboard() {
   ];
   const jobFields: FieldDef[] = [
     { key: "title", label: "Title", type: "text" },
-    { key: "brand", label: "Brand (optional)", type: "text" },
+    { key: "brand", label: "Card tag (shown on the job card — leave blank for \"Stokes Twins\")", type: "text", placeholder: "e.g. Stokes Twins / Kat" },
     { key: "department", label: "Department", type: "text" },
     { key: "location", label: "Location", type: "text" },
-    { key: "type", label: "Type", type: "text" },
+    { key: "type", label: "Type", type: "multiselect", options: ["On-site", "Hybrid", "Remote", "Full-time", "Part-time", "Contract"] },
     { key: "applyUrl", label: "Apply URL", type: "text" },
     { key: "active", label: "Active", type: "boolean" },
     { key: "sortOrder", label: "Sort Order", type: "number" },

@@ -77,7 +77,7 @@ export default function CareersPage() {
               >
                 <div>
                   <div className="inline-block border border-[#E13B2C]/50 px-2 py-1 rounded text-[#E13B2C] font-mono text-[10px] font-bold tracking-widest mb-4 bg-[#E13B2C]/10">
-                    {(role.brand ?? "Stokes Twins").toUpperCase()}
+                    {(role.brand?.trim() || "Stokes Twins").toUpperCase()}
                   </div>
                   <h3 className="font-display text-3xl md:text-4xl mb-4 group-hover:text-[#E13B2C] transition-colors">
                     {role.title}

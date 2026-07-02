@@ -13,13 +13,52 @@ import {
 } from "./AdminPrimitives";
 import type { BrandStat } from "@workspace/api-client-react";
 
-export type FieldType = "text" | "number" | "textarea" | "boolean" | "tags" | "image" | "brandstats";
+export type FieldType = "text" | "number" | "textarea" | "boolean" | "tags" | "image" | "brandstats" | "multiselect";
 
 export interface FieldDef {
   key: string;
   label: string;
   type: FieldType;
   placeholder?: string;
+  options?: string[];
+}
+
+const MULTI_SEPARATOR = " · ";
+
+function MultiSelectField({ label, value, options, onChange }: { label: string; value: string; options: string[]; onChange: (v: string) => void }) {
+  const selected = value.split(MULTI_SEPARATOR).map((s) => s.trim()).filter(Boolean);
+
+  function toggle(option: string) {
+    const next = selected.includes(option)
+      ? selected.filter((s) => s !== option)
+      : [...options.filter((o) => selected.includes(o) || o === option)];
+    onChange(next.join(MULTI_SEPARATOR));
+  }
+
+  return (
+    <div className="col-span-2 md:col-span-1">
+      <label className="block font-mono text-[10px] tracking-[0.18em] text-[#F4F1EA]/50 uppercase mb-2">{label}</label>
+      <div className="flex flex-wrap gap-2">
+        {options.map((option) => {
+          const active = selected.includes(option);
+          return (
+            <button
+              key={option}
+              type="button"
+              onClick={() => toggle(option)}
+              className={`font-mono text-xs px-3 py-2 rounded-[4px] border transition-colors ${
+                active
+                  ? "bg-[#E13B2C] border-[#E13B2C] text-white"
+                  : "bg-[#0A0A0A] border-[#F4F1EA]/15 text-[#F4F1EA]/60 hover:border-[#E13B2C]/50 hover:text-[#F4F1EA]"
+              }`}
+            >
+              {option}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 type Draft = Record<string, unknown>;
@@ -84,6 +123,8 @@ function renderField(field: FieldDef, draft: Draft, set: (key: string, v: unknow
       return <ImageField key={field.key} label={field.label} value={String(v ?? "")} onChange={(nv) => set(field.key, nv)} />;
     case "brandstats":
       return <BrandStatsEditor key={field.key} value={Array.isArray(v) ? (v as BrandStat[]) : []} onChange={(nv) => set(field.key, nv)} />;
+    case "multiselect":
+      return <MultiSelectField key={field.key} label={field.label} value={String(v ?? "")} options={field.options ?? []} onChange={(nv) => set(field.key, nv)} />;
     default:
       return <TextField key={field.key} label={field.label} value={String(v ?? "")} placeholder={field.placeholder} onChange={(nv) => set(field.key, nv)} />;
   }
