@@ -57,8 +57,9 @@ function DataGate({ email, children }: { email: string; children: React.ReactNod
       <div className="pointer-events-none select-none blur-[14px] opacity-60" aria-hidden="true">
         {children}
       </div>
-      <div className="absolute inset-0 z-10 flex items-center justify-center px-4">
-        <div className="w-full max-w-[520px] bg-[#0A0A0A]/90 backdrop-blur-sm text-[#F4F1EA] rounded-[8px] border border-[#0A0A0A]/20 shadow-2xl p-8 md:p-10 text-center">
+      <div className="absolute inset-0 z-10 px-4">
+        <div className="sticky top-24 md:top-32 flex justify-center py-4">
+          <div className="w-full max-w-[520px] bg-[#0A0A0A]/90 backdrop-blur-sm text-[#F4F1EA] rounded-[8px] border border-[#0A0A0A]/20 shadow-2xl p-8 md:p-10 text-center">
           <div className="font-mono text-[11px] tracking-[0.3em] text-[#8FA9FF] font-bold mb-4">
             🔒 CLASSIFIED — BRAND EYES ONLY
           </div>
@@ -98,6 +99,7 @@ function DataGate({ email, children }: { email: string; children: React.ReactNod
                 : "SOMETHING GLITCHED — TRY AGAIN IN A SEC."}
             </div>
           )}
+          </div>
         </div>
       </div>
     </div>
