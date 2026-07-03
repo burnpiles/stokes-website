@@ -59,7 +59,7 @@ function DataGate({ email, children }: { email: string; children: React.ReactNod
       </div>
       <div className="absolute inset-0 z-10 flex items-center justify-center px-4">
         <div className="w-full max-w-[520px] bg-[#0A0A0A]/90 backdrop-blur-sm text-[#F4F1EA] rounded-[8px] border border-[#0A0A0A]/20 shadow-2xl p-8 md:p-10 text-center">
-          <div className="font-mono text-[11px] tracking-[0.3em] text-[#5B7CFF] font-bold mb-4">
+          <div className="font-mono text-[11px] tracking-[0.3em] text-[#8FA9FF] font-bold mb-4">
             🔒 CLASSIFIED — BRAND EYES ONLY
           </div>
           <h3 className="font-display text-2xl md:text-3xl leading-tight mb-3">
@@ -68,7 +68,7 @@ function DataGate({ email, children }: { email: string; children: React.ReactNod
           <p className="font-sans text-sm md:text-base text-[#F4F1EA]/70 mb-6">
             The full audience breakdown lives behind this velvet rope. Working with us?
             Your Stokes contact has the password. Not yet?{" "}
-            <a href={`mailto:${email}`} className="underline decoration-[#5B7CFF] underline-offset-4 hover:text-[#5B7CFF] transition-colors">
+            <a href={`mailto:${email}`} className="underline decoration-[#8FA9FF] underline-offset-4 hover:text-[#8FA9FF] transition-colors">
               Slide into our inbox
             </a>{" "}
             and we'll hand you the key.
@@ -80,13 +80,13 @@ function DataGate({ email, children }: { email: string; children: React.ReactNod
               onChange={(e) => { setPassword(e.target.value); setError(null); }}
               placeholder="Password"
               data-testid="input-data-password"
-              className="flex-1 bg-[#F4F1EA]/10 border border-[#F4F1EA]/20 rounded-[4px] px-4 py-3 font-mono text-sm text-[#F4F1EA] placeholder:text-[#F4F1EA]/40 focus:outline-none focus:border-[#5B7CFF]"
+              className="flex-1 bg-[#F4F1EA]/10 border border-[#F4F1EA]/20 rounded-[4px] px-4 py-3 font-mono text-sm text-[#F4F1EA] placeholder:text-[#F4F1EA]/40 focus:outline-none focus:border-[#8FA9FF]"
             />
             <button
               type="submit"
               disabled={unlock.isPending}
               data-testid="button-data-unlock"
-              className="bg-[#5B7CFF] text-[#0A0A0A] font-display text-base px-6 py-3 rounded-[4px] hover:bg-[#F4F1EA] transition-colors disabled:opacity-60"
+              className="bg-[#8FA9FF] text-[#0A0A0A] font-display text-base px-6 py-3 rounded-[4px] hover:bg-[#F4F1EA] transition-colors disabled:opacity-60"
             >
               {unlock.isPending ? "CHECKING…" : "UNLOCK →"}
             </button>
@@ -205,11 +205,11 @@ function StatBandItem({ end, suffix, label, desc, delay }: { end: number, suffix
   const count = useCountUp(isVisible ? target : 0, 2200);
 
   return (
-    <div ref={ref} className={`border-t-2 border-[#5B7CFF] pt-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+    <div ref={ref} className={`border-t-2 border-[#8FA9FF] pt-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
       <div className="font-display text-[#F4F1EA] leading-none mb-4 tabular-nums text-[clamp(34px,3.8vw,58px)] whitespace-nowrap">
         {isTextStat ? suffix : multiplier === 1 ? `${count}${plus}` : formatStatValue(count, plus)}
       </div>
-      <div className="font-mono font-bold text-xs tracking-widest text-[#5B7CFF] mb-2">{label}</div>
+      <div className="font-mono font-bold text-xs tracking-widest text-[#8FA9FF] mb-2">{label}</div>
       <div className="text-[#F4F1EA]/60 text-sm">{desc}</div>
     </div>
   );
@@ -850,7 +850,7 @@ export default function LandingPage() {
         <div className="max-w-[1440px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 mb-12 md:mb-24">
             <div>
-              <h3 className="font-mono text-[#5B7CFF] text-sm tracking-[0.2em] font-bold mb-4 md:mb-6">{settings.statsSection.eyebrow}</h3>
+              <h3 className="font-mono text-[#8FA9FF] text-sm tracking-[0.2em] font-bold mb-4 md:mb-6">{settings.statsSection.eyebrow}</h3>
               <h2 className="font-display text-[40px] md:text-[64px] leading-[1.1]">{settings.statsSection.headline}</h2>
             </div>
             <div>
@@ -1048,7 +1048,7 @@ export default function LandingPage() {
       <section id="press" className="py-20 md:py-32 px-6 bg-[#0A0A0A] border-t border-[#F4F1EA]/10" data-testid="section-press">
         <div className="max-w-[1440px] mx-auto">
           <div className="mb-12 md:mb-20">
-            <h3 className="font-mono text-[#5B7CFF] text-sm tracking-[0.2em] font-bold mb-4 md:mb-6">{settings.pressSection?.eyebrow}</h3>
+            <h3 className="font-mono text-[#8FA9FF] text-sm tracking-[0.2em] font-bold mb-4 md:mb-6">{settings.pressSection?.eyebrow}</h3>
             <h2 className="font-display text-[40px] md:text-[64px] leading-[1.1]">{settings.pressSection?.headline}</h2>
           </div>
 
@@ -1060,7 +1060,7 @@ export default function LandingPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-testid={`press-card-${item.id}`}
-                className="group block bg-[#141210] border border-[#F4F1EA]/10 rounded-[6px] overflow-hidden hover:border-[#5B7CFF]/60 transition-colors"
+                className="group block bg-[#141210] border border-[#F4F1EA]/10 rounded-[6px] overflow-hidden hover:border-[#8FA9FF]/60 transition-colors"
                 style={{
                   animation: `brandReveal 0.6s cubic-bezier(0.16,1,0.3,1) both`,
                   animationDelay: `${0.1 + i * 0.1}s`,
@@ -1075,11 +1075,11 @@ export default function LandingPage() {
                   />
                 </div>
                 <div className="p-5 md:p-6">
-                  <div className="font-mono text-[10px] tracking-[0.2em] text-[#5B7CFF] uppercase mb-3">{item.outlet}</div>
-                  <div className="font-display text-xl md:text-2xl leading-[1.15] group-hover:text-[#5B7CFF] transition-colors">{item.title}</div>
+                  <div className="font-mono text-[10px] tracking-[0.2em] text-[#8FA9FF] uppercase mb-3">{item.outlet}</div>
+                  <div className="font-display text-xl md:text-2xl leading-[1.15] group-hover:text-[#8FA9FF] transition-colors">{item.title}</div>
                   <div className="mt-4 font-mono text-[10px] tracking-[0.18em] text-[#F4F1EA]/40 uppercase flex items-center gap-2">
                     Read the story
-                    <span className="text-[#5B7CFF] group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    <span className="text-[#8FA9FF] group-hover:translate-x-1 transition-transform duration-300">→</span>
                   </div>
                 </div>
               </a>
