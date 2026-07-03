@@ -8,7 +8,6 @@
 import type { SectionHeading } from './sectionHeading';
 import type { SettingsCareersSection } from './settingsCareersSection';
 import type { SettingsDemographicsSection } from './settingsDemographicsSection';
-import type { SettingsEngagement } from './settingsEngagement';
 import type { SettingsFooter } from './settingsFooter';
 import type { SettingsHero } from './settingsHero';
 import type { SettingsPartnerSection } from './settingsPartnerSection';
@@ -26,7 +25,6 @@ export interface Settings {
   youtubeSection: SectionHeading;
   networkSection: SectionHeading;
   demographicsSection: SettingsDemographicsSection;
-  engagement: SettingsEngagement;
   partnerSection: SettingsPartnerSection;
   careersSection: SettingsCareersSection;
   pressSection?: SettingsPressSection;

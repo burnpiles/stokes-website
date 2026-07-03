@@ -68,15 +68,11 @@ export const GetContentResponse = zod.object({
   "demographicsSection": zod.object({
   "eyebrow": zod.string(),
   "headline": zod.string(),
+  "sourceNote": zod.string(),
   "ageSubcopy": zod.string(),
   "genderSubcopy": zod.string(),
-  "geographySubcopy": zod.string()
-}),
-  "engagement": zod.object({
-  "avgRetention": zod.number(),
-  "likes": zod.string(),
-  "comments": zod.string(),
-  "shares": zod.string()
+  "geographySubcopy": zod.string(),
+  "deviceSubcopy": zod.string()
 }),
   "partnerSection": zod.object({
   "eyebrow": zod.string(),
@@ -272,15 +268,11 @@ export const UpdateSettingsBody = zod.object({
   "demographicsSection": zod.object({
   "eyebrow": zod.string(),
   "headline": zod.string(),
+  "sourceNote": zod.string(),
   "ageSubcopy": zod.string(),
   "genderSubcopy": zod.string(),
-  "geographySubcopy": zod.string()
-}),
-  "engagement": zod.object({
-  "avgRetention": zod.number(),
-  "likes": zod.string(),
-  "comments": zod.string(),
-  "shares": zod.string()
+  "geographySubcopy": zod.string(),
+  "deviceSubcopy": zod.string()
 }),
   "partnerSection": zod.object({
   "eyebrow": zod.string(),
@@ -363,15 +355,11 @@ export const UpdateSettingsResponse = zod.object({
   "demographicsSection": zod.object({
   "eyebrow": zod.string(),
   "headline": zod.string(),
+  "sourceNote": zod.string(),
   "ageSubcopy": zod.string(),
   "genderSubcopy": zod.string(),
-  "geographySubcopy": zod.string()
-}),
-  "engagement": zod.object({
-  "avgRetention": zod.number(),
-  "likes": zod.string(),
-  "comments": zod.string(),
-  "shares": zod.string()
+  "geographySubcopy": zod.string(),
+  "deviceSubcopy": zod.string()
 }),
   "partnerSection": zod.object({
   "eyebrow": zod.string(),

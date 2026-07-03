@@ -9,7 +9,9 @@
 export type SettingsDemographicsSection = {
   eyebrow: string;
   headline: string;
+  sourceNote: string;
   ageSubcopy: string;
   genderSubcopy: string;
   geographySubcopy: string;
+  deviceSubcopy: string;
 };

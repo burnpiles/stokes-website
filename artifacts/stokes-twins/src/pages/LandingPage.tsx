@@ -205,9 +205,9 @@ function PlatformCard({ p, i }: { p: Platform; i: number }) {
   );
 }
 
-function VBarLight({ label, percent, peak, delay }: { label: string; percent: number; peak: boolean; delay: number }) {
+function VBarLight({ label, percent, max, peak, delay }: { label: string; percent: number; max: number; peak: boolean; delay: number }) {
   const { ref, isVisible } = useReveal(delay);
-  const height = useBarGrow(isVisible ? (percent / 35) * 100 : 0);
+  const height = useBarGrow(isVisible ? (percent / (max * 1.05)) * 100 : 0);
   return (
     <div ref={ref} className="flex flex-col items-center justify-end h-[280px]">
       <div className="w-full relative flex items-end justify-center flex-grow mb-4">
@@ -239,23 +239,12 @@ function HBar({ label, percent, max, accent, delay }: { label: string; percent: 
   );
 }
 
-function RetentionRing({ percent, delay }: { percent: number; delay: number }) {
+function DeviceHero({ percent, label, delay }: { percent: number; label: string; delay: number }) {
   const { ref, isVisible } = useReveal(delay);
-  const grow = useBarGrow(isVisible ? percent : 0);
-  const display = useCountUp(isVisible ? percent : 0);
-  const r = 78;
-  const circ = 2 * Math.PI * r;
-  const offset = circ - (grow / 100) * circ;
   return (
-    <div ref={ref} className="relative flex items-center justify-center w-[200px] h-[200px]">
-      <svg width="200" height="200" viewBox="0 0 200 200" className="-rotate-90">
-        <circle cx="100" cy="100" r={r} fill="none" stroke="#0A0A0A" strokeOpacity="0.1" strokeWidth="16" />
-        <circle cx="100" cy="100" r={r} fill="none" stroke="#E13B2C" strokeWidth="16" strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={offset} style={{ transition: 'stroke-dashoffset 0.075s linear' }} />
-      </svg>
-      <div className="absolute text-center">
-        <div className="font-display text-[56px] leading-none text-[#0A0A0A]">{display}%</div>
-        <div className="font-mono text-[10px] tracking-[0.2em] text-[#0A0A0A]/50 mt-1">AVG RETENTION</div>
-      </div>
+    <div ref={ref} className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+      <div className="font-display text-[72px] md:text-[88px] leading-none text-[#E13B2C]">{percent}%</div>
+      <div className="font-mono text-[12px] tracking-[0.25em] font-bold text-[#0A0A0A]/70 mt-3">{label.toUpperCase()}</div>
     </div>
   );
 }
@@ -307,9 +296,15 @@ function DemographicsPanel({ demographics, settings }: { demographics: Demograph
   const age = byCat("age");
   const gender = byCat("gender");
   const geo = byCat("geography");
-  const geoMax = Math.max(...geo.map((g) => g.percent), 1);
+  const devices = byCat("device");
+  const isGeoSummary = (label: string) => /^rest of/i.test(label);
+  const geoBars = geo.filter((d) => !isGeoSummary(d.label));
+  const geoRest = geo.filter((d) => isGeoSummary(d.label));
+  const geoMax = Math.max(...geoBars.map((g) => g.percent), 1);
+  const ageMax = Math.max(...age.map((a) => a.percent), 1);
+  const deviceHero = devices.find((d) => d.highlight) ?? devices[0];
+  const deviceRest = devices.filter((d) => d !== deviceHero);
   const demoCopy = settings.demographicsSection;
-  const eng = settings.engagement;
 
   return (
     <div className="space-y-6">
@@ -318,7 +313,7 @@ function DemographicsPanel({ demographics, settings }: { demographics: Demograph
         <DemoPanel label="AGE" subcopy={demoCopy.ageSubcopy} className="lg:col-span-7">
           <div className="grid gap-4" style={{ gridTemplateColumns: `repeat(${age.length || 1}, minmax(0, 1fr))` }}>
             {age.map((d, i) => (
-              <VBarLight key={d.id} label={d.label} percent={d.percent} peak={d.highlight} delay={i * 80} />
+              <VBarLight key={d.id} label={d.label} percent={d.percent} max={ageMax} peak={d.highlight} delay={i * 80} />
             ))}
           </div>
         </DemoPanel>
@@ -336,21 +331,28 @@ function DemographicsPanel({ demographics, settings }: { demographics: Demograph
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <DemoPanel label="GEOGRAPHY" subcopy={demoCopy.geographySubcopy} className="lg:col-span-5">
           <div className="space-y-6">
-            {geo.map((d, i) => (
-              <HBar key={d.id} label={d.label} percent={d.percent} max={geoMax} accent={d.percent === geoMax} delay={i * 100} />
+            {geoBars.map((d, i) => (
+              <HBar key={d.id} label={d.label} percent={d.percent} max={geoMax} accent={d.highlight} delay={i * 100} />
+            ))}
+            {geoRest.map((d) => (
+              <div key={d.id} className="flex items-center justify-between border-t border-[#0A0A0A]/10 pt-5">
+                <div className="font-mono text-sm text-[#0A0A0A]/60">{d.label}</div>
+                <div className="font-mono font-bold text-sm text-[#0A0A0A]">{d.percent}%</div>
+              </div>
             ))}
           </div>
         </DemoPanel>
 
-        <DemoPanel label="ENGAGEMENT" className="lg:col-span-7">
+        <DemoPanel label="DEVICE TYPE" className="lg:col-span-7">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 items-center">
-            <div className="flex justify-center sm:justify-start">
-              <RetentionRing percent={eng.avgRetention} delay={0} />
+            <div>
+              {deviceHero && <DeviceHero percent={deviceHero.percent} label={deviceHero.label} delay={0} />}
+              <p className="font-sans text-[15px] text-[#0A0A0A]/55 leading-relaxed mt-6 max-w-[380px]">{demoCopy.deviceSubcopy}</p>
             </div>
             <div className="grid grid-cols-1 gap-6">
-              <MetricCard value={eng.likes} label="LIKES / VIDEO" delay={120} />
-              <MetricCard value={eng.comments} label="COMMENTS / VIDEO" delay={240} />
-              <MetricCard value={eng.shares} label="SHARES / VIDEO" delay={360} />
+              {deviceRest.map((d, i) => (
+                <MetricCard key={d.id} value={`${d.percent}%`} label={d.label.toUpperCase()} delay={120 + i * 120} />
+              ))}
             </div>
           </div>
         </DemoPanel>
@@ -883,6 +885,12 @@ export default function LandingPage() {
           <div className="mb-10 md:mb-16">
             <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">{settings.demographicsSection.eyebrow}</h3>
             <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1] max-w-[800px]">{settings.demographicsSection.headline}</h2>
+            {settings.demographicsSection.sourceNote && (
+              <div className="inline-flex items-center gap-2 mt-6 px-3 py-1.5 rounded-full border border-[#0A0A0A]/15 font-mono text-[11px] tracking-[0.15em] text-[#0A0A0A]/60" data-testid="demographics-source-note">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E13B2C]" />
+                {settings.demographicsSection.sourceNote.toUpperCase()}
+              </div>
+            )}
           </div>
 
           <DemographicsPanel demographics={demographics} settings={settings} />

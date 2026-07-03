@@ -124,16 +124,11 @@ export function SettingsEditor({ settings, onSave }: { settings: Settings; onSav
         <Section title="Demographics Section (04)">
           <TextField label="Eyebrow" value={s.demographicsSection.eyebrow} onChange={(v) => patch("demographicsSection", { ...s.demographicsSection, eyebrow: v })} />
           <TextField label="Headline" value={s.demographicsSection.headline} onChange={(v) => patch("demographicsSection", { ...s.demographicsSection, headline: v })} />
+          <TextField label="Source Note" value={s.demographicsSection.sourceNote} onChange={(v) => patch("demographicsSection", { ...s.demographicsSection, sourceNote: v })} />
           <TextAreaField label="Age Subcopy" value={s.demographicsSection.ageSubcopy} onChange={(v) => patch("demographicsSection", { ...s.demographicsSection, ageSubcopy: v })} />
           <TextAreaField label="Gender Subcopy" value={s.demographicsSection.genderSubcopy} onChange={(v) => patch("demographicsSection", { ...s.demographicsSection, genderSubcopy: v })} />
           <TextAreaField label="Geography Subcopy" value={s.demographicsSection.geographySubcopy} onChange={(v) => patch("demographicsSection", { ...s.demographicsSection, geographySubcopy: v })} />
-        </Section>
-
-        <Section title="Engagement Metrics">
-          <NumberField label="Avg Retention (%)" value={s.engagement.avgRetention} onChange={(v) => patch("engagement", { ...s.engagement, avgRetention: v })} />
-          <TextField label="Likes / Video" value={s.engagement.likes} onChange={(v) => patch("engagement", { ...s.engagement, likes: v })} />
-          <TextField label="Comments / Video" value={s.engagement.comments} onChange={(v) => patch("engagement", { ...s.engagement, comments: v })} />
-          <TextField label="Shares / Video" value={s.engagement.shares} onChange={(v) => patch("engagement", { ...s.engagement, shares: v })} />
+          <TextAreaField label="Device Subcopy" value={s.demographicsSection.deviceSubcopy} onChange={(v) => patch("demographicsSection", { ...s.demographicsSection, deviceSubcopy: v })} />
         </Section>
 
         <Section title="Partner Section (05)">

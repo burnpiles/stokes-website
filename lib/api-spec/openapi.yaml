@@ -713,7 +713,6 @@ components:
         - youtubeSection
         - networkSection
         - demographicsSection
-        - engagement
         - partnerSection
         - careersSection
         - footer
@@ -752,21 +751,15 @@ components:
           $ref: "#/components/schemas/SectionHeading"
         demographicsSection:
           type: object
-          required: [eyebrow, headline, ageSubcopy, genderSubcopy, geographySubcopy]
+          required: [eyebrow, headline, sourceNote, ageSubcopy, genderSubcopy, geographySubcopy, deviceSubcopy]
           properties:
             eyebrow: { type: string }
             headline: { type: string }
+            sourceNote: { type: string }
             ageSubcopy: { type: string }
             genderSubcopy: { type: string }
             geographySubcopy: { type: string }
-        engagement:
-          type: object
-          required: [avgRetention, likes, comments, shares]
-          properties:
-            avgRetention: { type: integer }
-            likes: { type: string }
-            comments: { type: string }
-            shares: { type: string }
+            deviceSubcopy: { type: string }
         partnerSection:
           type: object
           required: [eyebrow, headline, subcopy, email, mediaKitUrl, brandsLogline, showBrandModal]

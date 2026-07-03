@@ -56,16 +56,11 @@ export type SettingsYoutubeCounter = {
 export type SettingsDemographicsSection = {
   eyebrow: string;
   headline: string;
+  sourceNote: string;
   ageSubcopy: string;
   genderSubcopy: string;
   geographySubcopy: string;
-};
-
-export type SettingsEngagement = {
-  avgRetention: number;
-  likes: string;
-  comments: string;
-  shares: string;
+  deviceSubcopy: string;
 };
 
 export type SettingsPartnerSection = {
@@ -114,7 +109,6 @@ export interface Settings {
   youtubeSection: SectionHeading;
   networkSection: SectionHeading;
   demographicsSection: SettingsDemographicsSection;
-  engagement: SettingsEngagement;
   partnerSection: SettingsPartnerSection;
   careersSection: SettingsCareersSection;
   pressSection?: SettingsPressSection;

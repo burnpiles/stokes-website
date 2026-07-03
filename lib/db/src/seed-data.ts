@@ -48,18 +48,15 @@ export const defaultSettings: SiteSettings = {
   demographicsSection: {
     eyebrow: "04 — WHO'S WATCHING",
     headline: "Gen-Z and young millennials, leaning all the way in.",
+    sourceNote: "YouTube Audience · Lifetime",
     ageSubcopy:
-      "More than half the audience is under 25 — the demographic brands fight hardest to reach.",
+      "The core is 25–44 — nearly two-thirds of the audience sits in peak spending years.",
     genderSubcopy:
       "A balanced, family-first audience — co-viewing across parents and kids drives a broad, brand-safe reach.",
     geographySubcopy:
-      "A truly global footprint — anchored in the US, with strength across 190+ markets.",
-  },
-  engagement: {
-    avgRetention: 71,
-    likes: "2.4M",
-    comments: "84K",
-    shares: "1.1M",
+      "A truly global footprint — anchored in the US, with deep strength across Asia and Latin America across 190+ markets.",
+    deviceSubcopy:
+      "More than half of all watch time happens on the living-room screen — premium CTV reach.",
   },
   partnerSection: {
     eyebrow: "05 — PRESS PLAY WITH US",
@@ -124,20 +121,24 @@ export const seedShorts: InsertShort[] = [
 ];
 
 export const seedDemographics: InsertDemographic[] = [
-  { category: "age", label: "13–17", percent: 22, highlight: false, sortOrder: 1 },
-  { category: "age", label: "18–24", percent: 31, highlight: true, sortOrder: 2 },
-  { category: "age", label: "25–34", percent: 27, highlight: false, sortOrder: 3 },
-  { category: "age", label: "35–44", percent: 13, highlight: false, sortOrder: 4 },
-  { category: "age", label: "45+", percent: 7, highlight: false, sortOrder: 5 },
-  { category: "gender", label: "Male", percent: 58, highlight: false, sortOrder: 1 },
-  { category: "gender", label: "Female", percent: 40, highlight: false, sortOrder: 2 },
-  { category: "gender", label: "Other / Undisclosed", percent: 2, highlight: false, sortOrder: 3 },
-  { category: "geography", label: "United States", percent: 38, highlight: false, sortOrder: 1 },
-  { category: "geography", label: "United Kingdom", percent: 9, highlight: false, sortOrder: 2 },
-  { category: "geography", label: "Brazil", percent: 7, highlight: false, sortOrder: 3 },
-  { category: "geography", label: "India", percent: 6, highlight: false, sortOrder: 4 },
-  { category: "geography", label: "Canada", percent: 5, highlight: false, sortOrder: 5 },
-  { category: "geography", label: "Rest of World", percent: 35, highlight: false, sortOrder: 6 },
+  { category: "age", label: "13–17", percent: 4.2, highlight: false, sortOrder: 1 },
+  { category: "age", label: "18–24", percent: 16.4, highlight: false, sortOrder: 2 },
+  { category: "age", label: "25–34", percent: 33.5, highlight: true, sortOrder: 3 },
+  { category: "age", label: "35–44", percent: 30.5, highlight: false, sortOrder: 4 },
+  { category: "age", label: "45+", percent: 15.4, highlight: false, sortOrder: 5 },
+  { category: "gender", label: "Male", percent: 52.9, highlight: true, sortOrder: 1 },
+  { category: "gender", label: "Female", percent: 46.8, highlight: false, sortOrder: 2 },
+  { category: "gender", label: "Other / User-specified", percent: 0.2, highlight: false, sortOrder: 3 },
+  { category: "geography", label: "United States", percent: 12.3, highlight: true, sortOrder: 1 },
+  { category: "geography", label: "India", percent: 10.8, highlight: false, sortOrder: 2 },
+  { category: "geography", label: "Indonesia", percent: 8.4, highlight: false, sortOrder: 3 },
+  { category: "geography", label: "Mexico", percent: 5.3, highlight: false, sortOrder: 4 },
+  { category: "geography", label: "Vietnam", percent: 4.2, highlight: false, sortOrder: 5 },
+  { category: "geography", label: "Rest of World", percent: 59.0, highlight: false, sortOrder: 6 },
+  { category: "device", label: "Watch on TV", percent: 53.7, highlight: true, sortOrder: 1 },
+  { category: "device", label: "Mobile", percent: 27.7, highlight: false, sortOrder: 2 },
+  { category: "device", label: "Tablet", percent: 12.8, highlight: false, sortOrder: 3 },
+  { category: "device", label: "Computer", percent: 5.7, highlight: false, sortOrder: 4 },
 ];
 
 export const seedBrands: InsertBrand[] = [

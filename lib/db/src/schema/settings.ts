@@ -26,15 +26,11 @@ export interface SiteSettings {
   demographicsSection: {
     eyebrow: string;
     headline: string;
+    sourceNote: string;
     ageSubcopy: string;
     genderSubcopy: string;
     geographySubcopy: string;
-  };
-  engagement: {
-    avgRetention: number;
-    likes: string;
-    comments: string;
-    shares: string;
+    deviceSubcopy: string;
   };
   partnerSection: {
     eyebrow: string;
