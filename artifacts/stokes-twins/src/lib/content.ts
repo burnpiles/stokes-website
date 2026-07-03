@@ -94,7 +94,7 @@ export const defaultSettings: Settings = {
 export const defaultContent: Content = {
   settings: defaultSettings,
   stats: [
-    { id: 1, label: "SOCIAL FOLLOWERS", value: 250, suffix: "M+", description: "Across every platform", sortOrder: 1 },
+    { id: 1, label: "SOCIAL FOLLOWERS*", value: 250, suffix: "M+", description: "Across every platform", sortOrder: 1 },
     { id: 2, label: "HOURS WATCHED*", value: 0, suffix: "Billions", description: "Total watch time across platforms", sortOrder: 2 },
     { id: 3, label: "VIEWS*", value: 0, suffix: "Tens of billions", description: "Across all channels", sortOrder: 3 },
   ],
