@@ -200,9 +200,9 @@ export const defaultContent: Content = {
     { id: 5, title: "Shorts Strategist", brand: null, department: "Creative", location: "Los Angeles, CA", type: "On-site", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSePFMpwqPGwwv3KdPDgaBve2MjLls0BnUvF7rNzOePCoykh0w/viewform?usp=header", active: true, sortOrder: 5 },
     { id: 6, title: "Compilation Content Strategist & Editor", brand: null, department: "Post-Production", location: "Los Angeles, CA", type: "On-site · Hybrid · Remote", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLScslAGHUagIhJQX3TeU6br6pTufqDI3gcIHL_dPLFx9J_f62A/viewform?usp=publish-editor", active: true, sortOrder: 6 },
     { id: 7, title: "Shorts Editor", brand: null, department: "Post-Production", location: "Los Angeles, CA", type: "On-site · Hybrid", applyUrl: "https://forms.gle/pj2jrsjbVEBgS7cd9", active: true, sortOrder: 7 },
-    { id: 8, title: "Assistant Editor", brand: null, department: "Post-Production", location: "Los Angeles, CA", type: "On-site · Remote", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfW5xtcx3t8JwFeLgO_xnz5ugddMLHntwqM3so7Q-8wqdeOTQ/viewform?usp=dialog", active: true, sortOrder: 8 },
+    { id: 8, title: "Assistant Editor", brand: null, department: "Post-Production", location: "Los Angeles, CA", type: "On-site", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfW5xtcx3t8JwFeLgO_xnz5ugddMLHntwqM3so7Q-8wqdeOTQ/viewform?usp=dialog", active: true, sortOrder: 8 },
     { id: 9, title: "Video Editor", brand: "Kat Hixson", department: "Post-Production", location: "Los Angeles, CA", type: "On-site · Hybrid", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLScY649WaT44WfOmFpj52jv-nPTTTDSov-N0t97ldKglCOW77A/viewform?usp=dialog", active: true, sortOrder: 9 },
-    { id: 10, title: "Assistant Editor", brand: "Kat Hixson", department: "Post-Production", location: "Los Angeles, CA", type: "", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSf6UAZwon0zjg5ALaWhUvvQmpOIQguQMGPO6TGnHmnB1ujHkA/viewform?usp=dialog", active: true, sortOrder: 10 },
+    { id: 10, title: "Assistant Editor", brand: "Kat Hixson", department: "Post-Production", location: "Los Angeles, CA", type: "Remote", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSf6UAZwon0zjg5ALaWhUvvQmpOIQguQMGPO6TGnHmnB1ujHkA/viewform?usp=dialog", active: true, sortOrder: 10 },
   ],
 };
 
