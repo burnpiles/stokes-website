@@ -690,7 +690,7 @@ export default function LandingPage() {
   const social = settings.socials;
 
   useEffect(() => {
-    document.title = "Stokes Twins | Media Kit";
+    document.title = "Stokes Twins | Entertainment Studio";
     document.body.style.backgroundColor = "#0A0A0A";
     if (window.location.hash) {
       const el = document.querySelector(window.location.hash);
