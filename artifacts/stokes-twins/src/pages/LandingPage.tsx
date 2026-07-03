@@ -123,7 +123,7 @@ function StatBandItem({ end, suffix, label, desc, delay }: { end: number, suffix
   const count = useCountUp(isVisible ? target : 0, 2200);
 
   return (
-    <div ref={ref} className={`border-t-2 border-[#E13B2C] pt-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+    <div ref={ref} className={`border-t-2 border-[#2E4FE3] pt-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
       <div className="font-display text-[#F4F1EA] leading-none mb-4 tabular-nums text-[clamp(34px,3.8vw,58px)] whitespace-nowrap">
         {isTextStat ? suffix : multiplier === 1 ? `${count}${plus}` : formatStatValue(count, plus)}
       </div>
@@ -764,7 +764,7 @@ export default function LandingPage() {
 
       {/* Section 01 - THE NUMBERS */}
       {(settings.sectionVisibility?.numbers ?? true) && (
-      <section id="audience" className="py-20 md:py-32 px-6 bg-[#101D5C]" data-testid="section-numbers">
+      <section id="audience" className="py-20 md:py-32 px-6 bg-[#0A0A0A]" data-testid="section-numbers">
         <div className="max-w-[1440px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 mb-12 md:mb-24">
             <div>
