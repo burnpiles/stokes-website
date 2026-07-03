@@ -1,0 +1,14 @@
+Redesign the social stats card row (YouTube / TikTok / Instagram / More to come) for consistency and polish. Keep the dark card style, hero numbers, and platform icons. Make these changes:
+1. Equal heights + shared anatomy. Lock all four cards to the same height with vertically centered content. Every stat card should follow the identical stack: platform icon → hero number → platform label (uppercase) → @handle → one secondary "stat chip" badge at the bottom. Reserve the badge slot on every card even when empty so all cards align and nothing shifts.
+2. Per-card content:
+
+YouTube — 141M / YOUTUBE / @stokestwins / badge: "@stokestoo · 13.1M" (rename the confusing "ST TOO" and remove the "TOP VIDEOS 3.4M" badge — one badge per card only)
+TikTok — 30.8M / TIKTOK / @stokestwins / leave the badge slot empty but keep the reserved space
+Instagram — 4.9M / INSTAGRAM / @stokestwins / badge: "@alexstokes · 3.6M"
+More to come — keep the dashed border. Show only the "EXPANDING" label and "More to come" headline. Remove the three dots.
+
+3. Stat chip styling. Style the bottom badges as quiet stat chips, not buttons: a subtle fill slightly lighter than the card background, rounded corners, consistent internal padding, small platform icon on the left, and the number right-aligned to the card edge so numbers line up across all cards.
+4. Dividers. Put the thin horizontal divider line above the badge slot on ALL cards (or remove it from all) — currently it only appears on some cards.
+5. Spacing. Reduce the padding above each hero number so icon → number → label reads as one tight vertical group instead of floating with dead space. Ensure all four hero numbers sit on the same horizontal baseline across the row.
+6. Simplify the "More to come" card. Keep the gradient on "More to come" but drop the animated/extra dots so it doesn't compete with the EXPANDING label.
+Keep all existing colors, fonts, and the background image treatment — only change layout, spacing, and the badge/label content described above.
