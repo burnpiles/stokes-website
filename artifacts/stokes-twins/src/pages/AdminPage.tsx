@@ -242,7 +242,7 @@ function Dashboard() {
             newDraft={() => ({ outlet: "", title: "", url: "", imageUrl: "", sortOrder: nextSort(content.press) })} {...wire(pressItem)} />
         )}
         {tab === "Jobs" && (
-          <ResourceEditor title="Jobs" description="Open roles on the careers page." items={content.jobs} fields={jobFields} titleKey="title"
+          <ResourceEditor title="Jobs" description="Open roles on the careers page." items={content.jobs} fields={jobFields} titleKey="title" sortable
             newDraft={() => ({ title: "", brand: "", department: "", location: "", type: "", applyUrl: "#", active: true, sortOrder: nextSort(content.jobs) })} {...wire(job)} />
         )}
         {tab === "Media" && <MediaLibrary />}
