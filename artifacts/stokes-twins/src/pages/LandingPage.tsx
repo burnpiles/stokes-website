@@ -147,7 +147,7 @@ function PlatformCard({ p, i }: { p: Platform; i: number }) {
     </>
   );
 
-  const links = (p.links ?? []).slice(0, 1);
+  const links = p.links ?? [];
   const badgeSlot = (
     <div className="w-full mt-5 pt-4 border-t border-[#F4F1EA]/10">
       {links.length > 0 ? (
