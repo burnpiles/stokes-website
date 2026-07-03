@@ -230,8 +230,8 @@ export const seedBrands: InsertBrand[] = [
     sortOrder: 7,
   },
   {
-    name: "#TeamWater",
-    logoUrl: "seed/teamwater.png",
+    name: "Coca-Cola × AMC",
+    logoUrl: "seed/coke-amc.png",
     campaign: '"Stay Hydrated" Mission Integration',
     formats: "Mission Video + Behind-the-Scenes + Instagram Reels",
     quote:

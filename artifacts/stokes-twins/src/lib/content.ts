@@ -174,7 +174,7 @@ export const defaultContent: Content = {
       sortOrder: 3,
     },
     {
-      id: 4, name: "#TeamWater", logoUrl: "seed/teamwater.png", campaign: '"Stay Hydrated" Mission Integration',
+      id: 4, name: "Coca-Cola × AMC", logoUrl: "seed/coke-amc.png", campaign: '"Stay Hydrated" Mission Integration',
       formats: "Mission Video + Behind-the-Scenes + Instagram Reels",
       quote: "The mission matched the audience's values — authentic integration that felt like content, not an ad.",
       stats: [
