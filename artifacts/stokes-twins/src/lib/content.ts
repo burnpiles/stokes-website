@@ -4,7 +4,7 @@ import type { Content, Settings } from "@workspace/api-client-react";
 
 export const defaultSettings: Settings = {
   hero: {
-    eyebrow: "CREATOR-LED FAMILY ENTERTAINMENT STUDIO",
+    eyebrow: "PRESS PLAY • LIVE LOUD",
     tagline:
       "The largest creator-led family entertainment studio — 200 million followers, a transmedia slate, and a global tentpole event every single month.",
     ctaLabel: "PARTNER WITH US →",
@@ -75,7 +75,7 @@ export const defaultSettings: Settings = {
   footer: {
     description: "CREATOR-LED FAMILY ENTERTAINMENT STUDIO",
     copyright: "© 2026 Stokes Empire LLC",
-    slogan: "PRESS PLAY · LIVE LOUD · NEVER PAUSE",
+    slogan: "PRESS PLAY · LIVE LOUD",
   },
   sectionVisibility: {
     numbers: true,
