@@ -764,7 +764,7 @@ export default function LandingPage() {
 
       {/* Section 01 - THE NUMBERS */}
       {(settings.sectionVisibility?.numbers ?? true) && (
-      <section id="audience" className="py-20 md:py-32 px-6 bg-[#0A0A0A]" data-testid="section-numbers">
+      <section id="audience" className="py-20 md:py-32 px-6 bg-[#101D5C]" data-testid="section-numbers">
         <div className="max-w-[1440px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 mb-12 md:mb-24">
             <div>
