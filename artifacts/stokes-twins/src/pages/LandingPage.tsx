@@ -117,14 +117,15 @@ function formatStatValue(n: number, plus: string): string {
 
 function StatBandItem({ end, suffix, label, desc, delay }: { end: number, suffix: string, label: string, desc: string, delay: number }) {
   const { ref, isVisible } = useReveal(delay);
+  const isTextStat = end === 0 && suffix.trim() !== "";
   const { multiplier, plus } = parseStatSuffix(suffix);
-  const target = end * multiplier;
+  const target = isTextStat ? 0 : end * multiplier;
   const count = useCountUp(isVisible ? target : 0, 2200);
 
   return (
     <div ref={ref} className={`border-t-2 border-[#E13B2C] pt-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
       <div className="text-[36px] md:text-[56px] font-display text-[#F4F1EA] leading-none mb-4 tabular-nums">
-        {multiplier === 1 ? `${count}${plus}` : formatStatValue(count, plus)}
+        {isTextStat ? suffix : multiplier === 1 ? `${count}${plus}` : formatStatValue(count, plus)}
       </div>
       <div className="font-mono font-bold text-xs tracking-widest text-[#E13B2C] mb-2">{label}</div>
       <div className="text-[#F4F1EA]/60 text-sm">{desc}</div>
@@ -774,6 +775,9 @@ export default function LandingPage() {
               <StatBandItem key={s.id} end={s.value} suffix={s.suffix} label={s.label} desc={s.description} delay={i * 60} />
             ))}
           </div>
+          {stats.some((s: Stat) => s.label.includes("*")) && (
+            <div className="mt-10 font-mono text-xs tracking-widest text-[#F4F1EA]/40" data-testid="stats-footnote">*LIFETIME</div>
+          )}
         </div>
       </section>
       )}

@@ -94,9 +94,9 @@ export const defaultSettings: Settings = {
 export const defaultContent: Content = {
   settings: defaultSettings,
   stats: [
-    { id: 1, label: "FOLLOWERS", value: 250, suffix: "M+", description: "Across every platform", sortOrder: 1 },
-    { id: 2, label: "MONTHLY VIEWS", value: 1.2, suffix: "B", description: "Every 30 days, and climbing", sortOrder: 2 },
-    { id: 3, label: "LIFETIME VIEWS", value: 62, suffix: "B", description: "Since the first upload", sortOrder: 3 },
+    { id: 1, label: "SOCIAL FOLLOWERS", value: 250, suffix: "M+", description: "Across every platform", sortOrder: 1 },
+    { id: 2, label: "HOURS WATCHED*", value: 0, suffix: "Billions", description: "Total watch time across platforms", sortOrder: 2 },
+    { id: 3, label: "VIEWS*", value: 0, suffix: "Tens of billions", description: "Across all channels", sortOrder: 3 },
   ],
   platforms: [
     { id: 1, name: "YouTube", value: "141M", handle: "@stokestwins", color: "#FF0000", iconKey: "youtube", url: "https://www.youtube.com/@stokestwins", links: [
