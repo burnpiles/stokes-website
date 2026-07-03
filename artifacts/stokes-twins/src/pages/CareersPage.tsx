@@ -19,7 +19,7 @@ export default function CareersPage() {
   );
 
   const depts = useMemo(() => {
-    const ordered = ["Creative", "Production", "Editorial", "Strategy", "Post-Production"];
+    const ordered = ["Creative", "Production", "Post-Production"];
     const extras: string[] = [];
     for (const j of activeJobs) {
       if (j.department && !ordered.includes(j.department) && !extras.includes(j.department)) {
