@@ -231,7 +231,7 @@ function PlatformCard({ p, i }: { p: Platform; i: number }) {
 
   const links = p.links ?? [];
   const badgeSlot = (
-    <div className="w-full mt-5 pt-4 border-t border-[#F4F1EA]/10">
+    <div className="w-full mt-auto pt-4 border-t border-[#F4F1EA]/10">
       {links.length > 0 ? (
         <div className="flex flex-col gap-2">
           {links.map((l, li) => (
@@ -270,7 +270,7 @@ function PlatformCard({ p, i }: { p: Platform; i: number }) {
           rel="noopener noreferrer"
           data-testid={`platform-${p.name.toLowerCase()}`}
           aria-label={`Stokes Twins on ${p.name}`}
-          className="flex flex-col items-center justify-center w-full flex-1"
+          className="flex flex-col items-center justify-start w-full flex-1 pb-5"
         >
           {inner}
         </a>
@@ -281,7 +281,7 @@ function PlatformCard({ p, i }: { p: Platform; i: number }) {
 
   return (
     <div ref={ref} className={cardClass}>
-      <div className="flex flex-col items-center justify-center w-full flex-1">{inner}</div>
+      <div className="flex flex-col items-center justify-start w-full flex-1 pb-5">{inner}</div>
       {badgeSlot}
     </div>
   );
