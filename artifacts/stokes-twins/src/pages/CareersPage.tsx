@@ -19,11 +19,14 @@ export default function CareersPage() {
   );
 
   const depts = useMemo(() => {
-    const seen: string[] = [];
+    const ordered = ["Creative", "Production", "Editorial", "Strategy", "Post-Production"];
+    const extras: string[] = [];
     for (const j of activeJobs) {
-      if (j.department && !seen.includes(j.department)) seen.push(j.department);
+      if (j.department && !ordered.includes(j.department) && !extras.includes(j.department)) {
+        extras.push(j.department);
+      }
     }
-    return ["All", ...seen];
+    return ["All", ...ordered, ...extras];
   }, [activeJobs]);
 
   const filteredRoles = activeJobs.filter((role) => filter === "All" || role.department === filter);
@@ -86,8 +89,12 @@ export default function CareersPage() {
                     <span>{role.department}</span>
                     <span className="text-[#F4F1EA]/30">·</span>
                     <span>{role.location}</span>
-                    <span className="text-[#F4F1EA]/30">·</span>
-                    <span className="text-[#E8B547] font-bold">{role.type}</span>
+                    {role.type.trim() && (
+                      <>
+                        <span className="text-[#F4F1EA]/30">·</span>
+                        <span className="text-[#E8B547] font-bold">{role.type}</span>
+                      </>
+                    )}
                   </div>
                 </div>
 
