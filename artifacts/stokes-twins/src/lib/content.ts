@@ -104,7 +104,9 @@ export const defaultContent: Content = {
       { label: "Stokes Twins Too", value: "13.1M", url: "https://www.youtube.com/channel/UCUdKQXtKb1me2Gt1nz6tzdg" },
     ], sortOrder: 1 },
     { id: 2, name: "TikTok", value: "30.8M", handle: "@stokestwins", color: "#F4F1EA", iconKey: "tiktok", url: "https://www.tiktok.com/@stokestwins?lang=en", links: [], sortOrder: 2 },
-    { id: 4, name: "Instagram", value: "4.9M", handle: "@stokestwins", color: "#E1306C", iconKey: "instagram", url: "https://www.instagram.com/stokestwins/?hl=en", links: [], sortOrder: 3 },
+    { id: 4, name: "Instagram", value: "4.9M", handle: "@stokestwins", color: "#E1306C", iconKey: "instagram", url: "https://www.instagram.com/stokestwins/?hl=en", links: [
+      { label: "@alexstokes", value: "3.6M", url: "https://www.instagram.com/alexstokes/" },
+    ], sortOrder: 3 },
   ],
   videos: [
     { id: 1, title: "I Built 4 SECRET Rooms In ONE COLOR!", tags: [], views: "", duration: "", youtubeUrl: "https://www.youtube.com/watch?v=RqKDKaHPPlQ", thumbnailUrl: "", featured: true, sortOrder: 0 },
