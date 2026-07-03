@@ -127,7 +127,7 @@ function StatBandItem({ end, suffix, label, desc, delay }: { end: number, suffix
       <div className="font-display text-[#F4F1EA] leading-none mb-4 tabular-nums text-[clamp(34px,3.8vw,58px)] whitespace-nowrap">
         {isTextStat ? suffix : multiplier === 1 ? `${count}${plus}` : formatStatValue(count, plus)}
       </div>
-      <div className="font-mono font-bold text-xs tracking-widest text-[#E13B2C] mb-2">{label}</div>
+      <div className="font-mono font-bold text-xs tracking-widest text-[#2E4FE3] mb-2">{label}</div>
       <div className="text-[#F4F1EA]/60 text-sm">{desc}</div>
     </div>
   );
@@ -768,7 +768,7 @@ export default function LandingPage() {
         <div className="max-w-[1440px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 mb-12 md:mb-24">
             <div>
-              <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-4 md:mb-6">{settings.statsSection.eyebrow}</h3>
+              <h3 className="font-mono text-[#2E4FE3] text-sm tracking-[0.2em] font-bold mb-4 md:mb-6">{settings.statsSection.eyebrow}</h3>
               <h2 className="font-display text-[40px] md:text-[64px] leading-[1.1]">{settings.statsSection.headline}</h2>
             </div>
             <div>
