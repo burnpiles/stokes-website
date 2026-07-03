@@ -124,7 +124,7 @@ function StatBandItem({ end, suffix, label, desc, delay }: { end: number, suffix
 
   return (
     <div ref={ref} className={`border-t-2 border-[#E13B2C] pt-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-      <div className={`font-display text-[#F4F1EA] leading-none mb-4 tabular-nums ${isTextStat ? 'text-[clamp(26px,2.9vw,44px)] whitespace-nowrap pt-[5px] md:pt-[9px]' : 'text-[36px] md:text-[56px]'}`}>
+      <div className="font-display text-[#F4F1EA] leading-none mb-4 tabular-nums text-[clamp(26px,2.9vw,44px)] whitespace-nowrap">
         {isTextStat ? suffix : multiplier === 1 ? `${count}${plus}` : formatStatValue(count, plus)}
       </div>
       <div className="font-mono font-bold text-xs tracking-widest text-[#E13B2C] mb-2">{label}</div>
