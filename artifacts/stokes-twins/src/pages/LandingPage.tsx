@@ -351,7 +351,7 @@ function GenderBar({ percent, color, label, delay }: { percent: number; color: s
         <span className="font-bold" style={{ color }}>{percent}%</span>
       </div>
       <div className="h-4 bg-[#0A0A0A]/10 rounded-full overflow-hidden">
-        <div className="h-full rounded-full transition-all duration-75" style={{ width: `${width}%`, backgroundColor: color }} />
+        <div className="h-full rounded-full" style={{ width: `${width}%`, backgroundColor: color }} />
       </div>
     </div>
   );
@@ -919,9 +919,9 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-[1.6fr_1fr] gap-4 md:gap-12 items-end mb-8 md:mb-16">
             <div>
               <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">{settings.networkSection.eyebrow}</h3>
-              <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1]">
+              <h2 className="font-display text-[clamp(34px,10vw,48px)] md:text-[64px] leading-[1.1]">
                 {settings.networkSection.headline.split(", ").map((part, idx, arr) => (
-                  <span key={idx} className="block whitespace-nowrap">
+                  <span key={idx} className="block md:whitespace-nowrap">
                     {part}
                     {idx < arr.length - 1 ? "," : ""}
                   </span>
