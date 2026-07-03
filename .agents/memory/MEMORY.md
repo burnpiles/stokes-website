@@ -1,1 +1,2 @@
 - [Environment quirks](environment-quirks.md) — code_execution sandbox has no process.env; bash has no python3 (use node for JSON).
+- [Production URL & content sync](prod-url-and-content-sync.md) — REPLIT_DOMAINS in dev is the preview domain, not prod; use getDeploymentInfo(); dev→live content sync script exists.

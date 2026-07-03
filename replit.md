@@ -9,6 +9,7 @@ Marketing site for the Stokes Twins creator studio, fully editable through a pas
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
+- `PROD_URL=https://stokesuniverse.com pnpm --filter @workspace/scripts run push-content-to-prod` — overwrite ALL live-site content with dev content (backs up prior live content to `scripts/backups/` first; never point it at a `.replit.dev` domain)
 - Required env: `DATABASE_URL` — Postgres connection string
 
 ## Stack
