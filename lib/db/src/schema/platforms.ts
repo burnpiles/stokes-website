@@ -1,6 +1,12 @@
-import { pgTable, serial, text, integer } from "drizzle-orm/pg-core";
+import { jsonb, pgTable, serial, text, integer } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
+
+export interface PlatformLink {
+  label: string;
+  value: string;
+  url: string;
+}
 
 export const platformsTable = pgTable("platforms", {
   id: serial("id").primaryKey(),
@@ -10,6 +16,7 @@ export const platformsTable = pgTable("platforms", {
   color: text("color").notNull().default("#FFFFFF"),
   iconKey: text("icon_key").notNull(),
   url: text("url"),
+  links: jsonb("links").$type<PlatformLink[]>().notNull().default([]),
   sortOrder: integer("sort_order").notNull().default(0),
 });
 

@@ -146,25 +146,53 @@ function PlatformCard({ p, i }: { p: Platform; i: number }) {
     </>
   );
 
+  const subLinks = (p.links ?? []).length > 0 ? (
+    <div className="w-full mt-5 pt-4 border-t border-[#F4F1EA]/10 flex flex-col gap-2">
+      {(p.links ?? []).map((l, li) => (
+        <a
+          key={li}
+          href={l.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          data-testid={`platform-link-${p.name.toLowerCase()}-${li}`}
+          aria-label={`${l.label} on ${p.name}`}
+          className="flex items-center justify-between gap-2 bg-[#0A0A0A] border border-[#F4F1EA]/15 rounded-[4px] px-3 py-2 hover:border-[#E13B2C]/60 transition-colors"
+        >
+          <span className="flex items-center gap-2 min-w-0">
+            <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 shrink-0" style={{ color: p.color }} fill="currentColor" aria-hidden="true">
+              <path d={platformIcon(p.iconKey)} />
+            </svg>
+            <span className="font-mono text-[10px] tracking-[0.12em] text-[#F4F1EA]/80 uppercase truncate">{l.label}</span>
+          </span>
+          <span className="font-display text-sm text-[#F4F1EA] shrink-0">{l.value}</span>
+        </a>
+      ))}
+    </div>
+  ) : null;
+
   if (p.url) {
     return (
-      <a
-        ref={ref as unknown as React.RefObject<HTMLAnchorElement>}
-        href={p.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        data-testid={`platform-${p.name.toLowerCase()}`}
-        aria-label={`Stokes Twins on ${p.name}`}
-        className={cardClass}
-      >
-        {inner}
-      </a>
+      <div ref={ref} className={cardClass}>
+        <a
+          href={p.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-testid={`platform-${p.name.toLowerCase()}`}
+          aria-label={`Stokes Twins on ${p.name}`}
+          className="flex flex-col items-center w-full"
+        >
+          {inner}
+        </a>
+        {subLinks}
+      </div>
     );
   }
 
   return (
     <div ref={ref} className={cardClass}>
       {inner}
+      {subLinks}
     </div>
   );
 }

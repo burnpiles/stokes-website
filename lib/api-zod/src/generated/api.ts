@@ -127,6 +127,11 @@ export const GetContentResponse = zod.object({
   "color": zod.string(),
   "iconKey": zod.string(),
   "url": zod.string().nullish(),
+  "links": zod.array(zod.object({
+  "label": zod.string(),
+  "value": zod.string(),
+  "url": zod.string()
+})),
   "sortOrder": zod.number()
 })),
   "videos": zod.array(zod.object({
@@ -466,6 +471,11 @@ export const CreatePlatformBody = zod.object({
   "color": zod.string().optional(),
   "iconKey": zod.string(),
   "url": zod.string().nullish(),
+  "links": zod.array(zod.object({
+  "label": zod.string(),
+  "value": zod.string(),
+  "url": zod.string()
+})).optional(),
   "sortOrder": zod.number().optional()
 })
 
@@ -477,6 +487,11 @@ export const CreatePlatformResponse = zod.object({
   "color": zod.string(),
   "iconKey": zod.string(),
   "url": zod.string().nullish(),
+  "links": zod.array(zod.object({
+  "label": zod.string(),
+  "value": zod.string(),
+  "url": zod.string()
+})),
   "sortOrder": zod.number()
 })
 
@@ -495,6 +510,11 @@ export const UpdatePlatformBody = zod.object({
   "color": zod.string().optional(),
   "iconKey": zod.string().optional(),
   "url": zod.string().nullish(),
+  "links": zod.array(zod.object({
+  "label": zod.string(),
+  "value": zod.string(),
+  "url": zod.string()
+})).optional(),
   "sortOrder": zod.number().optional()
 })
 
@@ -506,6 +526,11 @@ export const UpdatePlatformResponse = zod.object({
   "color": zod.string(),
   "iconKey": zod.string(),
   "url": zod.string().nullish(),
+  "links": zod.array(zod.object({
+  "label": zod.string(),
+  "value": zod.string(),
+  "url": zod.string()
+})),
   "sortOrder": zod.number()
 })
 

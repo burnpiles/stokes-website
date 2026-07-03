@@ -11,9 +11,9 @@ import {
   adminBtnGhost,
   adminBtnDanger,
 } from "./AdminPrimitives";
-import type { BrandStat } from "@workspace/api-client-react";
+import type { BrandStat, PlatformLink } from "@workspace/api-client-react";
 
-export type FieldType = "text" | "number" | "textarea" | "boolean" | "tags" | "image" | "brandstats" | "multiselect";
+export type FieldType = "text" | "number" | "textarea" | "boolean" | "tags" | "image" | "brandstats" | "links" | "multiselect";
 
 export interface FieldDef {
   key: string;
@@ -108,6 +108,44 @@ function BrandStatsEditor({ value, onChange }: { value: BrandStat[]; onChange: (
   );
 }
 
+function LinksEditor({ label, value, onChange }: { label: string; value: PlatformLink[]; onChange: (v: PlatformLink[]) => void }) {
+  return (
+    <div className="col-span-2">
+      <label className="block font-mono text-[10px] tracking-[0.18em] text-[#F4F1EA]/50 uppercase mb-2">{label}</label>
+      <div className="space-y-2">
+        {value.map((s, i) => (
+          <div key={i} className="flex gap-2 items-center">
+            <input
+              className="w-40 bg-[#0A0A0A] border border-[#F4F1EA]/15 rounded-[4px] px-3 py-2 text-sm text-[#F4F1EA] focus:outline-none focus:border-[#E13B2C]/60"
+              placeholder="Label (e.g. Top Videos)"
+              value={s.label}
+              onChange={(e) => onChange(value.map((x, xi) => (xi === i ? { ...x, label: e.target.value } : x)))}
+            />
+            <input
+              className="w-24 bg-[#0A0A0A] border border-[#F4F1EA]/15 rounded-[4px] px-3 py-2 text-sm text-[#F4F1EA] focus:outline-none focus:border-[#E13B2C]/60"
+              placeholder="Subs"
+              value={s.value}
+              onChange={(e) => onChange(value.map((x, xi) => (xi === i ? { ...x, value: e.target.value } : x)))}
+            />
+            <input
+              className="flex-1 bg-[#0A0A0A] border border-[#F4F1EA]/15 rounded-[4px] px-3 py-2 text-sm text-[#F4F1EA] focus:outline-none focus:border-[#E13B2C]/60"
+              placeholder="https://…"
+              value={s.url}
+              onChange={(e) => onChange(value.map((x, xi) => (xi === i ? { ...x, url: e.target.value } : x)))}
+            />
+            <button type="button" className="text-[#E13B2C] font-mono text-xs px-2" onClick={() => onChange(value.filter((_, xi) => xi !== i))}>
+              ✕
+            </button>
+          </div>
+        ))}
+        <button type="button" className={adminBtnGhost} onClick={() => onChange([...value, { label: "", value: "", url: "" }])}>
+          + ADD LINK
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function renderField(field: FieldDef, draft: Draft, set: (key: string, v: unknown) => void) {
   const v = draft[field.key];
   switch (field.type) {
@@ -123,6 +161,8 @@ function renderField(field: FieldDef, draft: Draft, set: (key: string, v: unknow
       return <ImageField key={field.key} label={field.label} value={String(v ?? "")} onChange={(nv) => set(field.key, nv)} />;
     case "brandstats":
       return <BrandStatsEditor key={field.key} value={Array.isArray(v) ? (v as BrandStat[]) : []} onChange={(nv) => set(field.key, nv)} />;
+    case "links":
+      return <LinksEditor key={field.key} label={field.label} value={Array.isArray(v) ? (v as PlatformLink[]) : []} onChange={(nv) => set(field.key, nv)} />;
     case "multiselect":
       return <MultiSelectField key={field.key} label={field.label} value={String(v ?? "")} options={field.options ?? []} onChange={(nv) => set(field.key, nv)} />;
     default:

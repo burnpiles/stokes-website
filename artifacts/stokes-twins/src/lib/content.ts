@@ -99,9 +99,12 @@ export const defaultContent: Content = {
     { id: 3, label: "LIFETIME VIEWS", value: 62, suffix: "B", description: "Since the first upload", sortOrder: 3 },
   ],
   platforms: [
-    { id: 1, name: "YouTube", value: "141M", handle: "9 channels", color: "#FF0000", iconKey: "youtube", url: "https://www.youtube.com/@stokestwins", sortOrder: 1 },
-    { id: 2, name: "TikTok", value: "30.8M", handle: "@stokestwins", color: "#F4F1EA", iconKey: "tiktok", url: "https://www.tiktok.com/@stokestwins?lang=en", sortOrder: 2 },
-    { id: 4, name: "Instagram", value: "4.9M", handle: "@stokestwins", color: "#E1306C", iconKey: "instagram", url: "https://www.instagram.com/stokestwins/?hl=en", sortOrder: 3 },
+    { id: 1, name: "YouTube", value: "141M", handle: "9 channels", color: "#FF0000", iconKey: "youtube", url: "https://www.youtube.com/@stokestwins", links: [
+      { label: "Top Videos", value: "3.4M", url: "https://www.youtube.com/@stokestwinstopvideos" },
+      { label: "Stokes Twins Too", value: "13.1M", url: "https://www.youtube.com/channel/UCUdKQXtKb1me2Gt1nz6tzdg" },
+    ], sortOrder: 1 },
+    { id: 2, name: "TikTok", value: "30.8M", handle: "@stokestwins", color: "#F4F1EA", iconKey: "tiktok", url: "https://www.tiktok.com/@stokestwins?lang=en", links: [], sortOrder: 2 },
+    { id: 4, name: "Instagram", value: "4.9M", handle: "@stokestwins", color: "#E1306C", iconKey: "instagram", url: "https://www.instagram.com/stokestwins/?hl=en", links: [], sortOrder: 3 },
   ],
   videos: [
     { id: 1, title: "I Built 4 SECRET Rooms In ONE COLOR!", tags: [], views: "", duration: "", youtubeUrl: "https://www.youtube.com/watch?v=RqKDKaHPPlQ", thumbnailUrl: "", featured: true, sortOrder: 0 },

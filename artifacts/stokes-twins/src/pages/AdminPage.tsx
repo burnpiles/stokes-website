@@ -128,6 +128,7 @@ function Dashboard() {
     { key: "iconKey", label: "Icon (youtube/tiktok/snapchat/instagram/facebook/x)", type: "text" },
     { key: "url", label: "URL", type: "text" },
     { key: "sortOrder", label: "Sort Order", type: "number" },
+    { key: "links", label: "Extra channel links (small buttons inside the card)", type: "links" },
   ];
   const videoFields: FieldDef[] = [
     { key: "title", label: "Title", type: "text" },
@@ -218,7 +219,7 @@ function Dashboard() {
         )}
         {tab === "Platforms" && (
           <ResourceEditor title="Platforms" description="The network grid." items={content.platforms} fields={platformFields} titleKey="name"
-            newDraft={() => ({ name: "", value: "", handle: "", color: "#F4F1EA", iconKey: "youtube", url: "", sortOrder: nextSort(content.platforms) })} {...wire(platform)} />
+            newDraft={() => ({ name: "", value: "", handle: "", color: "#F4F1EA", iconKey: "youtube", url: "", links: [], sortOrder: nextSort(content.platforms) })} {...wire(platform)} />
         )}
         {tab === "Videos" && (
           <ResourceEditor title="Videos" description="One hero (the big featured video) + up to 3 full-length videos in the grid. Toggle Featured to set the hero — only one video can be the hero." items={content.videos} fields={videoFields} titleKey="title" maxItems={4}

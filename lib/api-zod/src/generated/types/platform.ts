@@ -5,6 +5,7 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { PlatformLink } from './platformLink';
 
 export interface Platform {
   id: number;
@@ -15,5 +16,6 @@ export interface Platform {
   iconKey: string;
   /** @nullable */
   url?: string | null;
+  links: PlatformLink[];
   sortOrder: number;
 }

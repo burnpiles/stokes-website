@@ -25,6 +25,7 @@ export * from './media';
 export * from './mediaInput';
 export * from './platform';
 export * from './platformInput';
+export * from './platformLink';
 export * from './platformUpdate';
 export * from './pressItem';
 export * from './pressItemInput';

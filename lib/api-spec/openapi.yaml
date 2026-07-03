@@ -846,9 +846,16 @@ components:
         description: { type: string }
         sortOrder: { type: integer }
 
+    PlatformLink:
+      type: object
+      required: [label, value, url]
+      properties:
+        label: { type: string }
+        value: { type: string }
+        url: { type: string }
     Platform:
       type: object
-      required: [id, name, value, handle, color, iconKey, sortOrder]
+      required: [id, name, value, handle, color, iconKey, links, sortOrder]
       properties:
         id: { type: integer }
         name: { type: string }
@@ -857,6 +864,9 @@ components:
         color: { type: string }
         iconKey: { type: string }
         url: { type: ["string", "null"] }
+        links:
+          type: array
+          items: { $ref: "#/components/schemas/PlatformLink" }
         sortOrder: { type: integer }
     PlatformInput:
       type: object
@@ -868,6 +878,9 @@ components:
         color: { type: string }
         iconKey: { type: string }
         url: { type: ["string", "null"] }
+        links:
+          type: array
+          items: { $ref: "#/components/schemas/PlatformLink" }
         sortOrder: { type: integer }
     PlatformUpdate:
       type: object
@@ -878,6 +891,9 @@ components:
         color: { type: string }
         iconKey: { type: string }
         url: { type: ["string", "null"] }
+        links:
+          type: array
+          items: { $ref: "#/components/schemas/PlatformLink" }
         sortOrder: { type: integer }
 
     Video:

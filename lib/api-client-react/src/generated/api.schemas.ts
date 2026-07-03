@@ -131,6 +131,12 @@ export interface Stat {
   sortOrder: number;
 }
 
+export interface PlatformLink {
+  label: string;
+  value: string;
+  url: string;
+}
+
 export interface Platform {
   id: number;
   name: string;
@@ -140,6 +146,7 @@ export interface Platform {
   iconKey: string;
   /** @nullable */
   url?: string | null;
+  links: PlatformLink[];
   sortOrder: number;
 }
 
@@ -250,6 +257,7 @@ export interface PlatformInput {
   iconKey: string;
   /** @nullable */
   url?: string | null;
+  links?: PlatformLink[];
   sortOrder?: number;
 }
 
@@ -262,6 +270,7 @@ export interface PlatformUpdate {
   iconKey?: string;
   /** @nullable */
   url?: string | null;
+  links?: PlatformLink[];
   sortOrder?: number;
 }
 
