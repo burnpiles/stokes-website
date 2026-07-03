@@ -40,6 +40,7 @@ export function SettingsEditor({ settings, onSave }: { settings: Settings; onSav
     demographics: true,
     partner: true,
     careers: true,
+    press: true,
   };
   function patchVis(key: keyof typeof vis, value: boolean) {
     patch("sectionVisibility", { ...vis, [key]: value });
@@ -70,6 +71,7 @@ export function SettingsEditor({ settings, onSave }: { settings: Settings; onSav
           <BoolField label="03 — The Network · LIVE" value={vis.channels} onChange={(v) => patchVis("channels", v)} />
           <BoolField label="04 — Who's Watching · LIVE" value={vis.demographics} onChange={(v) => patchVis("demographics", v)} />
           <BoolField label="05 — Partner CTA · LIVE" value={vis.partner} onChange={(v) => patchVis("partner", v)} />
+          <BoolField label="06 — In The Press · LIVE" value={vis.press ?? true} onChange={(v) => patchVis("press", v)} />
           <BoolField label="Careers Teaser · LIVE" value={vis.careers} onChange={(v) => patchVis("careers", v)} />
         </Section>
 
@@ -142,6 +144,11 @@ export function SettingsEditor({ settings, onSave }: { settings: Settings; onSav
           <TextField label="Media Kit URL" value={s.partnerSection.mediaKitUrl} onChange={(v) => patch("partnerSection", { ...s.partnerSection, mediaKitUrl: v })} />
           <TextField label="Brands Logline" value={s.partnerSection.brandsLogline} onChange={(v) => patch("partnerSection", { ...s.partnerSection, brandsLogline: v })} full />
           <BoolField label="Show brand stats pop-up (click a logo to open campaign data)" value={s.partnerSection.showBrandModal} onChange={(v) => patch("partnerSection", { ...s.partnerSection, showBrandModal: v })} />
+        </Section>
+
+        <Section title="Press Section (06)">
+          <TextField label="Eyebrow" value={s.pressSection?.eyebrow ?? ""} onChange={(v) => patch("pressSection", { eyebrow: v, headline: s.pressSection?.headline ?? "" })} />
+          <TextField label="Headline" value={s.pressSection?.headline ?? ""} onChange={(v) => patch("pressSection", { eyebrow: s.pressSection?.eyebrow ?? "", headline: v })} />
         </Section>
 
         <Section title="Careers Section">

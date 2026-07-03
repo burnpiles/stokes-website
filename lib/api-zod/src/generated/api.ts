@@ -92,6 +92,10 @@ export const GetContentResponse = zod.object({
   "headline": zod.string(),
   "body": zod.string()
 }),
+  "pressSection": zod.object({
+  "eyebrow": zod.string(),
+  "headline": zod.string()
+}).optional(),
   "footer": zod.object({
   "description": zod.string(),
   "copyright": zod.string(),
@@ -103,7 +107,8 @@ export const GetContentResponse = zod.object({
   "channels": zod.boolean(),
   "demographics": zod.boolean(),
   "partner": zod.boolean(),
-  "careers": zod.boolean()
+  "careers": zod.boolean(),
+  "press": zod.boolean().optional()
 }).optional()
 }),
   "stats": zod.array(zod.object({
@@ -162,6 +167,14 @@ export const GetContentResponse = zod.object({
   "label": zod.string(),
   "value": zod.string()
 })),
+  "sortOrder": zod.number()
+})),
+  "press": zod.array(zod.object({
+  "id": zod.number(),
+  "outlet": zod.string(),
+  "title": zod.string(),
+  "url": zod.string(),
+  "imageUrl": zod.string(),
   "sortOrder": zod.number()
 })),
   "jobs": zod.array(zod.object({
@@ -278,6 +291,10 @@ export const UpdateSettingsBody = zod.object({
   "headline": zod.string(),
   "body": zod.string()
 }),
+  "pressSection": zod.object({
+  "eyebrow": zod.string(),
+  "headline": zod.string()
+}).optional(),
   "footer": zod.object({
   "description": zod.string(),
   "copyright": zod.string(),
@@ -289,7 +306,8 @@ export const UpdateSettingsBody = zod.object({
   "channels": zod.boolean(),
   "demographics": zod.boolean(),
   "partner": zod.boolean(),
-  "careers": zod.boolean()
+  "careers": zod.boolean(),
+  "press": zod.boolean().optional()
 }).optional()
 })
 
@@ -364,6 +382,10 @@ export const UpdateSettingsResponse = zod.object({
   "headline": zod.string(),
   "body": zod.string()
 }),
+  "pressSection": zod.object({
+  "eyebrow": zod.string(),
+  "headline": zod.string()
+}).optional(),
   "footer": zod.object({
   "description": zod.string(),
   "copyright": zod.string(),
@@ -375,7 +397,8 @@ export const UpdateSettingsResponse = zod.object({
   "channels": zod.boolean(),
   "demographics": zod.boolean(),
   "partner": zod.boolean(),
-  "careers": zod.boolean()
+  "careers": zod.boolean(),
+  "press": zod.boolean().optional()
 }).optional()
 })
 
@@ -738,6 +761,61 @@ export const DeleteBrandParams = zod.object({
 })
 
 export const DeleteBrandResponse = zod.void()
+
+
+
+
+
+
+export const CreatePressItemBody = zod.object({
+  "outlet": zod.string().min(1),
+  "title": zod.string().min(1),
+  "url": zod.string().optional(),
+  "imageUrl": zod.string().optional(),
+  "sortOrder": zod.number().optional()
+})
+
+export const CreatePressItemResponse = zod.object({
+  "id": zod.number(),
+  "outlet": zod.string(),
+  "title": zod.string(),
+  "url": zod.string(),
+  "imageUrl": zod.string(),
+  "sortOrder": zod.number()
+})
+
+
+export const UpdatePressItemParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+
+
+
+
+export const UpdatePressItemBody = zod.object({
+  "outlet": zod.string().min(1).optional(),
+  "title": zod.string().min(1).optional(),
+  "url": zod.string().optional(),
+  "imageUrl": zod.string().optional(),
+  "sortOrder": zod.number().optional()
+})
+
+export const UpdatePressItemResponse = zod.object({
+  "id": zod.number(),
+  "outlet": zod.string(),
+  "title": zod.string(),
+  "url": zod.string(),
+  "imageUrl": zod.string(),
+  "sortOrder": zod.number()
+})
+
+
+export const DeletePressItemParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const DeletePressItemResponse = zod.void()
 
 
 

@@ -25,6 +25,7 @@ export function Nav({ isCareers = false }: NavProps) {
                 { label: 'YOUTUBE', href: '#youtube', show: vis?.youtube ?? true },
                 { label: 'CHANNELS', href: '#channels', show: vis?.channels ?? true },
                 { label: 'AUDIENCE', href: '#demographics', show: vis?.demographics ?? true },
+                { label: 'PRESS', href: '#press', show: vis?.press ?? true },
                 { label: 'CAREERS', href: '/careers', show: true },
               ].filter(link => link.show).map(link =>
                 link.href.startsWith('/') ? (

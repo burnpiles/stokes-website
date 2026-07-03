@@ -39,6 +39,9 @@ import type {
   Platform,
   PlatformInput,
   PlatformUpdate,
+  PressItem,
+  PressItemInput,
+  PressItemUpdate,
   Settings,
   Short,
   ShortInput,
@@ -1678,6 +1681,199 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
         TContext
       > => {
       return useMutation(getDeleteBrandMutationOptions(options));
+    }
+
+export const getCreatePressItemUrl = () => {
+
+
+
+
+  return `/api/admin/press`
+}
+
+export const createPressItem = async (pressItemInput: PressItemInput, options?: RequestInit): Promise<PressItem> => {
+
+  return customFetch<PressItem>(getCreatePressItemUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(pressItemInput)
+  }
+);}
+
+
+
+
+export const getCreatePressItemMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createPressItem>>, TError,{data: BodyType<PressItemInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createPressItem>>, TError,{data: BodyType<PressItemInput>}, TContext> => {
+
+const mutationKey = ['createPressItem'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createPressItem>>, {data: BodyType<PressItemInput>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  createPressItem(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreatePressItemMutationResult = NonNullable<Awaited<ReturnType<typeof createPressItem>>>
+    export type CreatePressItemMutationBody = BodyType<PressItemInput>
+    export type CreatePressItemMutationError = ErrorType<unknown>
+
+    export const useCreatePressItem = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createPressItem>>, TError,{data: BodyType<PressItemInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof createPressItem>>,
+        TError,
+        {data: BodyType<PressItemInput>},
+        TContext
+      > => {
+      return useMutation(getCreatePressItemMutationOptions(options));
+    }
+
+export const getUpdatePressItemUrl = (id: number,) => {
+
+
+
+
+  return `/api/admin/press/${id}`
+}
+
+export const updatePressItem = async (id: number,
+    pressItemUpdate: PressItemUpdate, options?: RequestInit): Promise<PressItem> => {
+
+  return customFetch<PressItem>(getUpdatePressItemUrl(id),
+  {
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(pressItemUpdate)
+  }
+);}
+
+
+
+
+export const getUpdatePressItemMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updatePressItem>>, TError,{id: number;data: BodyType<PressItemUpdate>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updatePressItem>>, TError,{id: number;data: BodyType<PressItemUpdate>}, TContext> => {
+
+const mutationKey = ['updatePressItem'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updatePressItem>>, {id: number;data: BodyType<PressItemUpdate>}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  updatePressItem(id,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdatePressItemMutationResult = NonNullable<Awaited<ReturnType<typeof updatePressItem>>>
+    export type UpdatePressItemMutationBody = BodyType<PressItemUpdate>
+    export type UpdatePressItemMutationError = ErrorType<unknown>
+
+    export const useUpdatePressItem = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updatePressItem>>, TError,{id: number;data: BodyType<PressItemUpdate>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof updatePressItem>>,
+        TError,
+        {id: number;data: BodyType<PressItemUpdate>},
+        TContext
+      > => {
+      return useMutation(getUpdatePressItemMutationOptions(options));
+    }
+
+export const getDeletePressItemUrl = (id: number,) => {
+
+
+
+
+  return `/api/admin/press/${id}`
+}
+
+export const deletePressItem = async (id: number, options?: RequestInit): Promise<void> => {
+
+  return customFetch<void>(getDeletePressItemUrl(id),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
+
+
+export const getDeletePressItemMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deletePressItem>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof deletePressItem>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['deletePressItem'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deletePressItem>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  deletePressItem(id,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type DeletePressItemMutationResult = NonNullable<Awaited<ReturnType<typeof deletePressItem>>>
+
+    export type DeletePressItemMutationError = ErrorType<unknown>
+
+    export const useDeletePressItem = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deletePressItem>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof deletePressItem>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getDeletePressItemMutationOptions(options));
     }
 
 export const getCreateJobUrl = () => {

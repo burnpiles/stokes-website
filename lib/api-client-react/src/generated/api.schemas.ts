@@ -84,6 +84,11 @@ export type SettingsCareersSection = {
   body: string;
 };
 
+export type SettingsPressSection = {
+  eyebrow: string;
+  headline: string;
+};
+
 export type SettingsFooter = {
   description: string;
   copyright: string;
@@ -97,6 +102,7 @@ export type SettingsSectionVisibility = {
   demographics: boolean;
   partner: boolean;
   careers: boolean;
+  press?: boolean;
 };
 
 export interface Settings {
@@ -111,6 +117,7 @@ export interface Settings {
   engagement: SettingsEngagement;
   partnerSection: SettingsPartnerSection;
   careersSection: SettingsCareersSection;
+  pressSection?: SettingsPressSection;
   footer: SettingsFooter;
   sectionVisibility?: SettingsSectionVisibility;
 }
@@ -182,6 +189,15 @@ export interface Brand {
   sortOrder: number;
 }
 
+export interface PressItem {
+  id: number;
+  outlet: string;
+  title: string;
+  url: string;
+  imageUrl: string;
+  sortOrder: number;
+}
+
 export interface Job {
   id: number;
   title: string;
@@ -203,6 +219,7 @@ export interface Content {
   shorts: Short[];
   demographics: Demographic[];
   brands: Brand[];
+  press: PressItem[];
   jobs: Job[];
 }
 
@@ -329,6 +346,26 @@ export interface BrandUpdate {
   formats?: string;
   quote?: string;
   stats?: BrandStat[];
+  sortOrder?: number;
+}
+
+export interface PressItemInput {
+  /** @minLength 1 */
+  outlet: string;
+  /** @minLength 1 */
+  title: string;
+  url?: string;
+  imageUrl?: string;
+  sortOrder?: number;
+}
+
+export interface PressItemUpdate {
+  /** @minLength 1 */
+  outlet?: string;
+  /** @minLength 1 */
+  title?: string;
+  url?: string;
+  imageUrl?: string;
   sortOrder?: number;
 }
 

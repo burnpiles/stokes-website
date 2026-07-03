@@ -13,4 +13,5 @@ export type SettingsSectionVisibility = {
   demographics: boolean;
   partner: boolean;
   careers: boolean;
+  press?: boolean;
 };

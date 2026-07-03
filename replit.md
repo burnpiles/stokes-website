@@ -38,7 +38,8 @@ Marketing site for the Stokes Twins creator studio, fully editable through a pas
 ## Product
 
 - Public marketing site (hero, stats, YouTube counter, channels, audience demographics, partnerships, careers).
-- `/admin` CMS: log in with the admin password, then edit every section, manage list resources (stats, platforms, videos, shorts, jobs, brands, demographics), and upload media.
+- Public marketing site also includes a Press section (section 06, between the Partner CTA and Careers teaser) with linked press cards; images live in `artifacts/stokes-twins/public/press/`.
+- `/admin` CMS: log in with the admin password, then edit every section, manage list resources (stats, platforms, videos, shorts, jobs, brands, press, demographics), and upload media.
 
 ## User preferences
 

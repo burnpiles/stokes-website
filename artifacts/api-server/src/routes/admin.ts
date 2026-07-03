@@ -14,6 +14,7 @@ import {
   shortsTable,
   demographicsTable,
   brandsTable,
+  pressTable,
   jobsTable,
   mediaTable,
 } from "@workspace/db";
@@ -47,6 +48,10 @@ import {
   UpdateBrandBody,
   CreateBrandResponse,
   UpdateBrandResponse,
+  CreatePressItemBody,
+  UpdatePressItemBody,
+  CreatePressItemResponse,
+  UpdatePressItemResponse,
   CreateJobBody,
   UpdateJobBody,
   CreateJobResponse,
@@ -237,6 +242,12 @@ registerCrud("/admin/brands", brandsTable, {
   updateBody: UpdateBrandBody,
   createResponse: CreateBrandResponse,
   updateResponse: UpdateBrandResponse,
+});
+registerCrud("/admin/press", pressTable, {
+  createBody: CreatePressItemBody,
+  updateBody: UpdatePressItemBody,
+  createResponse: CreatePressItemResponse,
+  updateResponse: UpdatePressItemResponse,
 });
 registerCrud("/admin/jobs", jobsTable, {
   createBody: CreateJobBody,

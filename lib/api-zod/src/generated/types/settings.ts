@@ -12,6 +12,7 @@ import type { SettingsEngagement } from './settingsEngagement';
 import type { SettingsFooter } from './settingsFooter';
 import type { SettingsHero } from './settingsHero';
 import type { SettingsPartnerSection } from './settingsPartnerSection';
+import type { SettingsPressSection } from './settingsPressSection';
 import type { SettingsSectionVisibility } from './settingsSectionVisibility';
 import type { SettingsSocials } from './settingsSocials';
 import type { SettingsYoutubeCounter } from './settingsYoutubeCounter';
@@ -28,6 +29,7 @@ export interface Settings {
   engagement: SettingsEngagement;
   partnerSection: SettingsPartnerSection;
   careersSection: SettingsCareersSection;
+  pressSection?: SettingsPressSection;
   footer: SettingsFooter;
   sectionVisibility?: SettingsSectionVisibility;
 }

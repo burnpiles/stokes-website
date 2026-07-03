@@ -9,6 +9,7 @@ import {
   shortsTable,
   demographicsTable,
   brandsTable,
+  pressTable,
   jobsTable,
   defaultSettings,
 } from "@workspace/db";
@@ -18,7 +19,7 @@ const router: IRouter = Router();
 
 router.get("/content", async (_req: Request, res: Response) => {
   const [settingsRow] = await db.select().from(settingsTable).limit(1);
-  const [stats, platforms, videos, shorts, demographics, brands, jobs] =
+  const [stats, platforms, videos, shorts, demographics, brands, press, jobs] =
     await Promise.all([
       db.select().from(statsTable).orderBy(asc(statsTable.sortOrder)),
       db.select().from(platformsTable).orderBy(asc(platformsTable.sortOrder)),
@@ -29,6 +30,7 @@ router.get("/content", async (_req: Request, res: Response) => {
         .from(demographicsTable)
         .orderBy(asc(demographicsTable.sortOrder)),
       db.select().from(brandsTable).orderBy(asc(brandsTable.sortOrder)),
+      db.select().from(pressTable).orderBy(asc(pressTable.sortOrder)),
       db.select().from(jobsTable).orderBy(asc(jobsTable.sortOrder)),
     ]);
 
@@ -40,6 +42,7 @@ router.get("/content", async (_req: Request, res: Response) => {
     shorts,
     demographics,
     brands,
+    press,
     jobs,
   };
 

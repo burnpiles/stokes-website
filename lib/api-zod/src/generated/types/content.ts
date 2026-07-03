@@ -9,6 +9,7 @@ import type { Brand } from './brand';
 import type { Demographic } from './demographic';
 import type { Job } from './job';
 import type { Platform } from './platform';
+import type { PressItem } from './pressItem';
 import type { Settings } from './settings';
 import type { Short } from './short';
 import type { Stat } from './stat';
@@ -22,5 +23,6 @@ export interface Content {
   shorts: Short[];
   demographics: Demographic[];
   brands: Brand[];
+  press: PressItem[];
   jobs: Job[];
 }

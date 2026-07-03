@@ -66,6 +66,10 @@ export const defaultSettings: Settings = {
     brandsLogline: "TRUSTED BY BRANDS THAT GO BIG",
     showBrandModal: false,
   },
+  pressSection: {
+    eyebrow: "06 — IN THE PRESS",
+    headline: "Making headlines.",
+  },
   careersSection: {
     eyebrow: "CAREERS · PRESS PLAY WITH US",
     headline: "Join the production.",
@@ -83,6 +87,7 @@ export const defaultSettings: Settings = {
     demographics: true,
     partner: true,
     careers: true,
+    press: true,
   },
 };
 
@@ -174,6 +179,12 @@ export const defaultContent: Content = {
       sortOrder: 4,
     },
   ],
+  press: [
+    { id: 1, outlet: "Forbes", title: "Forbes Top Creators 2026", url: "https://www.forbes.com/sites/stevenbertoni/2026/07/01/forbes-top-creators-2026/", imageUrl: "press/forbes-2026.png", sortOrder: 1 },
+    { id: 2, outlet: "The Hollywood Reporter", title: "Stokes Twins Sign With CAA", url: "https://www.hollywoodreporter.com/business/digital/stokes-twins-sign-caa-1236454079/", imageUrl: "press/thr-caa.png", sortOrder: 2 },
+    { id: 3, outlet: "Forbes", title: "Forbes Top Creators 2025", url: "https://www.forbes.com/sites/stevenbertoni/2025/07/09/forbes-top-creators-2025/", imageUrl: "press/forbes-2025.png", sortOrder: 3 },
+    { id: 4, outlet: "Schön! Magazine", title: "Interview: The Stokes Twins", url: "https://schonmagazine.com/interview-the-stokes-twins/", imageUrl: "press/schon.png", sortOrder: 4 },
+  ],
   jobs: [
     { id: 1, title: "Head of Production", brand: null, department: "Leadership", location: "LA", type: "On-site · Full-time", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSdrF5SvcnQfYTF5TxVGS-X5ufcMCevAoo5BC7TrLL16TSLXfg/viewform?usp=dialog", active: true, sortOrder: 1 },
     { id: 2, title: "Head of Creative", brand: null, department: "Leadership", location: "LA", type: "On-site · Full-time", applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfrV2Rwi57dMyKpWZ6bz0prguf9lJJInblRovFrd-BoPiQddg/viewform?usp=dialog", active: true, sortOrder: 2 },
@@ -198,6 +209,7 @@ export function mergeContent(data: Content | undefined): Content {
     settings: data.settings
       ? {
           ...data.settings,
+          pressSection: data.settings.pressSection ?? defaultSettings.pressSection,
           sectionVisibility: {
             ...defaultSettings.sectionVisibility!,
             ...data.settings.sectionVisibility,
@@ -210,6 +222,7 @@ export function mergeContent(data: Content | undefined): Content {
     shorts: pick(data.shorts, defaultContent.shorts),
     demographics: pick(data.demographics, defaultContent.demographics),
     brands: pick(data.brands, defaultContent.brands),
+    press: pick(data.press, defaultContent.press),
     jobs: pick(data.jobs, defaultContent.jobs),
   };
 }

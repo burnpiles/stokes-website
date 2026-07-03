@@ -5,5 +5,6 @@ export * from "./videos";
 export * from "./shorts";
 export * from "./demographics";
 export * from "./brands";
+export * from "./press";
 export * from "./jobs";
 export * from "./media";

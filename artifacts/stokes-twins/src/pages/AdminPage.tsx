@@ -13,6 +13,7 @@ import {
   useCreateShort, useUpdateShort, useDeleteShort,
   useCreateDemographic, useUpdateDemographic, useDeleteDemographic,
   useCreateBrand, useUpdateBrand, useDeleteBrand,
+  useCreatePressItem, useUpdatePressItem, useDeletePressItem,
   useCreateJob, useUpdateJob, useDeleteJob,
 } from "@workspace/api-client-react";
 import type { Settings } from "@workspace/api-client-react";
@@ -25,7 +26,7 @@ import { adminBtnPrimary, adminBtnGhost } from "@/components/admin/AdminPrimitiv
 
 type Draft = Record<string, unknown>;
 
-const TABS = ["Settings", "Stats", "Platforms", "Videos", "Shorts", "Demographics", "Brands", "Jobs", "Media"] as const;
+const TABS = ["Settings", "Stats", "Platforms", "Videos", "Shorts", "Demographics", "Brands", "Press", "Jobs", "Media"] as const;
 type Tab = typeof TABS[number];
 
 function LoginScreen() {
@@ -87,6 +88,7 @@ function Dashboard() {
   const short = { create: useCreateShort(), update: useUpdateShort(), del: useDeleteShort() };
   const demo = { create: useCreateDemographic(), update: useUpdateDemographic(), del: useDeleteDemographic() };
   const brand = { create: useCreateBrand(), update: useUpdateBrand(), del: useDeleteBrand() };
+  const pressItem = { create: useCreatePressItem(), update: useUpdatePressItem(), del: useDeletePressItem() };
   const job = { create: useCreateJob(), update: useUpdateJob(), del: useDeleteJob() };
 
   async function invalidate() {
@@ -160,6 +162,13 @@ function Dashboard() {
     { key: "logoUrl", label: "Logo", type: "image" },
     { key: "stats", label: "Stats", type: "brandstats" },
   ];
+  const pressFields: FieldDef[] = [
+    { key: "outlet", label: "Outlet", type: "text", placeholder: "e.g. Forbes" },
+    { key: "title", label: "Headline", type: "text" },
+    { key: "url", label: "Article URL", type: "text", placeholder: "https://…" },
+    { key: "sortOrder", label: "Sort Order", type: "number" },
+    { key: "imageUrl", label: "Image", type: "image" },
+  ];
   const jobFields: FieldDef[] = [
     { key: "title", label: "Title", type: "text" },
     { key: "brand", label: "Card tag (shown on the job card — leave blank for \"Stokes Twins\")", type: "text", placeholder: "e.g. Stokes Twins / Kat" },
@@ -226,6 +235,10 @@ function Dashboard() {
         {tab === "Brands" && (
           <ResourceEditor title="Brands" description="Partner logos and campaign results." items={content.brands} fields={brandFields} titleKey="name"
             newDraft={() => ({ name: "", logoUrl: "", campaign: "", formats: "", quote: "", stats: [], sortOrder: nextSort(content.brands) })} {...wire(brand)} />
+        )}
+        {tab === "Press" && (
+          <ResourceEditor title="Press" description="Press features and articles shown in the In The Press section." items={content.press} fields={pressFields} titleKey="title"
+            newDraft={() => ({ outlet: "", title: "", url: "", imageUrl: "", sortOrder: nextSort(content.press) })} {...wire(pressItem)} />
         )}
         {tab === "Jobs" && (
           <ResourceEditor title="Jobs" description="Open roles on the careers page." items={content.jobs} fields={jobFields} titleKey="title"
