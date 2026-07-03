@@ -75,6 +75,18 @@ export function SettingsEditor({ settings, onSave }: { settings: Settings; onSav
           <BoolField label="Careers Teaser · LIVE" value={vis.careers} onChange={(v) => patchVis("careers", v)} />
         </Section>
 
+        <Section title="Analytics">
+          <p className="col-span-2 font-sans text-xs text-[#F4F1EA]/50 -mt-1">
+            Paste your Google Analytics Measurement ID (looks like G-XXXXXXXXXX) to track web traffic. Leave blank to disable tracking.
+          </p>
+          <TextField
+            label="Google Analytics Measurement ID"
+            value={s.googleAnalyticsId ?? ""}
+            onChange={(v) => patch("googleAnalyticsId", v.trim())}
+            full
+          />
+        </Section>
+
         <Section title="Hero">
           <TextField label="Eyebrow" value={s.hero.eyebrow} onChange={(v) => patch("hero", { ...s.hero, eyebrow: v })} full />
           <TextAreaField label="Tagline" value={s.hero.tagline} onChange={(v) => patch("hero", { ...s.hero, tagline: v })} />

@@ -105,7 +105,8 @@ export const GetContentResponse = zod.object({
   "partner": zod.boolean(),
   "careers": zod.boolean(),
   "press": zod.boolean().optional()
-}).optional()
+}).optional(),
+  "googleAnalyticsId": zod.string().optional()
 }),
   "stats": zod.array(zod.object({
   "id": zod.number(),
@@ -319,7 +320,8 @@ export const UpdateSettingsBody = zod.object({
   "partner": zod.boolean(),
   "careers": zod.boolean(),
   "press": zod.boolean().optional()
-}).optional()
+}).optional(),
+  "googleAnalyticsId": zod.string().optional()
 })
 
 export const UpdateSettingsResponse = zod.object({
@@ -406,7 +408,8 @@ export const UpdateSettingsResponse = zod.object({
   "partner": zod.boolean(),
   "careers": zod.boolean(),
   "press": zod.boolean().optional()
-}).optional()
+}).optional(),
+  "googleAnalyticsId": zod.string().optional()
 })
 
 

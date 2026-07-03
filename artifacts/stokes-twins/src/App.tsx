@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useGetContent } from "@workspace/api-client-react";
 import { initAnalytics, trackPageView } from "@/lib/analytics";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -14,10 +15,12 @@ const queryClient = new QueryClient();
 
 function Analytics() {
   const [location] = useLocation();
+  const { data } = useGetContent();
+  const gaId = data?.settings?.googleAnalyticsId;
 
   useEffect(() => {
-    initAnalytics();
-  }, []);
+    initAnalytics(gaId);
+  }, [gaId]);
 
   useEffect(() => {
     trackPageView(window.location.pathname + window.location.search);

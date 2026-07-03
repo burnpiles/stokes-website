@@ -114,6 +114,7 @@ export interface Settings {
   pressSection?: SettingsPressSection;
   footer: SettingsFooter;
   sectionVisibility?: SettingsSectionVisibility;
+  googleAnalyticsId?: string;
 }
 
 export interface Stat {

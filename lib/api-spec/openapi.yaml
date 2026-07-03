@@ -827,6 +827,8 @@ components:
             partner: { type: boolean }
             careers: { type: boolean }
             press: { type: boolean }
+        googleAnalyticsId:
+          type: string
 
     SectionHeading:
       type: object
