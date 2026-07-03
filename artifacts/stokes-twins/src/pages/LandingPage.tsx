@@ -964,7 +964,7 @@ export default function LandingPage() {
       <section id="press" className="py-20 md:py-32 px-6 bg-[#0A0A0A] border-t border-[#F4F1EA]/10" data-testid="section-press">
         <div className="max-w-[1440px] mx-auto">
           <div className="mb-12 md:mb-20">
-            <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-4 md:mb-6">{settings.pressSection?.eyebrow}</h3>
+            <h3 className="font-mono text-[#2E4FE3] text-sm tracking-[0.2em] font-bold mb-4 md:mb-6">{settings.pressSection?.eyebrow}</h3>
             <h2 className="font-display text-[40px] md:text-[64px] leading-[1.1]">{settings.pressSection?.headline}</h2>
           </div>
 
@@ -976,7 +976,7 @@ export default function LandingPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-testid={`press-card-${item.id}`}
-                className="group block bg-[#141210] border border-[#F4F1EA]/10 rounded-[6px] overflow-hidden hover:border-[#E13B2C]/60 transition-colors"
+                className="group block bg-[#141210] border border-[#F4F1EA]/10 rounded-[6px] overflow-hidden hover:border-[#2E4FE3]/60 transition-colors"
                 style={{
                   animation: `brandReveal 0.6s cubic-bezier(0.16,1,0.3,1) both`,
                   animationDelay: `${0.1 + i * 0.1}s`,
@@ -991,11 +991,11 @@ export default function LandingPage() {
                   />
                 </div>
                 <div className="p-5 md:p-6">
-                  <div className="font-mono text-[10px] tracking-[0.2em] text-[#E13B2C] uppercase mb-3">{item.outlet}</div>
-                  <div className="font-display text-xl md:text-2xl leading-[1.15] group-hover:text-[#E13B2C] transition-colors">{item.title}</div>
+                  <div className="font-mono text-[10px] tracking-[0.2em] text-[#2E4FE3] uppercase mb-3">{item.outlet}</div>
+                  <div className="font-display text-xl md:text-2xl leading-[1.15] group-hover:text-[#2E4FE3] transition-colors">{item.title}</div>
                   <div className="mt-4 font-mono text-[10px] tracking-[0.18em] text-[#F4F1EA]/40 uppercase flex items-center gap-2">
                     Read the story
-                    <span className="text-[#E13B2C] group-hover:translate-x-1 transition-transform duration-300">→</span>
+                    <span className="text-[#2E4FE3] group-hover:translate-x-1 transition-transform duration-300">→</span>
                   </div>
                 </div>
               </a>
