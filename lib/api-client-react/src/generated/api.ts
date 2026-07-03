@@ -238,6 +238,76 @@ export function useGetContent<TData = Awaited<ReturnType<typeof getContent>>, TE
 
 
 
+export const getUnlockDataUrl = () => {
+
+
+
+
+  return `/api/data/unlock`
+}
+
+/**
+ * @summary Unlock the gated audience data section with the data password
+ */
+export const unlockData = async (loginInput: LoginInput, options?: RequestInit): Promise<AuthStatus> => {
+
+  return customFetch<AuthStatus>(getUnlockDataUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(loginInput)
+  }
+);}
+
+
+
+
+export const getUnlockDataMutationOptions = <TError = ErrorType<ErrorEnvelope>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof unlockData>>, TError,{data: BodyType<LoginInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof unlockData>>, TError,{data: BodyType<LoginInput>}, TContext> => {
+
+const mutationKey = ['unlockData'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof unlockData>>, {data: BodyType<LoginInput>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  unlockData(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UnlockDataMutationResult = NonNullable<Awaited<ReturnType<typeof unlockData>>>
+    export type UnlockDataMutationBody = BodyType<LoginInput>
+    export type UnlockDataMutationError = ErrorType<ErrorEnvelope>
+
+    /**
+ * @summary Unlock the gated audience data section with the data password
+ */
+export const useUnlockData = <TError = ErrorType<ErrorEnvelope>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof unlockData>>, TError,{data: BodyType<LoginInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof unlockData>>,
+        TError,
+        {data: BodyType<LoginInput>},
+        TContext
+      > => {
+      return useMutation(getUnlockDataMutationOptions(options));
+    }
+
 export const getAdminLoginUrl = () => {
 
 

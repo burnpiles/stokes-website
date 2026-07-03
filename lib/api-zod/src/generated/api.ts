@@ -193,6 +193,18 @@ export const GetContentResponse = zod.object({
 
 
 /**
+ * @summary Unlock the gated audience data section with the data password
+ */
+export const UnlockDataBody = zod.object({
+  "password": zod.string()
+})
+
+export const UnlockDataResponse = zod.object({
+  "authenticated": zod.boolean()
+})
+
+
+/**
  * @summary Log in with the admin password
  */
 export const AdminLoginBody = zod.object({

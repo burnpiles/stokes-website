@@ -12,6 +12,7 @@ import { useContent } from "@/lib/content";
 import { resolveImg } from "@/lib/resolveImg";
 import { extractYouTubeId, youtubeThumb } from "@/lib/youtube";
 import { platformIcon } from "@/lib/platformIcons";
+import { useUnlockData } from "@workspace/api-client-react";
 import type {
   Brand,
   Demographic,
@@ -21,6 +22,87 @@ import type {
   Stat,
   Video,
 } from "@workspace/api-client-react";
+
+function DataGate({ email, children }: { email: string; children: React.ReactNode }) {
+  const [unlocked, setUnlocked] = useState(
+    () => sessionStorage.getItem("stokes-data-unlocked") === "1",
+  );
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<"wrong" | "other" | null>(null);
+  const unlock = useUnlockData();
+
+  if (unlocked) return <>{children}</>;
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!password.trim() || unlock.isPending) return;
+    setError(null);
+    unlock.mutate(
+      { data: { password } },
+      {
+        onSuccess: () => {
+          sessionStorage.setItem("stokes-data-unlocked", "1");
+          setUnlocked(true);
+        },
+        onError: (err) => {
+          const status = (err as { status?: number } | null)?.status;
+          setError(status === 401 ? "wrong" : "other");
+        },
+      },
+    );
+  };
+
+  return (
+    <div className="relative" data-testid="data-gate">
+      <div className="pointer-events-none select-none blur-[14px] opacity-60" aria-hidden="true">
+        {children}
+      </div>
+      <div className="absolute inset-0 z-10 flex items-center justify-center px-4">
+        <div className="w-full max-w-[520px] bg-[#0A0A0A]/90 backdrop-blur-sm text-[#F4F1EA] rounded-[8px] border border-[#0A0A0A]/20 shadow-2xl p-8 md:p-10 text-center">
+          <div className="font-mono text-[11px] tracking-[0.3em] text-[#5B7CFF] font-bold mb-4">
+            🔒 CLASSIFIED — BRAND EYES ONLY
+          </div>
+          <h3 className="font-display text-2xl md:text-3xl leading-tight mb-3">
+            Our numbers are too good to leave lying around.
+          </h3>
+          <p className="font-sans text-sm md:text-base text-[#F4F1EA]/70 mb-6">
+            The full audience breakdown lives behind this velvet rope. Working with us?
+            Your Stokes contact has the password. Not yet?{" "}
+            <a href={`mailto:${email}`} className="underline decoration-[#5B7CFF] underline-offset-4 hover:text-[#5B7CFF] transition-colors">
+              Slide into our inbox
+            </a>{" "}
+            and we'll hand you the key.
+          </p>
+          <form onSubmit={submit} className="flex flex-col sm:flex-row gap-3 justify-center">
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => { setPassword(e.target.value); setError(null); }}
+              placeholder="Password"
+              data-testid="input-data-password"
+              className="flex-1 bg-[#F4F1EA]/10 border border-[#F4F1EA]/20 rounded-[4px] px-4 py-3 font-mono text-sm text-[#F4F1EA] placeholder:text-[#F4F1EA]/40 focus:outline-none focus:border-[#5B7CFF]"
+            />
+            <button
+              type="submit"
+              disabled={unlock.isPending}
+              data-testid="button-data-unlock"
+              className="bg-[#5B7CFF] text-[#0A0A0A] font-display text-base px-6 py-3 rounded-[4px] hover:bg-[#F4F1EA] transition-colors disabled:opacity-60"
+            >
+              {unlock.isPending ? "CHECKING…" : "UNLOCK →"}
+            </button>
+          </form>
+          {error && (
+            <div className="mt-4 font-mono text-xs tracking-widest text-[#E13B2C]" data-testid="text-data-gate-error">
+              {error === "wrong"
+                ? "WRONG PASSWORD — NICE TRY THOUGH."
+                : "SOMETHING GLITCHED — TRY AGAIN IN A SEC."}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function PlayHeadline({ text }: { text: string }) {
   const match = text.match(/play/i);
@@ -893,7 +975,9 @@ export default function LandingPage() {
             )}
           </div>
 
-          <DemographicsPanel demographics={demographics} settings={settings} />
+          <DataGate email={settings.partnerSection.email}>
+            <DemographicsPanel demographics={demographics} settings={settings} />
+          </DataGate>
         </div>
       </section>
       )}

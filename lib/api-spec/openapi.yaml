@@ -44,6 +44,31 @@ paths:
               schema:
                 $ref: "#/components/schemas/Content"
 
+  /data/unlock:
+    post:
+      operationId: unlockData
+      tags: [content]
+      summary: Unlock the gated audience data section with the data password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginInput"
+      responses:
+        "200":
+          description: Unlocked
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthStatus"
+        "401":
+          description: Invalid password
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+
   /admin/login:
     post:
       operationId: adminLogin

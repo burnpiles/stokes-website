@@ -13,9 +13,28 @@ import {
   jobsTable,
   defaultSettings,
 } from "@workspace/db";
-import { GetContentResponse } from "@workspace/api-zod";
+import { GetContentResponse, UnlockDataBody, UnlockDataResponse } from "@workspace/api-zod";
 
 const router: IRouter = Router();
+
+router.post("/data/unlock", (req: Request, res: Response) => {
+  const parsed = UnlockDataBody.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({ error: "Invalid input" });
+    return;
+  }
+  const expected = process.env.DATA_PASSWORD || process.env.ADMIN_PASSWORD;
+  if (!expected) {
+    req.log.error("DATA_PASSWORD/ADMIN_PASSWORD is not configured");
+    res.status(500).json({ error: "Server not configured" });
+    return;
+  }
+  if (parsed.data.password !== expected) {
+    res.status(401).json({ error: "Invalid password" });
+    return;
+  }
+  res.json(UnlockDataResponse.parse({ authenticated: true }));
+});
 
 router.get("/content", async (_req: Request, res: Response) => {
   const [settingsRow] = await db.select().from(settingsTable).limit(1);

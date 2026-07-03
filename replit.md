@@ -40,6 +40,7 @@ Marketing site for the Stokes Twins creator studio, fully editable through a pas
 - Public marketing site (hero, stats, YouTube counter, channels, audience demographics, partnerships, careers).
 - Public marketing site also includes a Press section (section 06, between the Partner CTA and Careers teaser) with linked press cards; images live in `artifacts/stokes-twins/public/press/`.
 - `/admin` CMS: log in with the admin password, then edit every section, manage list resources (stats, platforms, videos, shorts, jobs, brands, press, demographics), and upload media.
+- Section 04 audience data is behind a password gate (blurred overlay, `POST /api/data/unlock`). Password = `DATA_PASSWORD` env var if set, else falls back to `ADMIN_PASSWORD`. Unlock persists per browser tab (sessionStorage). It's a visual gate — the data is still in `GET /api/content`.
 
 ## User preferences
 
