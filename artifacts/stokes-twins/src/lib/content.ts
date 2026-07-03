@@ -6,7 +6,7 @@ export const defaultSettings: Settings = {
   hero: {
     eyebrow: "CREATOR-LED FAMILY ENTERTAINMENT STUDIO",
     tagline:
-      "The largest creator-led family entertainment studio — 250 million followers, a transmedia slate, and a global tentpole event every single month.",
+      "The largest creator-led family entertainment studio — 200 million followers, a transmedia slate, and a global tentpole event every single month.",
     ctaLabel: "PARTNER WITH US →",
     ctaHref: "#partner",
   },
@@ -91,7 +91,7 @@ export const defaultSettings: Settings = {
 export const defaultContent: Content = {
   settings: defaultSettings,
   stats: [
-    { id: 1, label: "SOCIAL FOLLOWERS*", value: 250, suffix: "M+", description: "Across every platform", sortOrder: 1 },
+    { id: 1, label: "SOCIAL FOLLOWERS*", value: 200, suffix: "M+", description: "Across every platform", sortOrder: 1 },
     { id: 2, label: "HOURS WATCHED*", value: 10, suffix: "B+", description: "Total watch time across platforms", sortOrder: 2 },
     { id: 3, label: "VIEWS*", value: 100, suffix: "B+", description: "Across all channels", sortOrder: 3 },
   ],
