@@ -246,8 +246,8 @@ function PlatformCard({ p, i }: { p: Platform; i: number }) {
               className="flex items-center justify-between gap-2 bg-[#F4F1EA]/[0.05] rounded-[4px] px-3 py-2 hover:bg-[#F4F1EA]/[0.1] transition-colors"
             >
               <span className="flex items-center gap-2 min-w-0">
-                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 shrink-0" style={{ color: p.color }} fill="currentColor" aria-hidden="true">
-                  <path d={platformIcon(p.iconKey)} />
+                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 shrink-0" style={{ color: l.color || p.color }} fill="currentColor" aria-hidden="true">
+                  <path d={platformIcon(l.iconKey || p.iconKey)} />
                 </svg>
                 <span className="font-mono text-[10px] tracking-[0.12em] text-[#F4F1EA]/80 truncate">{l.label}</span>
               </span>

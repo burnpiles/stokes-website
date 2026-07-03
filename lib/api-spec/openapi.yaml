@@ -871,6 +871,8 @@ components:
         label: { type: string }
         value: { type: string }
         url: { type: string }
+        iconKey: { type: string }
+        color: { type: string }
     Platform:
       type: object
       required: [id, name, value, handle, color, iconKey, links, sortOrder]

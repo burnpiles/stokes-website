@@ -129,6 +129,8 @@ export interface PlatformLink {
   label: string;
   value: string;
   url: string;
+  iconKey?: string;
+  color?: string;
 }
 
 export interface Platform {
