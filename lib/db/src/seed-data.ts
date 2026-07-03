@@ -90,7 +90,7 @@ export const defaultSettings: SiteSettings = {
 
 export const seedStats: InsertStat[] = [
   { label: "SOCIAL FOLLOWERS*", value: 250, suffix: "M+", description: "Across every platform", sortOrder: 1 },
-  { label: "HOURS WATCHED*", value: 0, suffix: "10+ Billion", description: "Total watch time across platforms", sortOrder: 2 },
+  { label: "HOURS WATCHED*", value: 10, suffix: "B+", description: "Total watch time across platforms", sortOrder: 2 },
   { label: "VIEWS*", value: 100, suffix: "B+", description: "Across all channels", sortOrder: 3 },
 ];
 
