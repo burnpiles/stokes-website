@@ -26,8 +26,11 @@ export function initAnalytics(gaId?: string | null): void {
     document.head.appendChild(script);
 
     window.dataLayer = window.dataLayer || [];
-    window.gtag = function gtag(...args: unknown[]) {
-      window.dataLayer.push(args);
+    // Must push the `arguments` object (not an array) — gtag.js ignores
+    // plain arrays, which silently breaks all tracking.
+    window.gtag = function gtag() {
+      // eslint-disable-next-line prefer-rest-params
+      window.dataLayer.push(arguments);
     };
     window.gtag("js", new Date());
   }
