@@ -8,9 +8,9 @@
  * are lost.
  *
  * Usage:
- *   PROD_URL=https://stokesuniverse.com pnpm --filter @workspace/scripts run push-content-to-prod
+ *   PROD_URL=https://www.stokestwins.com pnpm --filter @workspace/scripts run push-content-to-prod
  * or:
- *   pnpm --filter @workspace/scripts run push-content-to-prod -- https://stokesuniverse.com
+ *   pnpm --filter @workspace/scripts run push-content-to-prod -- https://www.stokestwins.com
  */
 
 const DEV_BASE = "http://localhost:80";
@@ -38,7 +38,7 @@ function prodBase(): string {
   const raw = (fromArg ?? fromEnv ?? "").trim();
   if (!raw) {
     throw new Error(
-      "Pass the live site URL: PROD_URL=https://stokesuniverse.com or as the first argument. " +
+      "Pass the live site URL: PROD_URL=https://www.stokestwins.com or as the first argument. " +
         "(Do NOT use REPLIT_DOMAINS — inside the dev container it points at the development preview.)",
     );
   }
