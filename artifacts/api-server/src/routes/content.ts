@@ -14,6 +14,7 @@ import {
   defaultSettings,
 } from "@workspace/db";
 import { GetContentResponse, UnlockDataBody, UnlockDataResponse } from "@workspace/api-zod";
+import { extractYoutubeId, getLiveViewCounts } from "../lib/youtube";
 
 const router: IRouter = Router();
 
@@ -52,6 +53,24 @@ router.get("/content", async (_req: Request, res: Response) => {
       db.select().from(pressTable).orderBy(asc(pressTable.sortOrder)),
       db.select().from(jobsTable).orderBy(asc(jobsTable.sortOrder)),
     ]);
+
+  // Overlay live YouTube view counts on videos/shorts. On failure, the
+  // stored `views` values from the DB are served unchanged.
+  try {
+    const ids = [...videos, ...shorts]
+      .map((v) => extractYoutubeId(v.youtubeUrl))
+      .filter((id): id is string => id !== null);
+    if (ids.length > 0) {
+      const counts = await getLiveViewCounts(ids);
+      for (const v of [...videos, ...shorts]) {
+        const id = extractYoutubeId(v.youtubeUrl);
+        const live = id ? counts.get(id) : undefined;
+        if (live) v.views = live;
+      }
+    }
+  } catch (err) {
+    _req.log.warn({ err }, "Live YouTube view counts unavailable; serving stored views");
+  }
 
   const payload = {
     settings: settingsRow?.data ?? defaultSettings,

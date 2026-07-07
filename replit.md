@@ -49,6 +49,8 @@ _Populate as you build — explicit user instructions worth remembering across s
 
 ## Gotchas
 
+- Video/short view counts are LIVE: `GET /api/content` overlays real YouTube Data API counts (via the Replit YouTube connector, `artifacts/api-server/src/lib/youtube.ts`, 5-min cache) onto `videos[].views`/`shorts[].views`. The DB `views` values are only a fallback if the API is unavailable. Requires the YouTube connection to stay authorized.
+
 - The YouTube counter animates from `youtubeCounter.base` up to `target` at `perMinute`; keep `target` well above `base` so it keeps climbing.
 - Live content lives in the DB. Editing `content.ts`/`seed-data.ts` alone won't change an already-seeded site — update the `settings`/content rows directly or via `/admin`.
 - `ADMIN_PASSWORD` and `SESSION_SECRET` must be set; restart the api-server workflow after adding/changing them.
