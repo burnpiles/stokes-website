@@ -548,6 +548,16 @@ function VideoCard({ video, featured = false }: { video: Video; featured?: boole
                   img.src = `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`;
                 }
               }}
+              onLoad={(e) => {
+                // YouTube serves a tiny gray placeholder (120x90) instead of
+                // a 404 for missing thumbnails — detect it by size and fall
+                // back to hqdefault.
+                const img = e.currentTarget;
+                if (img.naturalWidth <= 120 && !override && ytId && img.dataset.fallback !== "1") {
+                  img.dataset.fallback = "1";
+                  img.src = `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`;
+                }
+              }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/10 to-transparent" />
             <div className="absolute top-4 left-4 flex flex-wrap gap-2 max-w-[80%]">
@@ -590,6 +600,17 @@ function VideoCard({ video, featured = false }: { video: Video; featured?: boole
   );
 }
 
+function nextShortThumb(img: HTMLImageElement, ytId: string, override: string) {
+  if (override || !ytId) return;
+  if (img.dataset.fallback === undefined) {
+    img.dataset.fallback = "1";
+    img.src = `https://i.ytimg.com/vi/${ytId}/oar2.jpg`;
+  } else if (img.dataset.fallback === "1") {
+    img.dataset.fallback = "2";
+    img.src = `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`;
+  }
+}
+
 function ShortCard({ short: s }: { short: Short }) {
   const ytId = extractYouTubeId(s.youtubeUrl);
   const override = s.thumbnailUrl.trim();
@@ -613,16 +634,13 @@ function ShortCard({ short: s }: { short: Short }) {
             src={src}
             alt={s.title}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            onError={(e) => {
+            onError={(e) => nextShortThumb(e.currentTarget, ytId, override)}
+            onLoad={(e) => {
+              // YouTube serves a tiny gray placeholder (120x90) instead of a
+              // 404 for missing thumbnails, so onError never fires — detect
+              // it by its size and advance the fallback chain.
               const img = e.currentTarget;
-              if (override || !ytId) return;
-              if (img.dataset.fallback === undefined) {
-                img.dataset.fallback = "1";
-                img.src = `https://i.ytimg.com/vi/${ytId}/oar2.jpg`;
-              } else if (img.dataset.fallback === "1") {
-                img.dataset.fallback = "2";
-                img.src = `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`;
-              }
+              if (img.naturalWidth <= 120) nextShortThumb(img, ytId, override);
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-[#0A0A0A]/10" />
