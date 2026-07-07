@@ -75,6 +75,63 @@ function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
   });
 }
 
+type SubsResult = { anchorIso: string; count: number };
+const subsCache = new Map<string, { at: number } & SubsResult>();
+const lastGoodSubs = new Map<string, SubsResult>();
+const inflightSubs = new Map<string, Promise<SubsResult>>();
+
+async function fetchSubscriberCount(handle: string): Promise<number> {
+  const resp = await connectors.proxy(
+    "youtube",
+    `/youtube/v3/channels?part=statistics&forHandle=${encodeURIComponent(handle)}`,
+    { method: "GET" },
+  );
+  if (!resp.ok) {
+    throw new Error(`YouTube API responded with status ${resp.status}`);
+  }
+  const data = (await resp.json()) as {
+    items?: Array<{ statistics?: { subscriberCount?: string; hiddenSubscriberCount?: boolean } }>;
+  };
+  const stats = data.items?.[0]?.statistics;
+  const count = Number(stats?.subscriberCount);
+  if (stats?.hiddenSubscriberCount || !Number.isFinite(count) || count <= 0) {
+    throw new Error("Subscriber count unavailable for channel");
+  }
+  return count;
+}
+
+/**
+ * Live subscriber count for a channel handle, with the timestamp it was
+ * fetched at (so the client-side ticker can anchor to the real number).
+ * Cached 5 minutes; falls back to the last successful result on failure.
+ */
+export async function getChannelSubscribers(handle: string): Promise<SubsResult> {
+  const key = handle.trim().toLowerCase();
+  const cached = subsCache.get(key);
+  if (cached && Date.now() - cached.at < CACHE_TTL_MS) {
+    return { anchorIso: cached.anchorIso, count: cached.count };
+  }
+  const inflight = inflightSubs.get(key);
+  if (inflight) return inflight;
+  const promise = (async () => {
+    try {
+      const count = await withTimeout(fetchSubscriberCount(handle), 8000);
+      const result: SubsResult = { anchorIso: new Date().toISOString(), count };
+      subsCache.set(key, { at: Date.now(), ...result });
+      lastGoodSubs.set(key, result);
+      return result;
+    } catch (err) {
+      const lastGood = lastGoodSubs.get(key);
+      if (lastGood) return lastGood;
+      throw err;
+    } finally {
+      inflightSubs.delete(key);
+    }
+  })();
+  inflightSubs.set(key, promise);
+  return promise;
+}
+
 /**
  * Returns a map of videoId -> formatted live view count (e.g. "215M+").
  * Results are cached for 5 minutes. If the API fails, the last successful

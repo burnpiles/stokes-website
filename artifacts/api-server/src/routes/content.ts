@@ -14,7 +14,7 @@ import {
   defaultSettings,
 } from "@workspace/db";
 import { GetContentResponse, UnlockDataBody, UnlockDataResponse } from "@workspace/api-zod";
-import { extractYoutubeId, getLiveViewCounts } from "../lib/youtube";
+import { extractYoutubeId, getLiveViewCounts, getChannelSubscribers } from "../lib/youtube";
 
 const router: IRouter = Router();
 
@@ -54,26 +54,57 @@ router.get("/content", async (_req: Request, res: Response) => {
       db.select().from(jobsTable).orderBy(asc(jobsTable.sortOrder)),
     ]);
 
-  // Overlay live YouTube view counts on videos/shorts. On failure, the
-  // stored `views` values from the DB are served unchanged.
-  try {
-    const ids = [...videos, ...shorts]
-      .map((v) => extractYoutubeId(v.youtubeUrl))
-      .filter((id): id is string => id !== null);
-    if (ids.length > 0) {
-      const counts = await getLiveViewCounts(ids);
-      for (const v of [...videos, ...shorts]) {
-        const id = extractYoutubeId(v.youtubeUrl);
-        const live = id ? counts.get(id) : undefined;
-        if (live) v.views = live;
-      }
+  let settings = settingsRow?.data ?? defaultSettings;
+
+  // Overlay live YouTube data (video/short view counts + channel subscriber
+  // count). On failure, the stored DB values are served unchanged.
+  const ids = [...videos, ...shorts]
+    .map((v) => extractYoutubeId(v.youtubeUrl))
+    .filter((id): id is string => id !== null);
+  const ytPlatform = platforms.find((p) => p.iconKey === "youtube");
+  const handle = (ytPlatform?.handle ?? "@stokestwins").replace(/^@/, "");
+
+  const [countsResult, subsResult] = await Promise.allSettled([
+    ids.length > 0 ? getLiveViewCounts(ids) : Promise.resolve(new Map<string, string>()),
+    getChannelSubscribers(handle),
+  ]);
+
+  if (countsResult.status === "fulfilled") {
+    const counts = countsResult.value;
+    for (const v of [...videos, ...shorts]) {
+      const id = extractYoutubeId(v.youtubeUrl);
+      const live = id ? counts.get(id) : undefined;
+      if (live) v.views = live;
     }
-  } catch (err) {
-    _req.log.warn({ err }, "Live YouTube view counts unavailable; serving stored views");
+  } else {
+    _req.log.warn(
+      { err: countsResult.reason },
+      "Live YouTube view counts unavailable; serving stored views",
+    );
+  }
+
+  if (subsResult.status === "fulfilled") {
+    const subs = subsResult.value;
+    // Anchor the animated counter to the real subscriber count at fetch
+    // time so it never drifts ahead of reality between refreshes.
+    settings = {
+      ...settings,
+      youtubeCounter: {
+        ...settings.youtubeCounter,
+        base: subs.count,
+        anchorIso: subs.anchorIso,
+        target: Math.max(settings.youtubeCounter.target, subs.count + 1_000_000),
+      },
+    };
+  } else {
+    _req.log.warn(
+      { err: subsResult.reason },
+      "Live YouTube subscriber count unavailable; serving stored counter settings",
+    );
   }
 
   const payload = {
-    settings: settingsRow?.data ?? defaultSettings,
+    settings,
     stats,
     platforms,
     videos,
