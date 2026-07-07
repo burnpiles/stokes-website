@@ -581,7 +581,7 @@ function VideoCard({ video, featured = false }: { video: Video; featured?: boole
         <h4 className={`font-display ${featured ? "text-lg md:text-[34px]" : "text-lg"} leading-tight min-w-0`}>{video.title}</h4>
         {video.views.trim() && (
           <div className="shrink-0 text-right">
-            <div className={`font-display text-[#E13B2C] leading-none ${featured ? "text-4xl md:text-[64px]" : "text-3xl md:text-4xl"}`}>{video.views}</div>
+            <div className={`font-display text-[#E13B2C] leading-none ${featured ? "text-lg md:text-[34px]" : "text-lg"}`}>{video.views}</div>
             <div className="font-mono text-[10px] tracking-widest text-[#F4F1EA]/50 mt-1">VIEWS</div>
           </div>
         )}
@@ -642,7 +642,7 @@ function ShortCard({ short: s }: { short: Short }) {
             <div className="font-sans font-bold text-sm text-white leading-tight line-clamp-2 min-w-0">{s.title}</div>
             {s.views.trim() && (
               <div className="shrink-0 text-right">
-                <div className="font-display text-2xl md:text-[28px] text-[#E13B2C] leading-none">{s.views}</div>
+                <div className="font-display text-sm text-[#E13B2C] leading-none">{s.views}</div>
                 <div className="font-mono text-[8px] tracking-widest text-[#F4F1EA]/60 mt-0.5">VIEWS</div>
               </div>
             )}
