@@ -577,9 +577,14 @@ function VideoCard({ video, featured = false }: { video: Video; featured?: boole
           </>
         )}
       </div>
-      <div className={featured ? "p-5 md:p-7" : "p-5"}>
-        <h4 className={`font-display ${featured ? "text-lg md:text-[34px]" : "text-lg"} leading-tight mb-2`}>{video.title}</h4>
-        {video.views.trim() && <div className="font-mono text-xs text-[#F4F1EA]/50 tracking-wide">{video.views} VIEWS</div>}
+      <div className={`${featured ? "p-5 md:p-7" : "p-5"} flex items-end justify-between gap-4`}>
+        <h4 className={`font-display ${featured ? "text-lg md:text-[34px]" : "text-lg"} leading-tight min-w-0`}>{video.title}</h4>
+        {video.views.trim() && (
+          <div className="shrink-0 text-right">
+            <div className={`font-display text-[#E13B2C] leading-none ${featured ? "text-4xl md:text-[64px]" : "text-3xl md:text-4xl"}`}>{video.views}</div>
+            <div className="font-mono text-[10px] tracking-widest text-[#F4F1EA]/50 mt-1">VIEWS</div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -633,9 +638,14 @@ function ShortCard({ short: s }: { short: Short }) {
               <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white ml-0.5"><path d="M8 5v14l11-7z" /></svg>
             </span>
           </button>
-          <div className="pointer-events-none absolute bottom-0 left-0 right-0 p-4">
-            <div className="font-sans font-bold text-sm text-white leading-tight mb-1 line-clamp-2">{s.title}</div>
-            {s.views.trim() && <div className="font-mono text-[10px] text-[#F4F1EA]/60">{s.views} views</div>}
+          <div className="pointer-events-none absolute bottom-0 left-0 right-0 p-4 flex items-end justify-between gap-2">
+            <div className="font-sans font-bold text-sm text-white leading-tight line-clamp-2 min-w-0">{s.title}</div>
+            {s.views.trim() && (
+              <div className="shrink-0 text-right">
+                <div className="font-display text-2xl md:text-[28px] text-[#E13B2C] leading-none">{s.views}</div>
+                <div className="font-mono text-[8px] tracking-widest text-[#F4F1EA]/60 mt-0.5">VIEWS</div>
+              </div>
+            )}
           </div>
         </>
       )}
