@@ -226,7 +226,7 @@ function Dashboard() {
             newDraft={() => ({ title: "", tags: [], views: "", duration: "", youtubeUrl: "", thumbnailUrl: "", featured: false, sortOrder: nextSort(content.videos) })} {...wire(video)} />
         )}
         {tab === "Shorts" && (
-          <ResourceEditor title="Shorts" description="The shorts carousel — up to 10." items={content.shorts} fields={shortFields} titleKey="title" maxItems={10}
+          <ResourceEditor title="Shorts" description="The shorts carousel." items={content.shorts} fields={shortFields} titleKey="title"
             newDraft={() => ({ title: "", views: "", youtubeUrl: "", thumbnailUrl: "", sortOrder: nextSort(content.shorts) })} {...wire(short)} />
         )}
         {tab === "Demographics" && (
