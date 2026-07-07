@@ -217,21 +217,55 @@ function StatBandItem({ end, suffix, label, desc, delay }: { end: number, suffix
   );
 }
 
+function parseFollowerCount(v: string): number {
+  const m = v.trim().match(/^([\d.]+)\s*([KMB])?/i);
+  if (!m) return 0;
+  const n = parseFloat(m[1]);
+  if (!Number.isFinite(n)) return 0;
+  return n * (UNIT_MULTIPLIER[(m[2] ?? "").toUpperCase()] ?? 1);
+}
+
+function formatFollowerCount(n: number): string {
+  const fmt = (x: number) => {
+    const r = Math.round(x * 10) / 10;
+    return Number.isInteger(r) ? r.toString() : r.toFixed(1);
+  };
+  if (n >= 1e9) return `${fmt(n / 1e9)}B`;
+  if (n >= 1e6) return `${fmt(n / 1e6)}M`;
+  if (n >= 1e3) return `${fmt(n / 1e3)}K`;
+  return Math.round(n).toString();
+}
+
 function PlatformCard({ p, i }: { p: Platform; i: number }) {
   const { ref, isVisible } = useReveal(i * 80);
   const cardClass = `group h-full bg-[#141210] border border-[#F4F1EA]/10 rounded-[6px] p-6 md:p-8 flex flex-col items-center text-center transition-all duration-500 hover:border-[#E13B2C]/40 hover:-translate-y-1 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`;
+
+  const rawLinks = p.links ?? [];
+  // Hero number = primary account + all same-platform accounts (accounts
+  // from other platforms, e.g. a Facebook card under Instagram, are excluded).
+  const samePlatformTotal = rawLinks
+    .filter((l) => !l.iconKey || l.iconKey === p.iconKey)
+    .reduce((sum, l) => sum + parseFollowerCount(l.value), 0);
+  const heroTotal = parseFollowerCount(p.value) + samePlatformTotal;
+  const heroValue = heroTotal > 0 ? formatFollowerCount(heroTotal) : p.value;
+
+  // When there are account sub-cards, the primary account gets its own
+  // sub-card too, so its individual count stays visible under the aggregate.
+  const links =
+    rawLinks.length > 0
+      ? [{ label: p.handle, value: p.value, url: p.url ?? undefined, iconKey: p.iconKey, color: p.color }, ...rawLinks]
+      : rawLinks;
+
   const inner = (
     <>
       <svg viewBox="0 0 24 24" className="w-12 h-12 md:w-14 md:h-14 mb-4 transition-transform duration-300 group-hover:scale-110" style={{ color: p.color }} fill="currentColor" aria-hidden="true">
         <path d={platformIcon(p.iconKey)} />
       </svg>
-      <div className="font-display text-3xl md:text-[40px] text-[#F4F1EA] leading-none mb-2">{p.value}</div>
+      <div className="font-display text-3xl md:text-[40px] text-[#F4F1EA] leading-none mb-2">{heroValue}</div>
       <div className="font-mono text-xs tracking-widest text-[#F4F1EA]/70 mb-1">{p.name.toUpperCase()}</div>
       <div className="font-mono text-[11px] text-[#F4F1EA]/40">{p.handle}</div>
     </>
   );
-
-  const links = p.links ?? [];
   const badgeSlot = (
     <div className={`w-full mt-auto pt-4 ${links.length > 0 ? "border-t border-[#F4F1EA]/10" : ""}`}>
       {links.length > 0 ? (

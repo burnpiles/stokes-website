@@ -1,0 +1,27 @@
+Update the social stats section so every platform account is a clickable link, and each platform's hero number becomes an aggregate total.
+
+For each platform column (YouTube, TikTok, Instagram):
+
+1. HERO NUMBER = aggregate sum of all accounts listed under that platform.
+   - YouTube hero = @stokestwins subs + @stokestoo (13.1M) + Top Videos (3.4M). 
+     NOTE: if "Top Videos" is a view/other metric and shouldn't be summed into subscriber totals, only sum the actual channel subscriber counts (@stokestwins + @stokestoo) — please confirm which, and default to summing only real channels.
+   - Instagram hero = @stokestwins + @alexstokes (3.6M) + @stokestwins FB (2M).
+     NOTE: same caveat — if the 2M is Facebook (different platform), keep it out of the Instagram aggregate and instead treat it as its own account. Default: aggregate only same-platform accounts.
+   - TikTok hero = sum of all TikTok accounts listed (currently just @stokestwins at 30.8M).
+
+2. The HERO NUMBER remains a link, pointing to the single largest-following account in that category (the existing behavior/URL stays for the top channel).
+
+3. ADD a small sub-card for the platform's primary @stokestwins account itself (the one currently only represented by the hero number), showing its own subscriber/follower total, matching the styling of the existing small cards (e.g. the @stokestoo and @alexstokes cards). So YouTube gets a "@stokestwins — [subs]" sub-card, and Instagram gets a "@stokestwins — [followers]" sub-card.
+
+4. EVERY account card and the hero number must be a clickable link that opens in a new tab (target="_blank" rel="noopener noreferrer"):
+   - YouTube @stokestwins → https://www.youtube.com/@stokestwins
+   - YouTube @stokestoo → its existing/known channel URL
+   - Instagram @stokestwins → https://www.instagram.com/stokestwins
+   - Instagram @alexstokes → its existing/known URL
+   - Facebook @stokestwins → its existing/known URL
+   - TikTok @stokestwins → its existing/known URL
+   - Keep any URLs already wired up; only add the two new ones above where missing.
+
+5. Preserve the existing dark card design, fonts, monospace handles, icons, spacing, and the "More to come / EXPANDING" placeholder card.
+
+Store the per-account follower numbers and URLs in a single data structure (array/object) so the hero aggregate is computed automatically from the account list rather than hardcoded, making future updates easy. Each platform object should define: platform name, icon, hero link (largest account), and an accounts array of {handle, count, url, icon}.
