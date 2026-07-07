@@ -241,12 +241,10 @@ function PlatformCard({ p, i }: { p: Platform; i: number }) {
   const cardClass = `group h-full bg-[#141210] border border-[#F4F1EA]/10 rounded-[6px] p-6 md:p-8 flex flex-col items-center text-center transition-all duration-500 hover:border-[#E13B2C]/40 hover:-translate-y-1 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`;
 
   const rawLinks = p.links ?? [];
-  // Hero number = primary account + all same-platform accounts (accounts
-  // from other platforms, e.g. a Facebook card under Instagram, are excluded).
-  const samePlatformTotal = rawLinks
-    .filter((l) => !l.iconKey || l.iconKey === p.iconKey)
-    .reduce((sum, l) => sum + parseFollowerCount(l.value), 0);
-  const heroTotal = parseFollowerCount(p.value) + samePlatformTotal;
+  // Hero number = primary account + every account listed under this card
+  // (including cross-platform accounts like Facebook under Instagram).
+  const linksTotal = rawLinks.reduce((sum, l) => sum + parseFollowerCount(l.value), 0);
+  const heroTotal = parseFollowerCount(p.value) + linksTotal;
   const heroValue = heroTotal > 0 ? formatFollowerCount(heroTotal) : p.value;
 
   // When there are account sub-cards, the primary account gets its own

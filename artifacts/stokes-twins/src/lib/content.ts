@@ -101,7 +101,7 @@ export const defaultContent: Content = {
       { label: "Top Videos", value: "3.4M", url: "https://www.youtube.com/@stokestwinstopvideos" },
     ], sortOrder: 1 },
     { id: 2, name: "TikTok", value: "30.8M", handle: "@stokestwins", color: "#F4F1EA", iconKey: "tiktok", url: "https://www.tiktok.com/@stokestwins?lang=en", links: [], sortOrder: 2 },
-    { id: 4, name: "Instagram", value: "4.9M", handle: "@stokestwins", color: "#E1306C", iconKey: "instagram", url: "https://www.instagram.com/stokestwins/?hl=en", links: [
+    { id: 4, name: "Instagram / Facebook", value: "4.9M", handle: "@stokestwins", color: "#E1306C", iconKey: "instagram", url: "https://www.instagram.com/stokestwins/?hl=en", links: [
       { label: "@alexstokes", value: "3.6M", url: "https://www.instagram.com/alexstokes/" },
       { label: "@stokestwins", value: "2M", url: "https://www.facebook.com/stokestwins/", iconKey: "facebook", color: "#1877F2" },
     ], sortOrder: 3 },
