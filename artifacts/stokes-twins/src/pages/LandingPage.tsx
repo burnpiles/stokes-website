@@ -615,8 +615,12 @@ function ShortCard({ short: s }: { short: Short }) {
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             onError={(e) => {
               const img = e.currentTarget;
-              if (!override && ytId && img.dataset.fallback !== "1") {
+              if (override || !ytId) return;
+              if (img.dataset.fallback === undefined) {
                 img.dataset.fallback = "1";
+                img.src = `https://i.ytimg.com/vi/${ytId}/oar2.jpg`;
+              } else if (img.dataset.fallback === "1") {
+                img.dataset.fallback = "2";
                 img.src = `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`;
               }
             }}
