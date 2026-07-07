@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
@@ -485,7 +485,7 @@ function liveYouTubeCount(c: Settings["youtubeCounter"]): number {
 
 function YouTubeCountUp({ counter }: { counter: Settings["youtubeCounter"] }) {
   const { ref, isVisible } = useReveal();
-  const [introTarget] = useState(() => liveYouTubeCount(counter));
+  const introTarget = useMemo(() => liveYouTubeCount(counter), [counter]);
   const [live, setLive] = useState(introTarget);
   const [introDone, setIntroDone] = useState(false);
   const intro = useCountUp(isVisible ? introTarget : 0, 5000);

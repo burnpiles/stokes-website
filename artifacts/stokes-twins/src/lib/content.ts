@@ -20,7 +20,7 @@ export const defaultSettings: Settings = {
     base: 141000000,
     target: 150000000,
     perMinute: 100,
-    anchorIso: "2026-06-30T00:00:00Z",
+    anchorIso: "2026-07-07T00:00:00Z",
     subLabel: "Subscribers and counting",
   },
   statsSection: {
