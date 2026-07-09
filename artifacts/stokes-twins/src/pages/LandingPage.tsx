@@ -402,16 +402,61 @@ function VBarLight({ label, percent, max, peak, delay }: { label: string; percen
   );
 }
 
-function HBar({ label, percent, max, accent, delay }: { label: string; percent: number; max: number; accent?: boolean; delay: number }) {
-  const { ref, isVisible } = useReveal(delay);
-  const width = useBarGrow(isVisible ? (percent / max) * 100 : 0);
+const FLAG_CODES: Record<string, string> = {
+  "united states": "us",
+  usa: "us",
+  mexico: "mx",
+  india: "in",
+  indonesia: "id",
+  vietnam: "vn",
+  philippines: "ph",
+  brazil: "br",
+  "united kingdom": "gb",
+  canada: "ca",
+};
+
+function CountryFlag({ label, className }: { label: string; className?: string }) {
+  const code = FLAG_CODES[label.trim().toLowerCase()];
+  if (!code) return null;
   return (
-    <div ref={ref} className="flex items-center gap-4">
-      <div className="w-32 md:w-40 font-mono text-sm text-[#0A0A0A]/80">{label}</div>
-      <div className="flex-grow h-3 bg-[#0A0A0A]/10 rounded-full overflow-hidden">
-        <div className={`h-full ${accent ? 'bg-[#E13B2C]' : 'bg-[#141210]'} transition-all duration-75`} style={{ width: `${width}%` }} />
+    <img
+      src={`https://flagcdn.com/w80/${code}.png`}
+      srcSet={`https://flagcdn.com/w160/${code}.png 2x`}
+      alt={`${label} flag`}
+      loading="lazy"
+      className={`rounded-[3px] border border-[#0A0A0A]/10 object-cover ${className ?? ""}`}
+    />
+  );
+}
+
+function GeoChampion({ label, delay }: { label: string; delay: number }) {
+  const { ref, isVisible } = useReveal(delay);
+  return (
+    <div
+      ref={ref}
+      data-testid="geo-champion"
+      className={`flex items-center gap-4 rounded-xl border border-[#D4A017]/40 bg-gradient-to-r from-[#D4A017]/15 to-transparent p-4 md:p-5 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+    >
+      <span className="text-3xl md:text-4xl" role="img" aria-label="First place trophy">🏆</span>
+      <CountryFlag label={label} className="w-12 md:w-14" />
+      <div>
+        <div className="font-display text-xl md:text-2xl text-[#0A0A0A] leading-none">{label}</div>
+        <div className="font-mono text-[10px] tracking-[0.25em] text-[#D4A017] font-bold mt-1.5">FIRST PLACE</div>
       </div>
-      <div className="w-12 text-right font-mono font-bold text-sm text-[#0A0A0A]">{percent}%</div>
+    </div>
+  );
+}
+
+function GeoRunnerUp({ label, delay }: { label: string; delay: number }) {
+  const { ref, isVisible } = useReveal(delay);
+  return (
+    <div
+      ref={ref}
+      data-testid={`geo-runnerup-${label.toLowerCase().replace(/[^a-z]/g, "")}`}
+      className={`flex flex-col items-center gap-3 rounded-xl border border-[#0A0A0A]/10 bg-white/60 p-4 text-center transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+    >
+      <CountryFlag label={label} className="w-10 md:w-12" />
+      <div className="font-mono text-xs md:text-sm text-[#0A0A0A]/80">{label}</div>
     </div>
   );
 }
@@ -476,8 +521,8 @@ function DemographicsPanel({ demographics, settings }: { demographics: Demograph
   const devices = byCat("device");
   const isGeoSummary = (label: string) => /^rest of/i.test(label);
   const geoBars = geo.filter((d) => !isGeoSummary(d.label));
-  const geoRest = geo.filter((d) => isGeoSummary(d.label));
-  const geoMax = Math.max(...geoBars.map((g) => g.percent), 1);
+  const geoChampion = geoBars.find((d) => d.highlight) ?? geoBars[0];
+  const geoRunnerUps = geoBars.filter((d) => d !== geoChampion);
   const ageMax = Math.max(...age.map((a) => a.percent), 1);
   const deviceHero = devices.find((d) => d.highlight) ?? devices[0];
   const deviceRest = devices.filter((d) => d !== deviceHero);
@@ -507,16 +552,13 @@ function DemographicsPanel({ demographics, settings }: { demographics: Demograph
       {/* Row 2 — Geography + Engagement */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <DemoPanel label="GEOGRAPHY" subcopy={demoCopy.geographySubcopy} className="lg:col-span-5">
-          <div className="space-y-6">
-            {geoBars.map((d, i) => (
-              <HBar key={d.id} label={d.label} percent={d.percent} max={geoMax} accent={d.highlight} delay={i * 100} />
-            ))}
-            {geoRest.map((d) => (
-              <div key={d.id} className="flex items-center justify-between border-t border-[#0A0A0A]/10 pt-5">
-                <div className="font-mono text-sm text-[#0A0A0A]/60">{d.label}</div>
-                <div className="font-mono font-bold text-sm text-[#0A0A0A]">{d.percent}%</div>
-              </div>
-            ))}
+          <div className="space-y-5">
+            {geoChampion && <GeoChampion label={geoChampion.label} delay={0} />}
+            <div className="grid grid-cols-3 gap-3 md:gap-4">
+              {geoRunnerUps.map((d, i) => (
+                <GeoRunnerUp key={d.id} label={d.label} delay={120 + i * 100} />
+              ))}
+            </div>
           </div>
         </DemoPanel>
 
