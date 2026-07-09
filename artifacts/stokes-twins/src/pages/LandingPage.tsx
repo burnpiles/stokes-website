@@ -236,6 +236,60 @@ function formatFollowerCount(n: number): string {
   return Math.round(n).toString();
 }
 
+const NETFLIX_LINKS = [
+  { label: "Netflix Trailer", value: "", url: "https://www.youtube.com/watch?v=YB1Ikd9sk00", iconKey: "youtube", color: "#FF0000" },
+  { label: "Our Last Video", value: "", url: "https://www.youtube.com/watch?v=vJ1ycA7fn68&pp=ygUMc3Rva2VzIHR3aW5z", iconKey: "youtube", color: "#FF0000" },
+  { label: "Stokes Sign Netflix Deal", value: "THR", url: "https://www.hollywoodreporter.com/tv/tv-news/youtube-stokes-twins-netflix-deal-1236643152/", iconKey: "article", color: "#F4F1EA" },
+  { label: "YouTube Sensations Come To NFLX", value: "The Wrap", url: "https://www.thewrap.com/media-platforms/tv/stokes-twins-netflix-youtube/", iconKey: "article", color: "#F4F1EA" },
+  { label: "Stokes Developing Netflix Series", value: "Tudum", url: "https://www.netflix.com/tudum/articles/stokes-twins-netflix-series", iconKey: "article", color: "#E50914" },
+];
+
+function NetflixCard({ i }: { i: number }) {
+  const { ref, isVisible } = useReveal(i * 80);
+  return (
+    <div
+      ref={ref}
+      className={`group h-full bg-[#141210] border border-[#E50914]/30 rounded-[6px] p-6 md:p-8 flex flex-col items-center text-center transition-all duration-500 hover:border-[#E50914]/60 hover:-translate-y-1 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+      data-testid="platform-netflix"
+    >
+      <div className="flex flex-col items-center justify-start w-full flex-1 pb-5">
+        <svg viewBox="0 0 24 24" className="w-12 h-12 md:w-14 md:h-14 mb-4 transition-transform duration-300 group-hover:scale-110" style={{ color: "#E50914" }} fill="currentColor" aria-hidden="true">
+          <path d={platformIcon("netflix")} />
+        </svg>
+        <div className="font-display text-3xl md:text-[40px] text-[#F4F1EA] leading-none mb-2">MILLIONS</div>
+        <div className="font-mono text-xs tracking-widest text-[#F4F1EA]/70 mb-3">NETFLIX</div>
+        <div className="font-mono text-[11px] text-[#F4F1EA]/40 leading-relaxed">
+          <div>YouTube Videos: July 2026</div>
+          <div>New Series: 2027</div>
+        </div>
+      </div>
+      <div className="w-full mt-auto pt-4 border-t border-[#F4F1EA]/10">
+        <div className="flex flex-col gap-2">
+          {NETFLIX_LINKS.map((l, li) => (
+            <a
+              key={li}
+              href={l.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid={`platform-link-netflix-${li}`}
+              aria-label={l.label}
+              className="flex items-center justify-between gap-2 bg-[#F4F1EA]/[0.05] rounded-[4px] px-3 py-2 hover:bg-[#F4F1EA]/[0.1] transition-colors"
+            >
+              <span className="flex items-center gap-2 min-w-0">
+                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 shrink-0" style={{ color: l.color }} fill="currentColor" aria-hidden="true">
+                  <path d={platformIcon(l.iconKey)} />
+                </svg>
+                <span className="font-mono text-[10px] tracking-[0.12em] text-[#F4F1EA]/80 truncate">{l.label}</span>
+              </span>
+              {l.value && <span className="font-display text-sm text-[#F4F1EA] shrink-0">{l.value}</span>}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function PlatformCard({ p, i }: { p: Platform; i: number }) {
   const { ref, isVisible } = useReveal(i * 80);
   const cardClass = `group h-full bg-[#141210] border border-[#F4F1EA]/10 rounded-[6px] p-6 md:p-8 flex flex-col items-center text-center transition-all duration-500 hover:border-[#E13B2C]/40 hover:-translate-y-1 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`;
@@ -1004,23 +1058,8 @@ export default function LandingPage() {
               <PlatformCard key={p.id} p={p} i={i} />
             ))}
 
-            {/* More to come — sits in the grid, to the right of the platforms */}
-            <div
-              className="group relative overflow-hidden h-full bg-gradient-to-br from-[#141210] to-[#17100e] border border-dashed border-[#E13B2C]/30 rounded-[6px] p-6 md:p-8 flex flex-col items-center justify-center text-center min-h-[180px] transition-colors duration-500 hover:border-[#E13B2C]/60"
-              data-testid="more-to-come"
-            >
-              <div className="font-mono text-[9px] md:text-[10px] tracking-[0.35em] text-[#F4F1EA]/40 mb-4">EXPANDING</div>
-              <h3
-                className="font-display text-[30px] md:text-[34px] leading-[1.05] bg-clip-text text-transparent"
-                style={{
-                  backgroundImage: "linear-gradient(110deg, rgba(244,241,234,0.55) 30%, #FFFFFF 47%, #E13B2C 50%, #FFFFFF 53%, rgba(244,241,234,0.55) 70%)",
-                  backgroundSize: "200% auto",
-                  animation: "shimmer 5s linear infinite",
-                }}
-              >
-                More to come
-              </h3>
-            </div>
+            {/* Netflix — sits in the grid, to the right of the platforms */}
+            <NetflixCard i={platforms.length} />
           </div>
         </div>
       </section>

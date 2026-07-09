@@ -125,7 +125,7 @@ function Dashboard() {
     { key: "value", label: "Value", type: "text" },
     { key: "handle", label: "Handle", type: "text" },
     { key: "color", label: "Color (hex)", type: "text" },
-    { key: "iconKey", label: "Icon (youtube/tiktok/snapchat/instagram/facebook/x)", type: "text" },
+    { key: "iconKey", label: "Icon (youtube/tiktok/snapchat/instagram/facebook/x/netflix/article)", type: "text" },
     { key: "url", label: "URL", type: "text" },
     { key: "sortOrder", label: "Sort Order", type: "number" },
     { key: "links", label: "Extra channel links (small buttons inside the card)", type: "links" },
