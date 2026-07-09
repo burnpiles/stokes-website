@@ -53,7 +53,7 @@ function DataGate({ email, children }: { email: string; children: React.ReactNod
   };
 
   return (
-    <div className="relative" data-testid="data-gate">
+    <div className="relative max-h-[480px] md:max-h-none overflow-hidden md:overflow-visible" data-testid="data-gate">
       <div className="pointer-events-none select-none blur-[14px] opacity-60" aria-hidden="true">
         {children}
       </div>
@@ -1095,29 +1095,58 @@ export default function LandingPage() {
       </section>
       )}
 
-      {/* Section 04 - WHO'S WATCHING */}
-      {(settings.sectionVisibility?.demographics ?? true) && (
-      <section id="demographics" className="py-20 md:py-32 px-6 bg-[#F4F1EA] text-[#0A0A0A]" data-testid="section-demographics">
+      {/* Section 04 - IN THE PRESS */}
+      {(settings.sectionVisibility?.press ?? true) && press.length > 0 && (
+      <section id="press" className="py-20 md:py-32 px-6 bg-[#0A0A0A] border-t border-[#F4F1EA]/10" data-testid="section-press">
         <div className="max-w-[1440px] mx-auto">
-          <div className="mb-10 md:mb-16">
-            <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">{settings.demographicsSection.eyebrow}</h3>
-            <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1] max-w-[800px]">{settings.demographicsSection.headline}</h2>
-            {settings.demographicsSection.sourceNote && (
-              <div className="inline-flex items-center gap-2 mt-6 px-3 py-1.5 rounded-full border border-[#0A0A0A]/15 font-mono text-[11px] tracking-[0.15em] text-[#0A0A0A]/60" data-testid="demographics-source-note">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#E13B2C]" />
-                {settings.demographicsSection.sourceNote.toUpperCase()}
-              </div>
-            )}
+          <div className="mb-12 md:mb-20">
+            <h3 className="font-mono text-[#8FA9FF] text-sm tracking-[0.2em] font-bold mb-4 md:mb-6">{settings.pressSection?.eyebrow}</h3>
+            <div className="flex items-end justify-between gap-4">
+              <h2 className="font-display text-[40px] md:text-[64px] leading-[1.1]">{settings.pressSection?.headline}</h2>
+              <span className="font-mono text-[10px] tracking-[0.2em] text-[#F4F1EA]/40 uppercase hidden md:block whitespace-nowrap pb-2">
+                Hover near an edge to scroll →
+              </span>
+            </div>
           </div>
 
-          <DataGate email={settings.partnerSection.email}>
-            <DemographicsPanel demographics={demographics} settings={settings} />
-          </DataGate>
+          <HoverScrollCarousel testId="press-carousel">
+            {press.map((item, i) => (
+              <a
+                key={item.id}
+                href={item.url || undefined}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid={`press-card-${item.id}`}
+                className="group block shrink-0 w-[280px] md:w-[340px] bg-[#141210] border border-[#F4F1EA]/10 rounded-[6px] overflow-hidden hover:border-[#8FA9FF]/60 transition-colors"
+                style={{
+                  animation: `brandReveal 0.6s cubic-bezier(0.16,1,0.3,1) both`,
+                  animationDelay: `${0.1 + i * 0.1}s`,
+                }}
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={resolveImg(item.imageUrl)}
+                    alt={item.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-5 md:p-6">
+                  <div className="font-mono text-[10px] tracking-[0.2em] text-[#8FA9FF] uppercase mb-3">{item.outlet}</div>
+                  <div className="font-display text-xl md:text-2xl leading-[1.15] group-hover:text-[#8FA9FF] transition-colors">{item.title}</div>
+                  <div className="mt-4 font-mono text-[10px] tracking-[0.18em] text-[#F4F1EA]/40 uppercase flex items-center gap-2">
+                    Read the story
+                    <span className="text-[#8FA9FF] group-hover:translate-x-1 transition-transform duration-300">→</span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </HoverScrollCarousel>
         </div>
       </section>
       )}
 
-      {/* Partner CTA */}
+      {/* Section 05 - Partner CTA */}
       {(settings.sectionVisibility?.partner ?? true) && (
       <section id="partner" className="py-20 md:py-32 px-6 bg-[#E13B2C] text-white text-center" data-testid="section-partner-cta">
         <div className="max-w-[1000px] mx-auto">
@@ -1178,63 +1207,12 @@ export default function LandingPage() {
       </section>
       )}
 
-      {/* Section 06 - IN THE PRESS */}
-      {(settings.sectionVisibility?.press ?? true) && press.length > 0 && (
-      <section id="press" className="py-20 md:py-32 px-6 bg-[#0A0A0A] border-t border-[#F4F1EA]/10" data-testid="section-press">
-        <div className="max-w-[1440px] mx-auto">
-          <div className="mb-12 md:mb-20">
-            <h3 className="font-mono text-[#8FA9FF] text-sm tracking-[0.2em] font-bold mb-4 md:mb-6">{settings.pressSection?.eyebrow}</h3>
-            <div className="flex items-end justify-between gap-4">
-              <h2 className="font-display text-[40px] md:text-[64px] leading-[1.1]">{settings.pressSection?.headline}</h2>
-              <span className="font-mono text-[10px] tracking-[0.2em] text-[#F4F1EA]/40 uppercase hidden md:block whitespace-nowrap pb-2">
-                Hover near an edge to scroll →
-              </span>
-            </div>
-          </div>
-
-          <HoverScrollCarousel testId="press-carousel">
-            {press.map((item, i) => (
-              <a
-                key={item.id}
-                href={item.url || undefined}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-testid={`press-card-${item.id}`}
-                className="group block shrink-0 w-[280px] md:w-[340px] bg-[#141210] border border-[#F4F1EA]/10 rounded-[6px] overflow-hidden hover:border-[#8FA9FF]/60 transition-colors"
-                style={{
-                  animation: `brandReveal 0.6s cubic-bezier(0.16,1,0.3,1) both`,
-                  animationDelay: `${0.1 + i * 0.1}s`,
-                }}
-              >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={resolveImg(item.imageUrl)}
-                    alt={item.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-5 md:p-6">
-                  <div className="font-mono text-[10px] tracking-[0.2em] text-[#8FA9FF] uppercase mb-3">{item.outlet}</div>
-                  <div className="font-display text-xl md:text-2xl leading-[1.15] group-hover:text-[#8FA9FF] transition-colors">{item.title}</div>
-                  <div className="mt-4 font-mono text-[10px] tracking-[0.18em] text-[#F4F1EA]/40 uppercase flex items-center gap-2">
-                    Read the story
-                    <span className="text-[#8FA9FF] group-hover:translate-x-1 transition-transform duration-300">→</span>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </HoverScrollCarousel>
-        </div>
-      </section>
-      )}
-
-      {/* Careers Teaser */}
+      {/* Section 06 - Careers Teaser */}
       {(settings.sectionVisibility?.careers ?? true) && (
       <section className="py-20 md:py-32 px-6 bg-[#141210] border-t border-[#F4F1EA]/10" data-testid="section-careers-teaser">
         <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
-            <div className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">{activeJobs.length} ROLES OPEN · NOW HIRING</div>
+            <div className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">06 — {activeJobs.length} ROLES OPEN · NOW HIRING</div>
             <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1]">{settings.careersSection.headline}</h2>
           </div>
           <div>
@@ -1249,6 +1227,28 @@ export default function LandingPage() {
               <span className="text-[#E13B2C] group-hover:translate-x-4 transition-transform duration-300">→</span>
             </Link>
           </div>
+        </div>
+      </section>
+      )}
+
+      {/* Section 07 - WHO'S WATCHING */}
+      {(settings.sectionVisibility?.demographics ?? true) && (
+      <section id="demographics" className="py-20 md:py-32 px-6 bg-[#F4F1EA] text-[#0A0A0A]" data-testid="section-demographics">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="mb-10 md:mb-16">
+            <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">{settings.demographicsSection.eyebrow}</h3>
+            <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1] max-w-[800px]">{settings.demographicsSection.headline}</h2>
+            {settings.demographicsSection.sourceNote && (
+              <div className="inline-flex items-center gap-2 mt-6 px-3 py-1.5 rounded-full border border-[#0A0A0A]/15 font-mono text-[11px] tracking-[0.15em] text-[#0A0A0A]/60" data-testid="demographics-source-note">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E13B2C]" />
+                {settings.demographicsSection.sourceNote.toUpperCase()}
+              </div>
+            )}
+          </div>
+
+          <DataGate email={settings.partnerSection.email}>
+            <DemographicsPanel demographics={demographics} settings={settings} />
+          </DataGate>
         </div>
       </section>
       )}

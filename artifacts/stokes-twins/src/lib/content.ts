@@ -64,7 +64,7 @@ export const defaultSettings: Settings = {
     showBrandModal: false,
   },
   pressSection: {
-    eyebrow: "06 — IN THE PRESS",
+    eyebrow: "04 — IN THE PRESS",
     headline: "Making headlines.",
   },
   careersSection: {

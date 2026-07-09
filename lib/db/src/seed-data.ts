@@ -46,7 +46,7 @@ export const defaultSettings: SiteSettings = {
       "A native presence on every platform that matters — a connected network that moves as one.",
   },
   demographicsSection: {
-    eyebrow: "04 — WHO'S WATCHING",
+    eyebrow: "07 — WHO'S WATCHING",
     headline: "Gen-Z and young millennials, leaning all the way in.",
     sourceNote: "YouTube Audience",
     ageSubcopy:
