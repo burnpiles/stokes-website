@@ -949,16 +949,31 @@ export default function LandingPage() {
               "#press": settings.sectionVisibility?.press,
             };
             const targetVisible = anchorVisibility[settings.hero.ctaHref] ?? true;
-            return targetVisible ? (
-              <a
-                href={settings.hero.ctaHref}
-                className="animate-rise bg-white text-[#0A0A0A] font-display text-[17px] px-[34px] py-[18px] rounded-[3px] hover:bg-[#E13B2C] hover:text-white transition-colors"
+            return (
+              <div
+                className="animate-rise flex flex-col md:flex-row items-center justify-center gap-4"
                 style={{ animationDelay: '0.4s' }}
-                data-testid="hero-cta-btn"
               >
-                {settings.hero.ctaLabel}
-              </a>
-            ) : null;
+                {targetVisible && (
+                  <a
+                    href={settings.hero.ctaHref}
+                    className="bg-white text-[#0A0A0A] font-display text-[17px] px-[34px] py-[18px] rounded-[3px] hover:bg-[#E13B2C] hover:text-white transition-colors"
+                    data-testid="hero-cta-btn"
+                  >
+                    {settings.hero.ctaLabel}
+                  </a>
+                )}
+                <a
+                  href="https://www.youtube.com/watch?v=YB1Ikd9sk00"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#E50914] text-white font-display text-[17px] px-[34px] py-[18px] rounded-[3px] hover:bg-white hover:text-[#E50914] transition-colors"
+                  data-testid="hero-netflix-btn"
+                >
+                  COMING SOON TO NETFLIX →
+                </a>
+              </div>
+            );
           })()}
         </div>
       </section>
