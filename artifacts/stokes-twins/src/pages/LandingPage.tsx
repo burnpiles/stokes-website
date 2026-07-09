@@ -236,11 +236,11 @@ function formatFollowerCount(n: number): string {
   return Math.round(n).toString();
 }
 
+const NETFLIX_HERO_URL = "https://www.youtube.com/watch?v=vJ1ycA7fn68&pp=ygUMc3Rva2VzIHR3aW5z";
+
 const NETFLIX_LINKS = [
   { label: "Netflix Trailer", value: "", url: "https://www.youtube.com/watch?v=YB1Ikd9sk00", iconKey: "youtube", color: "#FF0000" },
-  { label: "Our Last Video", value: "", url: "https://www.youtube.com/watch?v=vJ1ycA7fn68&pp=ygUMc3Rva2VzIHR3aW5z", iconKey: "youtube", color: "#FF0000" },
-  { label: "Stokes Sign Netflix Deal", value: "THR", url: "https://www.hollywoodreporter.com/tv/tv-news/youtube-stokes-twins-netflix-deal-1236643152/", iconKey: "article", color: "#F4F1EA" },
-  { label: "YouTube Sensations Come To NFLX", value: "The Wrap", url: "https://www.thewrap.com/media-platforms/tv/stokes-twins-netflix-youtube/", iconKey: "article", color: "#F4F1EA" },
+  { label: "Our Last Video", value: "", url: NETFLIX_HERO_URL, iconKey: "youtube", color: "#FF0000" },
   { label: "Stokes Developing Netflix Series", value: "Tudum", url: "https://www.netflix.com/tudum/articles/stokes-twins-netflix-series", iconKey: "article", color: "#E50914" },
 ];
 
@@ -252,26 +252,24 @@ function NetflixCard({ i }: { i: number }) {
       className={`group h-full bg-[#141210] border border-[#E50914]/30 rounded-[6px] p-6 md:p-8 flex flex-col items-center text-center transition-all duration-500 hover:border-[#E50914]/60 hover:-translate-y-1 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
       data-testid="platform-netflix"
     >
-      <div className="flex flex-col items-center justify-start w-full flex-1 pb-5">
-        <a
-          href="https://www.youtube.com/watch?v=vJ1ycA7fn68&pp=ygUMc3Rva2VzIHR3aW5z"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Watch Our Last Video on YouTube"
-          data-testid="netflix-logo-link"
-          className="mb-4"
-        >
-          <svg viewBox="0 0 24 24" className="w-12 h-12 md:w-14 md:h-14 transition-transform duration-300 group-hover:scale-110" style={{ color: "#E50914" }} fill="currentColor" aria-hidden="true">
-            <path d={platformIcon("netflix")} />
-          </svg>
-        </a>
+      <a
+        href={NETFLIX_HERO_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Watch Our Last Video on YouTube"
+        data-testid="netflix-logo-link"
+        className="flex flex-col items-center justify-start w-full flex-1 pb-5"
+      >
+        <svg viewBox="0 0 24 24" className="w-12 h-12 md:w-14 md:h-14 mb-4 transition-transform duration-300 group-hover:scale-110" style={{ color: "#E50914" }} fill="currentColor" aria-hidden="true">
+          <path d={platformIcon("netflix")} />
+        </svg>
         <div className="font-display text-3xl md:text-[40px] text-[#F4F1EA] leading-none mb-2">MILLIONS</div>
         <div className="font-mono text-xs tracking-widest text-[#F4F1EA]/70 mb-3">NETFLIX</div>
         <div className="font-mono text-[11px] text-[#F4F1EA]/40 leading-relaxed">
           <div>YouTube Videos: July 2026</div>
           <div>New Series: 2027</div>
         </div>
-      </div>
+      </a>
       <div className="w-full mt-auto pt-4 border-t border-[#F4F1EA]/10">
         <div className="flex flex-col gap-2">
           {NETFLIX_LINKS.map((l, li) => (
