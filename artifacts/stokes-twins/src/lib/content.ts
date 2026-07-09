@@ -43,7 +43,7 @@ export const defaultSettings: Settings = {
   demographicsSection: {
     eyebrow: "04 — WHO'S WATCHING",
     headline: "Gen-Z and young millennials, leaning all the way in.",
-    sourceNote: "YouTube Audience",
+    sourceNote: "Lifetime YouTube Audience",
     ageSubcopy:
       "The core is 25–44 — nearly two-thirds of the audience sits in peak spending years.",
     genderSubcopy:
