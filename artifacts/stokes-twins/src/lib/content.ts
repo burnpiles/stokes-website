@@ -132,7 +132,6 @@ export const defaultContent: Content = {
     { id: 5, category: "age", label: "45+", percent: 15.4, highlight: false, sortOrder: 5 },
     { id: 6, category: "gender", label: "Male", percent: 52.9, highlight: true, sortOrder: 1 },
     { id: 7, category: "gender", label: "Female", percent: 46.8, highlight: false, sortOrder: 2 },
-    { id: 8, category: "gender", label: "Other / User-specified", percent: 0.2, highlight: false, sortOrder: 3 },
     { id: 9, category: "geography", label: "United States", percent: 12.3, highlight: true, sortOrder: 1 },
     { id: 10, category: "geography", label: "Mexico", percent: 5.3, highlight: false, sortOrder: 2 },
     { id: 11, category: "geography", label: "India", percent: 10.8, highlight: false, sortOrder: 3 },

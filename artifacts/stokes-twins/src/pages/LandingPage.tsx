@@ -481,23 +481,36 @@ function MetricCard({ value, label, delay }: { value: string; label: string; del
   );
 }
 
-function GenderBar({ percent, color, label, delay }: { percent: number; color: string; label: string; delay: number }) {
-  const { ref, isVisible } = useReveal(delay);
-  const width = useBarGrow(isVisible ? percent : 0);
+function GenderSplit({ left, right }: { left: { label: string; percent: number }; right: { label: string; percent: number } }) {
+  const { ref, isVisible } = useReveal();
+  const total = left.percent + right.percent;
+  const leftShare = total > 0 ? (left.percent / total) * 100 : 50;
+  const width = useBarGrow(isVisible ? leftShare : 0);
   return (
-    <div ref={ref}>
-      <div className="flex justify-between font-mono text-sm mb-2">
-        <span className="text-[#0A0A0A]/80">{label}</span>
-        <span className="font-bold" style={{ color }}>{percent}%</span>
+    <div ref={ref} data-testid="gender-split">
+      <div className="flex items-end justify-between mb-5">
+        <div>
+          <div className="font-display text-[44px] md:text-[56px] leading-none text-[#E13B2C]">{left.percent}%</div>
+          <div className="font-mono text-[11px] tracking-[0.25em] font-bold text-[#0A0A0A]/70 mt-2">{left.label.toUpperCase()}</div>
+        </div>
+        <div className="text-right">
+          <div className="font-display text-[44px] md:text-[56px] leading-none text-[#141210]">{right.percent}%</div>
+          <div className="font-mono text-[11px] tracking-[0.25em] font-bold text-[#0A0A0A]/70 mt-2">{right.label.toUpperCase()}</div>
+        </div>
       </div>
-      <div className="h-4 bg-[#0A0A0A]/10 rounded-full overflow-hidden">
-        <div className="h-full rounded-full" style={{ width: `${width}%`, backgroundColor: color }} />
+      <div className="relative h-10 md:h-12 rounded-full overflow-hidden bg-[#141210]">
+        <div className="absolute inset-y-0 left-0 bg-[#E13B2C]" style={{ width: `${width}%` }} />
+        <div
+          className="absolute inset-y-0 w-[3px] bg-[#F4F1EA] transition-all duration-75"
+          style={{ left: `calc(${width}% - 1.5px)` }}
+        />
+      </div>
+      <div className="mt-4 text-center font-mono text-[10px] tracking-[0.25em] text-[#0A0A0A]/45 uppercase">
+        A near-even split
       </div>
     </div>
   );
 }
-
-const GENDER_COLORS = ["#E13B2C", "#141210", "#9C9488"];
 
 function DemoPanel({ label, subcopy, className = "", children }: { label: string; subcopy?: string; className?: string; children: React.ReactNode }) {
   return (
@@ -517,6 +530,7 @@ function DemographicsPanel({ demographics, settings }: { demographics: Demograph
     demographics.filter((d) => d.category === cat).sort((a, b) => a.sortOrder - b.sortOrder);
   const age = byCat("age");
   const gender = byCat("gender");
+  const genderPair = gender.filter((d) => !/other/i.test(d.label)).slice(0, 2);
   const geo = byCat("geography");
   const devices = byCat("device");
   const isGeoSummary = (label: string) => /^rest of/i.test(label);
@@ -541,11 +555,9 @@ function DemographicsPanel({ demographics, settings }: { demographics: Demograph
         </DemoPanel>
 
         <DemoPanel label="GENDER" subcopy={demoCopy.genderSubcopy} className="lg:col-span-5">
-          <div className="space-y-7">
-            {gender.map((d, i) => (
-              <GenderBar key={d.id} label={d.label} percent={d.percent} color={GENDER_COLORS[i] ?? "#9C9488"} delay={i * 120} />
-            ))}
-          </div>
+          {genderPair.length >= 2 ? (
+            <GenderSplit left={genderPair[0]} right={genderPair[1]} />
+          ) : null}
         </DemoPanel>
       </div>
 

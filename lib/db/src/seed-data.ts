@@ -134,7 +134,6 @@ export const seedDemographics: InsertDemographic[] = [
   { category: "age", label: "45+", percent: 15.4, highlight: false, sortOrder: 5 },
   { category: "gender", label: "Male", percent: 52.9, highlight: true, sortOrder: 1 },
   { category: "gender", label: "Female", percent: 46.8, highlight: false, sortOrder: 2 },
-  { category: "gender", label: "Other / User-specified", percent: 0.2, highlight: false, sortOrder: 3 },
   { category: "geography", label: "United States", percent: 12.3, highlight: true, sortOrder: 1 },
   { category: "geography", label: "Mexico", percent: 5.3, highlight: false, sortOrder: 2 },
   { category: "geography", label: "India", percent: 10.8, highlight: false, sortOrder: 3 },
