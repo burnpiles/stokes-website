@@ -465,7 +465,7 @@ function DeviceHero({ percent, label, delay }: { percent: number; label: string;
   const { ref, isVisible } = useReveal(delay);
   return (
     <div ref={ref} className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-      <div className="font-display text-[72px] md:text-[88px] leading-none text-[#E13B2C]">{percent}%</div>
+      <div className="font-display text-[48px] md:text-[60px] leading-none text-[#E13B2C]">{percent}%</div>
       <div className="font-mono text-[12px] tracking-[0.25em] font-bold text-[#0A0A0A]/70 mt-3">{label.toUpperCase()}</div>
     </div>
   );
@@ -475,7 +475,7 @@ function MetricCard({ value, label, delay }: { value: string; label: string; del
   const { ref, isVisible } = useReveal(delay);
   return (
     <div ref={ref} className={`border-t-2 border-[#E13B2C] pt-5 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-      <div className="font-display text-4xl md:text-5xl text-[#0A0A0A] leading-none mb-2">{value}</div>
+      <div className="font-display text-2xl md:text-3xl text-[#0A0A0A] leading-none mb-2">{value}</div>
       <div className="font-mono text-[11px] tracking-widest text-[#0A0A0A]/50">{label}</div>
     </div>
   );
@@ -490,11 +490,11 @@ function GenderSplit({ left, right }: { left: { label: string; percent: number }
     <div ref={ref} data-testid="gender-split">
       <div className="flex items-end justify-between mb-5">
         <div>
-          <div className="font-display text-[44px] md:text-[56px] leading-none text-[#E13B2C]">{left.percent}%</div>
+          <div className="font-display text-[32px] md:text-[38px] leading-none text-[#E13B2C]">{left.percent}%</div>
           <div className="font-mono text-[11px] tracking-[0.25em] font-bold text-[#0A0A0A]/70 mt-2">{left.label.toUpperCase()}</div>
         </div>
         <div className="text-right">
-          <div className="font-display text-[44px] md:text-[56px] leading-none text-[#141210]">{right.percent}%</div>
+          <div className="font-display text-[32px] md:text-[38px] leading-none text-[#141210]">{right.percent}%</div>
           <div className="font-mono text-[11px] tracking-[0.25em] font-bold text-[#0A0A0A]/70 mt-2">{right.label.toUpperCase()}</div>
         </div>
       </div>
