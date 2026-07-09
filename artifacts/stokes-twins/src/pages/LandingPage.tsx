@@ -253,9 +253,18 @@ function NetflixCard({ i }: { i: number }) {
       data-testid="platform-netflix"
     >
       <div className="flex flex-col items-center justify-start w-full flex-1 pb-5">
-        <svg viewBox="0 0 24 24" className="w-12 h-12 md:w-14 md:h-14 mb-4 transition-transform duration-300 group-hover:scale-110" style={{ color: "#E50914" }} fill="currentColor" aria-hidden="true">
-          <path d={platformIcon("netflix")} />
-        </svg>
+        <a
+          href="https://www.youtube.com/watch?v=vJ1ycA7fn68&pp=ygUMc3Rva2VzIHR3aW5z"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Watch Our Last Video on YouTube"
+          data-testid="netflix-logo-link"
+          className="mb-4"
+        >
+          <svg viewBox="0 0 24 24" className="w-12 h-12 md:w-14 md:h-14 transition-transform duration-300 group-hover:scale-110" style={{ color: "#E50914" }} fill="currentColor" aria-hidden="true">
+            <path d={platformIcon("netflix")} />
+          </svg>
+        </a>
         <div className="font-display text-3xl md:text-[40px] text-[#F4F1EA] leading-none mb-2">MILLIONS</div>
         <div className="font-mono text-xs tracking-widest text-[#F4F1EA]/70 mb-3">NETFLIX</div>
         <div className="font-mono text-[11px] text-[#F4F1EA]/40 leading-relaxed">
@@ -1053,7 +1062,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {platforms.map((p, i) => (
               <PlatformCard key={p.id} p={p} i={i} />
             ))}
