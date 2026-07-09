@@ -485,9 +485,11 @@ function GenderSplit({ left, right }: { left: { label: string; percent: number }
   const total = left.percent + right.percent;
   const leftShare = total > 0 ? (left.percent / total) * 100 : 50;
   const width = useBarGrow(isVisible ? leftShare : 0);
+  const totalIcons = 20;
+  const leftIcons = Math.round((leftShare / 100) * totalIcons);
   return (
-    <div ref={ref} data-testid="gender-split">
-      <div className="flex items-end justify-between mb-5">
+    <div ref={ref} data-testid="gender-split" className="flex flex-col h-full">
+      <div className="flex items-end justify-between mb-6">
         <div>
           <div className="font-display text-[32px] md:text-[38px] leading-none text-[#E13B2C]">{left.percent}%</div>
           <div className="font-mono text-[11px] tracking-[0.25em] font-bold text-[#0A0A0A]/70 mt-2">{left.label.toUpperCase()}</div>
@@ -497,6 +499,25 @@ function GenderSplit({ left, right }: { left: { label: string; percent: number }
           <div className="font-mono text-[11px] tracking-[0.25em] font-bold text-[#0A0A0A]/70 mt-2">{right.label.toUpperCase()}</div>
         </div>
       </div>
+      <div className="grid grid-cols-10 gap-x-2 gap-y-3 mb-7" aria-hidden="true">
+        {Array.from({ length: totalIcons }).map((_, i) => (
+          <svg
+            key={i}
+            viewBox="0 0 24 24"
+            className="w-full max-w-[26px] mx-auto transition-all duration-500"
+            style={{
+              color: i < leftIcons ? "#E13B2C" : "#141210",
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? "translateY(0)" : "translateY(8px)",
+              transitionDelay: `${i * 35}ms`,
+            }}
+            fill="currentColor"
+          >
+            <circle cx="12" cy="6" r="4" />
+            <path d="M12 12c-4.4 0-7 2.9-7 6.5V22h14v-3.5c0-3.6-2.6-6.5-7-6.5z" />
+          </svg>
+        ))}
+      </div>
       <div className="relative h-10 md:h-12 rounded-full overflow-hidden bg-[#141210]">
         <div className="absolute inset-y-0 left-0 bg-[#E13B2C]" style={{ width: `${width}%` }} />
         <div
@@ -504,8 +525,10 @@ function GenderSplit({ left, right }: { left: { label: string; percent: number }
           style={{ left: `calc(${width}% - 1.5px)` }}
         />
       </div>
-      <div className="mt-4 text-center font-mono text-[10px] tracking-[0.25em] text-[#0A0A0A]/45 uppercase">
-        A near-even split
+      <div className="mt-auto pt-6 flex items-center justify-center gap-3">
+        <span className="h-px flex-1 bg-[#0A0A0A]/10" />
+        <span className="font-mono text-[10px] tracking-[0.25em] text-[#0A0A0A]/45 uppercase whitespace-nowrap">A near-even split</span>
+        <span className="h-px flex-1 bg-[#0A0A0A]/10" />
       </div>
     </div>
   );
@@ -513,13 +536,13 @@ function GenderSplit({ left, right }: { left: { label: string; percent: number }
 
 function DemoPanel({ label, subcopy, className = "", children }: { label: string; subcopy?: string; className?: string; children: React.ReactNode }) {
   return (
-    <div className={`relative rounded-2xl border border-[#0A0A0A]/10 bg-white/55 backdrop-blur-sm p-7 md:p-9 ${className}`}>
+    <div className={`relative flex flex-col rounded-2xl border border-[#0A0A0A]/10 bg-white/55 backdrop-blur-sm p-7 md:p-9 ${className}`}>
       <div className="flex items-center gap-2.5 mb-1">
         <span className="w-1.5 h-1.5 rounded-full bg-[#E13B2C]" />
         <h4 className="font-mono text-[11px] tracking-[0.25em] font-bold text-[#0A0A0A]/70">{label}</h4>
       </div>
       {subcopy && <p className="font-sans text-[15px] text-[#0A0A0A]/55 leading-relaxed mb-8 max-w-[440px]">{subcopy}</p>}
-      <div className={subcopy ? "" : "mt-7"}>{children}</div>
+      <div className={`flex-1 ${subcopy ? "" : "mt-7"}`}>{children}</div>
     </div>
   );
 }
