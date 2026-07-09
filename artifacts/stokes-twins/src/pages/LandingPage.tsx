@@ -263,11 +263,10 @@ function NetflixCard({ i }: { i: number }) {
         <svg viewBox="0 0 24 24" className="w-12 h-12 md:w-14 md:h-14 mb-4 transition-transform duration-300 group-hover:scale-110" style={{ color: "#E50914" }} fill="currentColor" aria-hidden="true">
           <path d={platformIcon("netflix")} />
         </svg>
-        <div className="font-display text-3xl md:text-[40px] text-[#F4F1EA] leading-none mb-2">MILLIONS</div>
-        <div className="font-mono text-xs tracking-widest text-[#F4F1EA]/70 mb-3">NETFLIX</div>
+        <div className="font-display text-3xl md:text-[40px] text-[#F4F1EA] leading-none mb-3">NETFLIX</div>
         <div className="font-mono text-[11px] text-[#F4F1EA]/40 leading-relaxed">
-          <div>YouTube Videos: July 2026</div>
-          <div>New Series: 2027</div>
+          <div>YouTube Videos Drop: July 2026</div>
+          <div>Original Series: 2027</div>
         </div>
       </a>
       <div className="w-full mt-auto pt-4 border-t border-[#F4F1EA]/10">
