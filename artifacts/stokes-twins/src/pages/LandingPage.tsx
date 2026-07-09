@@ -738,7 +738,7 @@ function ShortCard({ short: s }: { short: Short }) {
   );
 }
 
-function ShortsCarousel({ shorts }: { shorts: Short[] }) {
+function HoverScrollCarousel({ children, testId }: { children: React.ReactNode; testId: string }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const velocityRef = useRef(0);
   const rafRef = useRef<number | null>(null);
@@ -794,15 +794,23 @@ function ShortsCarousel({ shorts }: { shorts: Short[] }) {
           stop();
         }}
         className="flex gap-4 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        data-testid="shorts-carousel"
+        data-testid={testId}
       >
-        {shorts.map((s) => (
-          <ShortCard key={s.id} short={s} />
-        ))}
+        {children}
       </div>
       <div className="pointer-events-none absolute inset-y-0 left-0 w-16 md:w-24 bg-gradient-to-r from-[#0A0A0A] to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-16 md:w-24 bg-gradient-to-l from-[#0A0A0A] to-transparent" />
     </div>
+  );
+}
+
+function ShortsCarousel({ shorts }: { shorts: Short[] }) {
+  return (
+    <HoverScrollCarousel testId="shorts-carousel">
+      {shorts.map((s) => (
+        <ShortCard key={s.id} short={s} />
+      ))}
+    </HoverScrollCarousel>
   );
 }
 
@@ -1163,10 +1171,15 @@ export default function LandingPage() {
         <div className="max-w-[1440px] mx-auto">
           <div className="mb-12 md:mb-20">
             <h3 className="font-mono text-[#8FA9FF] text-sm tracking-[0.2em] font-bold mb-4 md:mb-6">{settings.pressSection?.eyebrow}</h3>
-            <h2 className="font-display text-[40px] md:text-[64px] leading-[1.1]">{settings.pressSection?.headline}</h2>
+            <div className="flex items-end justify-between gap-4">
+              <h2 className="font-display text-[40px] md:text-[64px] leading-[1.1]">{settings.pressSection?.headline}</h2>
+              <span className="font-mono text-[10px] tracking-[0.2em] text-[#F4F1EA]/40 uppercase hidden md:block whitespace-nowrap pb-2">
+                Hover near an edge to scroll →
+              </span>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <HoverScrollCarousel testId="press-carousel">
             {press.map((item, i) => (
               <a
                 key={item.id}
@@ -1174,7 +1187,7 @@ export default function LandingPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-testid={`press-card-${item.id}`}
-                className="group block bg-[#141210] border border-[#F4F1EA]/10 rounded-[6px] overflow-hidden hover:border-[#8FA9FF]/60 transition-colors"
+                className="group block shrink-0 w-[280px] md:w-[340px] bg-[#141210] border border-[#F4F1EA]/10 rounded-[6px] overflow-hidden hover:border-[#8FA9FF]/60 transition-colors"
                 style={{
                   animation: `brandReveal 0.6s cubic-bezier(0.16,1,0.3,1) both`,
                   animationDelay: `${0.1 + i * 0.1}s`,
@@ -1198,7 +1211,7 @@ export default function LandingPage() {
                 </div>
               </a>
             ))}
-          </div>
+          </HoverScrollCarousel>
         </div>
       </section>
       )}
