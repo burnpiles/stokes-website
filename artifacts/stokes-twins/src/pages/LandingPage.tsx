@@ -1024,7 +1024,7 @@ export default function LandingPage() {
                   className="bg-[#E50914] text-white font-display text-[17px] px-[34px] py-[18px] rounded-[3px] hover:bg-white hover:text-[#E50914] transition-colors"
                   data-testid="hero-netflix-btn"
                 >
-                  COMING SOON TO NETFLIX →
+                  COMING TO NETFLIX →
                 </a>
               </div>
             );
