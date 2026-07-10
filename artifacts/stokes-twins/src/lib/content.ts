@@ -107,10 +107,10 @@ export const defaultContent: Content = {
     ], sortOrder: 3 },
   ],
   videos: [
-    { id: 1, title: "I Built 4 SECRET Rooms In ONE COLOR!", tags: [], views: "", duration: "", youtubeUrl: "https://www.youtube.com/watch?v=RqKDKaHPPlQ", thumbnailUrl: "", featured: true, sortOrder: 0 },
-    { id: 2, title: "I Survived The World's STRICTEST School!", tags: [], views: "", duration: "", youtubeUrl: "https://www.youtube.com/watch?v=LnVfvz_CJ1o", thumbnailUrl: "", featured: false, sortOrder: 1 },
-    { id: 3, title: "I Built 3 SECRET Rooms In School!", tags: [], views: "", duration: "", youtubeUrl: "https://www.youtube.com/watch?v=wSxZzlKl0-U", thumbnailUrl: "", featured: false, sortOrder: 2 },
-    { id: 4, title: "I Spent 24 Hours With The World’s SMALLEST Woman!", tags: [], views: "", duration: "", youtubeUrl: "https://www.youtube.com/watch?v=TzebVGUMrGU", thumbnailUrl: "", featured: false, sortOrder: 3 },
+    { id: 1, title: "I Built 4 SECRET Rooms In ONE COLOR!", tags: [], views: "270M+", duration: "", youtubeUrl: "https://www.youtube.com/watch?v=RqKDKaHPPlQ", thumbnailUrl: "", featured: true, sortOrder: 0 },
+    { id: 2, title: "I Survived The World's STRICTEST School!", tags: [], views: "187M+", duration: "", youtubeUrl: "https://www.youtube.com/watch?v=LnVfvz_CJ1o", thumbnailUrl: "", featured: false, sortOrder: 1 },
+    { id: 3, title: "I Built 3 SECRET Rooms In School!", tags: [], views: "215M+", duration: "", youtubeUrl: "https://www.youtube.com/watch?v=wSxZzlKl0-U", thumbnailUrl: "", featured: false, sortOrder: 2 },
+    { id: 4, title: "I Spent 24 Hours With The World’s SMALLEST Woman!", tags: [], views: "230M+", duration: "", youtubeUrl: "https://www.youtube.com/watch?v=TzebVGUMrGU", thumbnailUrl: "", featured: false, sortOrder: 3 },
   ],
   shorts: [
     { id: 1, title: "My WORST Birthday Ever..", views: "", youtubeUrl: "https://www.youtube.com/shorts/jO1P7y3eEcU", thumbnailUrl: "", sortOrder: 1 },
