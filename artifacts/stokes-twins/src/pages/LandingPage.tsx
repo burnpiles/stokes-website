@@ -240,7 +240,7 @@ const NETFLIX_HERO_URL = "https://www.youtube.com/watch?v=vJ1ycA7fn68&pp=ygUMc3R
 
 const NETFLIX_LINKS = [
   { label: "Netflix Trailer", value: "", url: "https://www.youtube.com/watch?v=YB1Ikd9sk00", iconKey: "youtube", color: "#FF0000" },
-  { label: "Our Last Video", value: "", url: NETFLIX_HERO_URL, iconKey: "youtube", color: "#FF0000" },
+  { label: "Netflix Short Film", value: "", url: NETFLIX_HERO_URL, iconKey: "youtube", color: "#FF0000" },
   { label: "Stokes Developing Netflix Series", value: "Tudum", url: "https://www.netflix.com/tudum/articles/stokes-twins-netflix-series", iconKey: "article", color: "#E50914" },
 ];
 
@@ -256,7 +256,7 @@ function NetflixCard({ i }: { i: number }) {
         href={NETFLIX_HERO_URL}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Watch Our Last Video on YouTube"
+        aria-label="Watch Netflix Short Film on YouTube"
         data-testid="netflix-logo-link"
         className="flex flex-col items-center justify-start w-full flex-1 pb-5"
       >
