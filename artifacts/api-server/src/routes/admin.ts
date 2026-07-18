@@ -17,6 +17,7 @@ import {
   pressTable,
   jobsTable,
   mediaTable,
+  visitorsTable,
 } from "@workspace/db";
 import {
   AdminLoginBody,
@@ -59,6 +60,7 @@ import {
   CreateMediaBody,
   CreateMediaResponse,
   ListMediaResponse,
+  ListVisitorsResponse,
 } from "@workspace/api-zod";
 import {
   requireAdmin,
@@ -263,6 +265,29 @@ registerCrud("/admin/jobs", jobsTable, {
 function serializeMedia(row: typeof mediaTable.$inferSelect) {
   return { ...row, createdAt: row.createdAt.toISOString() };
 }
+
+// ---------------------------------------------------------------------------
+// Protected-section visitors
+// ---------------------------------------------------------------------------
+
+router.get("/admin/visitors", requireAdmin, async (_req: Request, res: Response) => {
+  const rows = await db
+    .select()
+    .from(visitorsTable)
+    .orderBy(desc(visitorsTable.lastAccessedAt));
+  res.json(
+    ListVisitorsResponse.parse(
+      rows.map((r) => ({
+        id: r.id,
+        name: r.name,
+        email: r.email,
+        firstAccessedAt: r.firstAccessedAt.toISOString(),
+        lastAccessedAt: r.lastAccessedAt.toISOString(),
+        successfulAccessCount: r.successfulAccessCount,
+      })),
+    ),
+  );
+});
 
 router.get("/admin/media", requireAdmin, async (_req: Request, res: Response) => {
   const rows = await db

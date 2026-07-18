@@ -22,11 +22,12 @@ import { Wordmark } from "@/components/Wordmark";
 import { ResourceEditor, type FieldDef } from "@/components/admin/ResourceEditor";
 import { SettingsEditor } from "@/components/admin/SettingsEditor";
 import { MediaLibrary } from "@/components/admin/MediaLibrary";
+import { AccessVisitors } from "@/components/admin/AccessVisitors";
 import { adminBtnPrimary, adminBtnGhost } from "@/components/admin/AdminPrimitives";
 
 type Draft = Record<string, unknown>;
 
-const TABS = ["Settings", "Stats", "Platforms", "Videos", "Shorts", "Demographics", "Brands", "Press", "Jobs", "Media"] as const;
+const TABS = ["Settings", "Stats", "Platforms", "Videos", "Shorts", "Demographics", "Brands", "Press", "Jobs", "Media", "Access"] as const;
 type Tab = typeof TABS[number];
 
 function LoginScreen() {
@@ -246,6 +247,7 @@ function Dashboard() {
             newDraft={() => ({ title: "", brand: "", department: "", location: "", type: "", applyUrl: "#", active: true, sortOrder: nextSort(content.jobs) })} {...wire(job)} />
         )}
         {tab === "Media" && <MediaLibrary />}
+        {tab === "Access" && <AccessVisitors />}
       </main>
     </div>
   );

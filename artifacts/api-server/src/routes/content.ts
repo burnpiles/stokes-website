@@ -1,7 +1,8 @@
 import { Router, type IRouter, type Request, type Response } from "express";
-import { asc } from "drizzle-orm";
+import { asc, sql } from "drizzle-orm";
 import {
   db,
+  visitorsTable,
   settingsTable,
   statsTable,
   platformsTable,
@@ -18,7 +19,7 @@ import { extractYoutubeId, getLiveViewCounts, getChannelSubscribers } from "../l
 
 const router: IRouter = Router();
 
-router.post("/data/unlock", (req: Request, res: Response) => {
+router.post("/data/unlock", async (req: Request, res: Response) => {
   const parsed = UnlockDataBody.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ error: "Invalid input" });
@@ -33,6 +34,27 @@ router.post("/data/unlock", (req: Request, res: Response) => {
   if (parsed.data.password !== expected) {
     res.status(401).json({ error: "Invalid password" });
     return;
+  }
+  // Record the visitor only after the password is verified. Never store the
+  // submitted password. Failure to record must not block access.
+  const name = parsed.data.name.trim();
+  const email = parsed.data.email.trim().toLowerCase();
+  try {
+    const now = new Date();
+    await db
+      .insert(visitorsTable)
+      .values({ name, email })
+      .onConflictDoUpdate({
+        target: visitorsTable.email,
+        set: {
+          name,
+          lastAccessedAt: now,
+          updatedAt: now,
+          successfulAccessCount: sql`${visitorsTable.successfulAccessCount} + 1`,
+        },
+      });
+  } catch (err) {
+    req.log.error({ err }, "Failed to record protected-section visitor");
   }
   res.json(UnlockDataResponse.parse({ authenticated: true }));
 });

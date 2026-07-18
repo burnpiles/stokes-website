@@ -198,7 +198,12 @@ export const GetContentResponse = zod.object({
 /**
  * @summary Unlock the gated audience data section with the data password
  */
+
+
+
 export const UnlockDataBody = zod.object({
+  "name": zod.string().min(1),
+  "email": zod.string().email(),
   "password": zod.string()
 })
 
@@ -958,6 +963,20 @@ export const DeleteMediaParams = zod.object({
 })
 
 export const DeleteMediaResponse = zod.void()
+
+
+/**
+ * @summary List visitors who unlocked the protected data section
+ */
+export const ListVisitorsResponseItem = zod.object({
+  "id": zod.number(),
+  "name": zod.string(),
+  "email": zod.string(),
+  "firstAccessedAt": zod.string(),
+  "lastAccessedAt": zod.string(),
+  "successfulAccessCount": zod.number()
+})
+export const ListVisitorsResponse = zod.array(ListVisitorsResponseItem)
 
 
 /**

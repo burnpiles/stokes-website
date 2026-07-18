@@ -8,3 +8,4 @@ export * from "./brands";
 export * from "./press";
 export * from "./jobs";
 export * from "./media";
+export * from "./visitors";

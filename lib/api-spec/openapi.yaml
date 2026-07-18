@@ -54,7 +54,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LoginInput"
+              $ref: "#/components/schemas/UnlockDataInput"
       responses:
         "200":
           description: Unlocked
@@ -534,6 +534,21 @@ paths:
         "204":
           description: Deleted
 
+  /admin/visitors:
+    get:
+      operationId: listVisitors
+      tags: [admin]
+      summary: List visitors who unlocked the protected data section
+      responses:
+        "200":
+          description: Visitor list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Visitor"
+
   /storage/uploads/request-url:
     post:
       tags: [Storage]
@@ -669,6 +684,36 @@ components:
       properties:
         password:
           type: string
+
+    UnlockDataInput:
+      type: object
+      required: [name, email, password]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+
+    Visitor:
+      type: object
+      required:
+        - id
+        - name
+        - email
+        - firstAccessedAt
+        - lastAccessedAt
+        - successfulAccessCount
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        email: { type: string }
+        firstAccessedAt: { type: string }
+        lastAccessedAt: { type: string }
+        successfulAccessCount: { type: integer }
 
     Content:
       type: object

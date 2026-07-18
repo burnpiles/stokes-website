@@ -49,11 +49,13 @@ import type {
   Stat,
   StatInput,
   StatUpdate,
+  UnlockDataInput,
   UploadUrlRequest,
   UploadUrlResponse,
   Video,
   VideoInput,
-  VideoUpdate
+  VideoUpdate,
+  Visitor
 } from './api.schemas';
 
 import { customFetch } from '../custom-fetch';
@@ -249,14 +251,14 @@ export const getUnlockDataUrl = () => {
 /**
  * @summary Unlock the gated audience data section with the data password
  */
-export const unlockData = async (loginInput: LoginInput, options?: RequestInit): Promise<AuthStatus> => {
+export const unlockData = async (unlockDataInput: UnlockDataInput, options?: RequestInit): Promise<AuthStatus> => {
 
   return customFetch<AuthStatus>(getUnlockDataUrl(),
   {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(loginInput)
+    body: JSON.stringify(unlockDataInput)
   }
 );}
 
@@ -264,8 +266,8 @@ export const unlockData = async (loginInput: LoginInput, options?: RequestInit):
 
 
 export const getUnlockDataMutationOptions = <TError = ErrorType<ErrorEnvelope>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof unlockData>>, TError,{data: BodyType<LoginInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof unlockData>>, TError,{data: BodyType<LoginInput>}, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof unlockData>>, TError,{data: BodyType<UnlockDataInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof unlockData>>, TError,{data: BodyType<UnlockDataInput>}, TContext> => {
 
 const mutationKey = ['unlockData'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -277,7 +279,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof unlockData>>, {data: BodyType<LoginInput>}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof unlockData>>, {data: BodyType<UnlockDataInput>}> = (props) => {
           const {data} = props ?? {};
 
           return  unlockData(data,requestOptions)
@@ -291,18 +293,18 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
   return  { mutationFn, ...mutationOptions }}
 
     export type UnlockDataMutationResult = NonNullable<Awaited<ReturnType<typeof unlockData>>>
-    export type UnlockDataMutationBody = BodyType<LoginInput>
+    export type UnlockDataMutationBody = BodyType<UnlockDataInput>
     export type UnlockDataMutationError = ErrorType<ErrorEnvelope>
 
     /**
  * @summary Unlock the gated audience data section with the data password
  */
 export const useUnlockData = <TError = ErrorType<ErrorEnvelope>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof unlockData>>, TError,{data: BodyType<LoginInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof unlockData>>, TError,{data: BodyType<UnlockDataInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
  ): UseMutationResult<
         Awaited<ReturnType<typeof unlockData>>,
         TError,
-        {data: BodyType<LoginInput>},
+        {data: BodyType<UnlockDataInput>},
         TContext
       > => {
       return useMutation(getUnlockDataMutationOptions(options));
@@ -2337,6 +2339,83 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       > => {
       return useMutation(getDeleteMediaMutationOptions(options));
     }
+
+export const getListVisitorsUrl = () => {
+
+
+
+
+  return `/api/admin/visitors`
+}
+
+/**
+ * @summary List visitors who unlocked the protected data section
+ */
+export const listVisitors = async ( options?: RequestInit): Promise<Visitor[]> => {
+
+  return customFetch<Visitor[]>(getListVisitorsUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListVisitorsQueryKey = () => {
+    return [
+    `/api/admin/visitors`
+    ] as const;
+    }
+
+
+export const getListVisitorsQueryOptions = <TData = Awaited<ReturnType<typeof listVisitors>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listVisitors>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListVisitorsQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listVisitors>>> = ({ signal }) => listVisitors({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listVisitors>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListVisitorsQueryResult = NonNullable<Awaited<ReturnType<typeof listVisitors>>>
+export type ListVisitorsQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary List visitors who unlocked the protected data section
+ */
+
+export function useListVisitors<TData = Awaited<ReturnType<typeof listVisitors>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listVisitors>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListVisitorsQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
 
 export const getRequestUploadUrlUrl = () => {
 

@@ -21,6 +21,22 @@ export interface LoginInput {
   password: string;
 }
 
+export interface UnlockDataInput {
+  /** @minLength 1 */
+  name: string;
+  email: string;
+  password: string;
+}
+
+export interface Visitor {
+  id: number;
+  name: string;
+  email: string;
+  firstAccessedAt: string;
+  lastAccessedAt: string;
+  successfulAccessCount: number;
+}
+
 export interface SocialLink {
   value: string;
   url: string;

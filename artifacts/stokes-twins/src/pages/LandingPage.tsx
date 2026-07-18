@@ -4,6 +4,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Wordmark } from "@/components/Wordmark";
 import { BackgroundVideo } from "@/components/BackgroundVideo";
+import { CaseStudies } from "@/components/CaseStudies";
 import { useCountUp } from "@/hooks/useCountUp";
 import { useReveal } from "@/hooks/useReveal";
 import { useBarGrow } from "@/hooks/useBarGrow";
@@ -23,22 +24,34 @@ import type {
   Video,
 } from "@workspace/api-client-react";
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 function DataGate({ email, children }: { email: string; children: React.ReactNode }) {
   const [unlocked, setUnlocked] = useState(
     () => sessionStorage.getItem("stokes-data-unlocked") === "1",
   );
+  const [visitorName, setVisitorName] = useState("");
+  const [visitorEmail, setVisitorEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<"wrong" | "other" | null>(null);
+  const [error, setError] = useState<"missing" | "email" | "wrong" | "other" | null>(null);
   const unlock = useUnlockData();
 
   if (unlocked) return <>{children}</>;
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!password.trim() || unlock.isPending) return;
+    if (unlock.isPending) return;
+    if (!visitorName.trim() || !visitorEmail.trim() || !password.trim()) {
+      setError("missing");
+      return;
+    }
+    if (!EMAIL_RE.test(visitorEmail.trim())) {
+      setError("email");
+      return;
+    }
     setError(null);
     unlock.mutate(
-      { data: { password } },
+      { data: { name: visitorName.trim(), email: visitorEmail.trim(), password } },
       {
         onSuccess: () => {
           sessionStorage.setItem("stokes-data-unlocked", "1");
@@ -51,6 +64,17 @@ function DataGate({ email, children }: { email: string; children: React.ReactNod
       },
     );
   };
+
+  const gateErrorText =
+    error === "missing"
+      ? "Please complete all required fields."
+      : error === "email"
+        ? "Please enter a valid email address."
+        : error === "wrong"
+          ? "The password entered is incorrect. Please try again."
+          : "Something glitched — try again in a sec.";
+  const fieldClass =
+    "bg-[#F4F1EA]/10 border border-[#F4F1EA]/20 rounded-[4px] px-4 py-3 font-mono text-sm text-[#F4F1EA] placeholder:text-[#F4F1EA]/40 focus:outline-none focus:border-[#8FA9FF]";
 
   return (
     <div className="relative max-h-[480px] md:max-h-none overflow-hidden md:overflow-visible" data-testid="data-gate">
@@ -74,29 +98,53 @@ function DataGate({ email, children }: { email: string; children: React.ReactNod
             </a>{" "}
             and we'll hand you the key.
           </p>
-          <form onSubmit={submit} className="flex flex-col sm:flex-row gap-3 justify-center">
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => { setPassword(e.target.value); setError(null); }}
-              placeholder="Password"
-              data-testid="input-data-password"
-              className="flex-1 bg-[#F4F1EA]/10 border border-[#F4F1EA]/20 rounded-[4px] px-4 py-3 font-mono text-sm text-[#F4F1EA] placeholder:text-[#F4F1EA]/40 focus:outline-none focus:border-[#8FA9FF]"
-            />
-            <button
-              type="submit"
-              disabled={unlock.isPending}
-              data-testid="button-data-unlock"
-              className="bg-[#8FA9FF] text-[#0A0A0A] font-display text-base px-6 py-3 rounded-[4px] hover:bg-[#F4F1EA] transition-colors disabled:opacity-60"
-            >
-              {unlock.isPending ? "CHECKING…" : "UNLOCK →"}
-            </button>
+          <form onSubmit={submit} className="flex flex-col gap-3" noValidate>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <input
+                type="text"
+                value={visitorName}
+                onChange={(e) => { setVisitorName(e.target.value); setError(null); }}
+                placeholder="Name"
+                aria-label="Name"
+                required
+                data-testid="input-data-name"
+                className={`flex-1 min-w-0 ${fieldClass}`}
+              />
+              <input
+                type="email"
+                value={visitorEmail}
+                onChange={(e) => { setVisitorEmail(e.target.value); setError(null); }}
+                placeholder="Email"
+                aria-label="Email"
+                required
+                data-testid="input-data-email"
+                className={`flex-1 min-w-0 ${fieldClass}`}
+              />
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => { setPassword(e.target.value); setError(null); }}
+                placeholder="Password"
+                aria-label="Password"
+                required
+                data-testid="input-data-password"
+                className={`flex-1 min-w-0 ${fieldClass}`}
+              />
+              <button
+                type="submit"
+                disabled={unlock.isPending}
+                data-testid="button-data-unlock"
+                className="bg-[#8FA9FF] text-[#0A0A0A] font-display text-base px-6 py-3 rounded-[4px] hover:bg-[#F4F1EA] transition-colors disabled:opacity-60"
+              >
+                {unlock.isPending ? "CHECKING…" : "UNLOCK →"}
+              </button>
+            </div>
           </form>
           {error && (
             <div className="mt-4 font-mono text-xs tracking-widest text-[#E13B2C]" data-testid="text-data-gate-error">
-              {error === "wrong"
-                ? "WRONG PASSWORD — NICE TRY THOUGH."
-                : "SOMETHING GLITCHED — TRY AGAIN IN A SEC."}
+              {gateErrorText}
             </div>
           )}
           </div>
@@ -1324,6 +1372,7 @@ export default function LandingPage() {
 
           <DataGate email={settings.partnerSection.email}>
             <DemographicsPanel demographics={demographics} settings={settings} />
+            <CaseStudies />
           </DataGate>
         </div>
       </section>
