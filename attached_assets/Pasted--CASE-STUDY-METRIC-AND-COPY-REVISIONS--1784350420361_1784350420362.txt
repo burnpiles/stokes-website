@@ -1,0 +1,209 @@
+==================================================
+CASE STUDY METRIC AND COPY REVISIONS
+==================================================
+
+Update both case studies so each has exactly two hero result points.
+
+Do not force a third metric or invent unsupported numerical data.
+
+==================================================
+HONG KONG TOURISM BOARD — REVISIONS
+==================================================
+
+Remove every reference to the $500,000 trip or adventure from the Hong Kong Tourism Board case study.
+
+Remove:
+
+- $500K
+- Featured adventure
+- $500,000 dream vacation
+- In a massive $500,000 adventure
+- Any other reference to the campaign or trip budget
+
+The Hong Kong Tourism Board case study should now have exactly two hero metrics:
+
+100M+
+Views across platforms
+
+1B+
+Total impressions
+
+Both metrics must use the same:
+
+- Font size
+- Font weight
+- Line height
+- Label size
+- Spacing
+- Divider treatment
+- Visual hierarchy
+
+Do not add a third metric.
+
+REVISED HONG KONG SUMMARY
+
+Use:
+
+Hong Kong Tourism Board partnered with the Stokes Twins to show a global audience that Hong Kong is more than an international business center—it is also an unforgettable vacation destination.
+
+By giving the Stokes Twins creative freedom, the partnership became an entertainment-led travel campaign that generated more than 100 million views and one billion impressions across platforms.
+
+Keep the existing featured-content title:
+
+Surprising Twin Brother With Dream Vacation
+
+Keep the Hong Kong Tourism Board logo above the two hero metrics.
+
+==================================================
+ADOBE FIREFLY — REVISIONS
+==================================================
+
+Remove all public-facing references to:
+
+- 50%+
+- Over half of the campaign’s impressions
+- More than 50% of the campaign’s impressions
+- #1 creator partnership
+- Top-performing creator partnership
+- 100 creators activated
+- 3 creator-led content placements
+- Any performance comparison against other participating creators
+
+The Adobe Firefly case study should have exactly two hero result points:
+
+500M+
+Campaign impressions
+
+NEW GLOBAL AUDIENCE
+Expanded Firefly beyond Adobe’s existing customer base
+
+The second hero point is intentionally qualitative rather than numerical.
+
+Do not invent an unsupported reach, view, engagement, audience, or conversion statistic.
+
+STYLE FOR THE SECOND HERO POINT
+
+Treat “NEW GLOBAL AUDIENCE” as a hero result, not as ordinary body copy.
+
+Use:
+
+NEW GLOBAL AUDIENCE
+
+as the large primary text, with:
+
+Expanded Firefly beyond Adobe’s existing customer base
+
+as the smaller supporting label.
+
+Ensure it feels visually balanced beside the 500M+ metric.
+
+Both hero points should use the same:
+
+- Component structure
+- Alignment
+- Padding
+- Divider treatment
+- Label styling
+- Overall visual weight
+
+The numeric value may use the existing large metric typeface, while “NEW GLOBAL AUDIENCE” may use a slightly smaller responsive size so it fits cleanly without wrapping awkwardly.
+
+Do not make the qualitative result appear secondary or like an afterthought.
+
+==================================================
+ADOBE FIREFLY HEADLINE
+==================================================
+
+Replace the current headline with:
+
+Bringing Adobe Firefly to a New Global Audience Through Entertainment
+
+Do not use:
+
+Stokes Twins Partnership Drove Over Half of the Campaign’s Impressions
+
+==================================================
+ADOBE FIREFLY SUMMARY
+==================================================
+
+Use this concise copy:
+
+The Stokes Twins used their storytelling expertise to introduce Adobe Firefly—Adobe’s generative AI platform—not only to Adobe’s existing customers, but also to an entirely new global audience.
+
+The partnership transformed a traditional product launch into engaging, entertainment-led content that audiences actively chose to watch and continued engaging with afterward.
+
+==================================================
+ADOBE FEATURED INTEGRATION
+==================================================
+
+Keep the featured integration title:
+
+I Became Principal at the World’s Strictest School
+
+Use this supporting copy:
+
+Adobe Firefly was integrated naturally into the Stokes Twins’ main-channel storytelling, demonstrating the platform through entertainment rather than a traditional product demonstration.
+
+==================================================
+ADOBE VIDEO TIMESTAMP
+==================================================
+
+Update the embedded Adobe Firefly YouTube video so it begins at exactly 11:25.
+
+Use this URL:
+
+https://youtu.be/LJYkuCoTOKg?si=t70t4svJ8CUOHsw1&t=685
+
+The start time is:
+
+685 seconds
+
+Ensure the actual embedded player starts at 11:25.
+
+Do not merely update the visible link while leaving the embed start parameter at 11:00.
+
+For a standard YouTube embed, ensure the embed URL includes:
+
+start=685
+
+Preserve the existing player styling and responsive behavior.
+
+==================================================
+FINAL METRIC STRUCTURE
+==================================================
+
+HONG KONG TOURISM BOARD
+
+100M+
+Views across platforms
+
+1B+
+Total impressions
+
+ADOBE FIREFLY
+
+500M+
+Campaign impressions
+
+NEW GLOBAL AUDIENCE
+Expanded Firefly beyond Adobe’s existing customer base
+
+Each case study must show exactly two hero result blocks.
+
+Keep the corresponding brand logo above each case study’s metrics.
+
+==================================================
+FINAL VERIFICATION
+==================================================
+
+Confirm all of the following:
+
+- Every $500K and $500,000 reference has been removed from the Hong Kong case study.
+- Hong Kong now displays only 100M+ and 1B+.
+- Adobe no longer displays 50%+, 100 creators, three placements, or a #1 claim.
+- Adobe displays only 500M+ and NEW GLOBAL AUDIENCE.
+- No unsupported numerical result has been invented.
+- The Adobe headline no longer references over half of campaign impressions.
+- The Adobe video begins at exactly 11:25.
+- Both case studies use the same standardized two-result layout.
+- The brand logos remain positioned above the metrics.
