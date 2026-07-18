@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { extractYouTubeId, youtubeThumb } from "@/lib/youtube";
 import hktbLogo from "@assets/hktb-logo-banner-transparent_1784348105452.png";
 import adobeLogo from "@assets/adobe-firefly-banner-transparent_1784348105452.png";
+import adobeVideoThumb from "@assets/gif-adobe_1784352396280.gif";
 
 type StatBlock = { value: string; label: string; qualitative?: boolean };
 type MediaLink = { label: string; url: string };
@@ -17,6 +18,7 @@ type CaseStudy = {
   featuredCopy?: string;
   videoUrl: string;
   videoStart?: number;
+  videoThumb?: string;
   highlights?: string[];
   mediaLinks?: MediaLink[];
   footnote?: string;
@@ -52,7 +54,6 @@ const CASE_STUDIES: CaseStudy[] = [
     headline: "Bringing Adobe Firefly to a New Global Audience Through Entertainment",
     stats: [
       { value: "500M+", label: "Campaign impressions" },
-      { value: "NEW GLOBAL AUDIENCE", label: "Expanded Firefly beyond Adobe\u2019s existing customer base", qualitative: true },
     ],
     summary: [
       "The Stokes Twins used their storytelling expertise to introduce Adobe Firefly\u2014Adobe\u2019s generative AI platform\u2014not only to Adobe\u2019s existing customers, but also to an entirely new global audience.",
@@ -64,6 +65,7 @@ const CASE_STUDIES: CaseStudy[] = [
       "Adobe Firefly was integrated naturally into the Stokes Twins\u2019 main-channel storytelling, demonstrating the platform through entertainment rather than a traditional product demonstration.",
     videoUrl: "https://youtu.be/LJYkuCoTOKg?si=t70t4svJ8CUOHsw1&t=685",
     videoStart: 685,
+    videoThumb: adobeVideoThumb,
     mediaLinks: [
       { label: "WATCH ON TIKTOK", url: "https://www.tiktok.com/@stokestwins/video/7633495295602527502" },
       { label: "WATCH ON YOUTUBE SHORTS", url: "https://www.youtube.com/shorts/oT0YAym1ZjM" },
@@ -71,7 +73,7 @@ const CASE_STUDIES: CaseStudy[] = [
   },
 ];
 
-function CaseVideo({ url, title, start, active }: { url: string; title: string; start?: number; active: boolean }) {
+function CaseVideo({ url, title, start, active, thumb }: { url: string; title: string; start?: number; active: boolean; thumb?: string }) {
   const ytId = extractYouTubeId(url);
   const [playing, setPlaying] = useState(false);
 
@@ -102,20 +104,20 @@ function CaseVideo({ url, title, start, active }: { url: string; title: string; 
           data-testid="case-study-video-thumb"
         >
           <img
-            src={youtubeThumb(url, "max")}
+            src={thumb ?? youtubeThumb(url, "max")}
             alt={title}
             loading="lazy"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             onError={(e) => {
               const img = e.currentTarget;
-              if (img.dataset.fallback !== "1") {
+              if (!thumb && img.dataset.fallback !== "1") {
                 img.dataset.fallback = "1";
                 img.src = `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`;
               }
             }}
             onLoad={(e) => {
               const img = e.currentTarget;
-              if (img.naturalWidth <= 120 && img.dataset.fallback !== "1") {
+              if (!thumb && img.naturalWidth <= 120 && img.dataset.fallback !== "1") {
                 img.dataset.fallback = "1";
                 img.src = `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`;
               }
@@ -236,7 +238,7 @@ export function CaseStudies() {
               {cs.featuredCopy && (
                 <p className="font-sans text-sm md:text-base text-[#0A0A0A]/70 mb-4 max-w-[640px]">{cs.featuredCopy}</p>
               )}
-              <CaseVideo url={cs.videoUrl} title={cs.featuredTitle} start={cs.videoStart} active={true} />
+              <CaseVideo url={cs.videoUrl} title={cs.featuredTitle} start={cs.videoStart} active={true} thumb={cs.videoThumb} />
             </div>
             {cs.highlights && (
               <ul className="mt-6 grid sm:grid-cols-2 gap-x-8 gap-y-2">
