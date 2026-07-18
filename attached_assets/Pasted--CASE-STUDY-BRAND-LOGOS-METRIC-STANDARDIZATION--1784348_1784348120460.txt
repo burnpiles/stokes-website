@@ -1,0 +1,245 @@
+==================================================
+CASE STUDY BRAND LOGOS + METRIC STANDARDIZATION
+==================================================
+
+Add each client’s official logo above the metrics area within its case-study slide.
+
+Use the uploaded logo assets:
+
+Hong Kong Tourism Board:
+hktb-logo-banner-transparent.png
+
+Adobe Firefly:
+adobe-firefly-banner-transparent.png
+
+LOGO PLACEMENT
+
+Desktop:
+
+- Place the brand logo at the top of the right-side metrics column.
+- Position it above the first metric.
+- Keep it visually separate from the metric values with consistent spacing.
+- Align it with the metric column rather than centering it across the entire card.
+- Do not let the logo compete with the case-study headline.
+
+Mobile:
+
+- Place the brand logo above the metrics block.
+- Keep it full-width responsive within a controlled maximum width.
+- Do not place it below the metrics or inside the body-copy section.
+
+LOGO STYLING
+
+- Preserve the original proportions.
+- Use object-fit: contain.
+- Do not crop, stretch, recolor, trace, or recreate the logos.
+- Use the transparent image assets directly.
+- Add enough internal spacing so the logos do not touch the card edges.
+- Do not place the logos inside heavy boxes unless a subtle container is required for contrast.
+- Keep both logo presentations visually consistent even though their natural proportions differ.
+
+Suggested sizing:
+
+Desktop:
+- Maximum logo width: approximately 280–340px
+- Maximum logo height: approximately 90–110px
+
+Mobile:
+- Maximum logo width: approximately 220–280px
+- Height: auto
+
+The Hong Kong Tourism Board logo is wider and should not be forced into the same exact width as the Adobe Firefly logo if doing so makes either look too small or oversized. Match their perceived visual weight instead.
+
+==================================================
+STANDARDIZE ALL CASE-STUDY METRICS
+==================================================
+
+The current Hong Kong Tourism Board metrics use noticeably different number sizes:
+
+100M+
+1B+
+$500K
+
+This looks inconsistent and unprofessional.
+
+Standardize the metrics so that every primary number uses the same:
+
+- Font family
+- Font weight
+- Font size
+- Line height
+- Letter spacing
+- Color
+- Vertical spacing
+- Label styling
+- Divider styling
+
+The length of the number must not determine its font size.
+
+Do not make $500K smaller simply because it contains more characters.
+
+For Hong Kong Tourism Board, all three values must have equal visual hierarchy:
+
+100M+
+1B+
+$500K
+
+For Adobe Firefly, use the same standardized base metric style for:
+
+50%+
+100
+#1
+
+The 50%+ metric may be slightly emphasized because it is the key result, but it must still feel part of the same metric system.
+
+If emphasizing 50%+, limit the difference to approximately 10–15% larger than the other Adobe metrics. Do not create a dramatically different type scale.
+
+METRIC COMPONENT
+
+Create or reuse one shared metric component for both case studies.
+
+Each metric should follow this structure:
+
+[Large value]
+[Short descriptive label]
+
+Examples:
+
+100M+
+Views across platforms
+
+1B+
+Total impressions
+
+$500K
+Featured adventure
+
+50%+
+Of total campaign impressions
+
+100
+Creators activated
+
+#1
+Top-performing creator partnership
+
+Use the same component and CSS rules for all metrics instead of manually styling each one separately.
+
+DESKTOP METRIC LAYOUT
+
+Use a vertical metrics stack.
+
+Each metric block should have:
+
+- Equal top and bottom padding
+- The same number height
+- The same label font size
+- A thin red divider between items
+- Consistent left alignment
+- No uneven gaps caused by the length of the text
+
+Place the client logo above this vertical stack.
+
+Recommended order:
+
+[Brand logo]
+
+[Metric 1]
+Divider
+[Metric 2]
+Divider
+[Metric 3]
+
+Do not leave a large unused blank area beneath the third metric.
+
+MOBILE METRIC LAYOUT
+
+The current mobile layout places 100M+ on its own row and 1B+ beside $500K, creating inconsistent hierarchy.
+
+Replace this with a consistent mobile metric grid.
+
+Preferred mobile structure:
+
+- One-column stack for narrow phones
+- Three equal metric blocks
+- Same number size in every block
+- Same label size in every block
+- Consistent vertical spacing
+- Thin dividers between blocks
+
+For wider mobile or tablet widths, a two-column grid is acceptable only if:
+
+- Every metric card still uses the same dimensions
+- All numbers use the same font size
+- The third metric does not appear visually secondary
+- The layout does not create an awkward empty cell
+
+Do not use a layout where:
+
+- 100M+ spans the full width
+- 1B+ and $500K use different sizes
+- One metric appears more important only because of layout
+- Labels wrap inconsistently due to narrow columns
+
+PREFERRED MOBILE ORDER
+
+[Brand logo]
+
+100M+
+Views across platforms
+
+1B+
+Total impressions
+
+$500K
+Featured adventure
+
+Then show:
+
+- Client label
+- Headline
+- Summary
+- Featured content
+- Video
+
+This keeps the results immediately visible while maintaining a clean and standardized presentation.
+
+RESPONSIVE TYPOGRAPHY
+
+Use responsive clamp values or the project’s existing type scale.
+
+The goal is:
+
+- Large and bold on desktop
+- Clearly readable on mobile
+- Identical sizing between metrics at each breakpoint
+- No text clipping
+- No overflow
+- No arbitrary per-value font-size overrides
+
+Remove any existing CSS rules similar to:
+
+- metric-large
+- metric-medium
+- metric-small
+- font-size adjustments based on string length
+- special smaller sizing for $500K
+- unique one-off styles for 100M+ or 1B+
+
+Replace them with one shared metric-value class.
+
+FINAL VERIFICATION
+
+Confirm all of the following:
+
+- The Hong Kong Tourism Board logo appears above its metrics.
+- The Adobe Firefly logo appears above its metrics.
+- Both logos use the supplied transparent assets.
+- Neither logo is cropped or distorted.
+- 100M+, 1B+, and $500K use the same font size and weight.
+- 50%+, 100, and #1 use a consistent metric system.
+- The mobile metric layout no longer makes $500K appear secondary.
+- Metric labels use consistent font sizes and spacing.
+- Divider lines are evenly placed.
+- The desktop and mobile layouts both look intentional and professional.
+- No existing case-study copy, videos, or functionality are removed.

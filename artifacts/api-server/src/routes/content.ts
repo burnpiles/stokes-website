@@ -123,6 +123,17 @@ router.get("/content", async (_req: Request, res: Response) => {
       { err: subsResult.reason },
       "Live YouTube subscriber count unavailable; serving stored counter settings",
     );
+    // Re-anchor the stored baseline to "now" so the client does not
+    // extrapolate growth for all the time elapsed since the stored
+    // anchor — the counter must start at the stored base and only
+    // simulate growth from page load onward.
+    settings = {
+      ...settings,
+      youtubeCounter: {
+        ...settings.youtubeCounter,
+        anchorIso: new Date().toISOString(),
+      },
+    };
   }
 
   const payload = {

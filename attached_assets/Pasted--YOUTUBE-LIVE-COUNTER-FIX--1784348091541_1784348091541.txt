@@ -1,0 +1,101 @@
+==================================================
+YOUTUBE LIVE COUNTER FIX
+==================================================
+
+The “YouTube is the Engine” live subscriber counter is currently displaying approximately:
+
+143,474,278
+
+This appears to be happening because the counter animation is starting from an existing 142M backend value and then adding another calculated or elapsed count on top of it.
+
+Fix the counter so that it begins at approximately 142,000,000 and continues counting upward from that baseline.
+
+REQUIRED BEHAVIOR
+
+- The visible live counter should start at 142,000,000, not 143,000,000+.
+- Do not add the current backend subscriber value to a second counter value.
+- Do not stack an animation offset on top of the stored total.
+- Use one source of truth for the displayed subscriber count.
+- The initial value and animated value must represent the same total, not two totals being added together.
+- Preserve the existing count-up animation and visual styling.
+- Preserve the “SUBSCRIBERS AND COUNTING” label.
+- Preserve the large red number formatting with commas.
+
+IMPLEMENTATION CHECK
+
+Inspect the current counter logic for combinations such as:
+
+- backendValue + animatedOffset
+- baseCount + elapsedCount
+- storedCount + localCount
+- 142000000 + another subscriber total
+- a hardcoded 142M starting value being added to a database value that is already approximately 142M
+
+Replace that logic with a single current total.
+
+The counter should work using one of these approaches:
+
+Preferred:
+
+currentDisplayedCount = storedSubscriberCount
+
+Then animate visually from a slightly lower number up to that same storedSubscriberCount.
+
+Example:
+
+animationStart = storedSubscriberCount - smallAnimationRange
+animationEnd = storedSubscriberCount
+
+Do not use:
+
+animationEnd = storedSubscriberCount + elapsedSubscriberCount
+
+If the counter is designed to simulate continued growth after page load, use:
+
+displayedCount = storedSubscriberCount + growthSincePageLoad
+
+Where growthSincePageLoad begins at zero when the page loads.
+
+The storedSubscriberCount must not be added twice.
+
+EXPECTED RESULT
+
+When the section first loads, the number should be in the 142M range and count upward naturally, for example:
+
+142,000,000
+142,000,001
+142,000,002
+
+or, if the stored database number is already more precise:
+
+142,XXX,XXX
+
+It must not begin in the 143M range unless the actual stored source-of-truth subscriber count has genuinely reached 143M.
+
+ADMIN / BACKEND CHECK
+
+- Confirm the backend or admin value is approximately 142M.
+- Do not change the stored backend value to compensate for faulty frontend math.
+- Fix the frontend or counter calculation instead.
+- Ensure saving the admin subscriber count does not cause the displayed number to receive an additional 142M offset.
+- Confirm there is only one active subscriber baseline in the codebase.
+
+Also keep all static YouTube references updated to:
+
+142M
+
+This includes:
+
+- YOUTUBE 142M
+- @stokestwins — 142M
+
+FINAL VERIFICATION
+
+After the fix:
+
+- Refresh the public website.
+- Confirm the counter begins in the 142M range.
+- Confirm it continues counting upward.
+- Confirm it does not jump immediately into the 143M range.
+- Confirm the backend value is not being added twice.
+- Confirm the visual design and animation remain unchanged.
