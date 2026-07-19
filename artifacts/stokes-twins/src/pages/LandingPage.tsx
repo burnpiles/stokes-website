@@ -4,7 +4,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Wordmark } from "@/components/Wordmark";
 import { BackgroundVideo } from "@/components/BackgroundVideo";
-import { CaseStudies } from "@/components/CaseStudies";
+import { CaseStudySlide, caseStudyClient } from "@/components/CaseStudies";
 import { useCountUp } from "@/hooks/useCountUp";
 import { useReveal } from "@/hooks/useReveal";
 import { useBarGrow } from "@/hooks/useBarGrow";
@@ -149,6 +149,54 @@ function DataGate({ email, children }: { email: string; children: React.ReactNod
           )}
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function GatedTabs({ demographics, settings }: { demographics: Demographic[]; settings: Settings }) {
+  const [tab, setTab] = useState(0);
+  const tabs = [
+    "DATA",
+    `CASE STUDY 01 — ${caseStudyClient(0)}`,
+    `CASE STUDY 02 — ${caseStudyClient(1)}`,
+  ];
+
+  return (
+    <div>
+      <div className="flex flex-wrap items-center gap-3 mb-8" role="tablist" aria-label="Classified content">
+        {tabs.map((label, i) => (
+          <button
+            key={label}
+            type="button"
+            role="tab"
+            id={`gated-tab-btn-${i}`}
+            aria-selected={i === tab}
+            aria-controls="gated-tab-panel"
+            onClick={() => setTab(i)}
+            data-testid={`gated-tab-${i}`}
+            className={`font-mono text-[11px] tracking-[0.15em] px-4 py-2 rounded-full border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E13B2C] ${
+              i === tab
+                ? "bg-[#0A0A0A] text-[#F4F1EA] border-[#0A0A0A]"
+                : "bg-transparent text-[#0A0A0A]/60 border-[#0A0A0A]/20 hover:text-[#0A0A0A] hover:border-[#0A0A0A]/50"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      <div
+        key={tab}
+        role="tabpanel"
+        id="gated-tab-panel"
+        aria-labelledby={`gated-tab-btn-${tab}`}
+        className="motion-safe:animate-[fadeIn_0.4s_ease]"
+      >
+        {tab === 0 ? (
+          <DemographicsPanel demographics={demographics} settings={settings} />
+        ) : (
+          <CaseStudySlide index={tab - 1} />
+        )}
       </div>
     </div>
   );
@@ -1371,8 +1419,7 @@ export default function LandingPage() {
           </div>
 
           <DataGate email={settings.partnerSection.email}>
-            <DemographicsPanel demographics={demographics} settings={settings} />
-            <CaseStudies />
+            <GatedTabs demographics={demographics} settings={settings} />
           </DataGate>
         </div>
       </section>

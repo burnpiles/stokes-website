@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { extractYouTubeId, youtubeThumb } from "@/lib/youtube";
 import hktbLogo from "@assets/hktb-logo-banner-transparent_1784348105452.png";
 import adobeLogo from "@assets/adobe-firefly-banner-transparent_1784348105452.png";
@@ -137,91 +137,21 @@ function CaseVideo({ url, title, start, active, thumb }: { url: string; title: s
   );
 }
 
-export function CaseStudies() {
-  const [index, setIndex] = useState(0);
+export const CASE_STUDY_COUNT = CASE_STUDIES.length;
+
+export function caseStudyClient(index: number): string {
+  return CASE_STUDIES[index]?.client ?? "";
+}
+
+export function CaseStudySlide({ index }: { index: number }) {
   const total = CASE_STUDIES.length;
-  const touchStartX = useRef<number | null>(null);
-  const regionRef = useRef<HTMLDivElement>(null);
-
-  const go = useCallback(
-    (next: number) => setIndex(((next % total) + total) % total),
-    [total],
-  );
-
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowLeft") { e.preventDefault(); go(index - 1); }
-    if (e.key === "ArrowRight") { e.preventDefault(); go(index + 1); }
-  };
-
   const cs = CASE_STUDIES[index];
+  if (!cs) return null;
 
   return (
-    <div className="mt-16 md:mt-24" data-testid="case-studies">
-      <div className="mb-8 md:mb-12">
-        <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-4">CASE STUDIES</h3>
-        <p className="font-sans text-lg md:text-xl text-[#0A0A0A]/70 max-w-[600px]">
-          Selected partnerships that delivered measurable global impact.
-        </p>
-      </div>
-
-      {/* Tabs */}
-      <div className="flex flex-wrap items-center gap-3 mb-6">
-        {CASE_STUDIES.map((s, i) => (
-          <button
-            key={s.client}
-            type="button"
-            onClick={() => go(i)}
-            aria-label={`Show case study ${i + 1}: ${s.client}`}
-            aria-current={i === index}
-            data-testid={`case-study-tab-${i}`}
-            className={`font-mono text-[11px] tracking-[0.15em] px-4 py-2 rounded-full border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E13B2C] ${
-              i === index
-                ? "bg-[#0A0A0A] text-[#F4F1EA] border-[#0A0A0A]"
-                : "bg-transparent text-[#0A0A0A]/60 border-[#0A0A0A]/20 hover:text-[#0A0A0A] hover:border-[#0A0A0A]/50"
-            }`}
-          >
-            {String(i + 1).padStart(2, "0")} {s.client}
-          </button>
-        ))}
-        <div className="ml-auto flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => go(index - 1)}
-            aria-label="Previous case study"
-            data-testid="case-study-prev"
-            className="w-10 h-10 rounded-full border border-[#0A0A0A]/20 flex items-center justify-center text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-[#F4F1EA] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E13B2C]"
-          >
-            ←
-          </button>
-          <button
-            type="button"
-            onClick={() => go(index + 1)}
-            aria-label="Next case study"
-            data-testid="case-study-next"
-            className="w-10 h-10 rounded-full border border-[#0A0A0A]/20 flex items-center justify-center text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-[#F4F1EA] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E13B2C]"
-          >
-            →
-          </button>
-        </div>
-      </div>
-
-      {/* Slide */}
+    <div data-testid="case-studies">
       <div
-        ref={regionRef}
-        role="region"
-        aria-roledescription="carousel"
-        aria-label="Case studies"
-        tabIndex={0}
-        onKeyDown={onKeyDown}
-        onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
-        onTouchEnd={(e) => {
-          const startX = touchStartX.current;
-          touchStartX.current = null;
-          if (startX === null) return;
-          const dx = e.changedTouches[0].clientX - startX;
-          if (Math.abs(dx) > 50) go(dx < 0 ? index + 1 : index - 1);
-        }}
-        className="bg-white rounded-[12px] border border-[#0A0A0A]/10 p-6 md:p-12 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E13B2C] overflow-hidden"
+        className="bg-white rounded-[12px] border border-[#0A0A0A]/10 p-6 md:p-12 overflow-hidden"
         data-testid="case-study-slide"
       >
         <div key={index} className="grid md:grid-cols-[1fr_360px] gap-10 md:gap-14 motion-safe:animate-[fadeIn_0.4s_ease]">
