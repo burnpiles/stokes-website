@@ -193,7 +193,15 @@ function GatedTabs({ demographics, settings }: { demographics: Demographic[]; se
         className="motion-safe:animate-[fadeIn_0.4s_ease]"
       >
         {tab === 0 ? (
-          <DemographicsPanel demographics={demographics} settings={settings} />
+          <div>
+            {settings.demographicsSection.sourceNote && (
+              <div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full border border-[#0A0A0A]/15 font-mono text-[11px] tracking-[0.15em] text-[#0A0A0A]/60" data-testid="demographics-source-note">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E13B2C]" />
+                {settings.demographicsSection.sourceNote.toUpperCase()}
+              </div>
+            )}
+            <DemographicsPanel demographics={demographics} settings={settings} />
+          </div>
         ) : (
           <CaseStudySlide index={tab - 1} />
         )}
@@ -1407,15 +1415,9 @@ export default function LandingPage() {
       {(settings.sectionVisibility?.demographics ?? true) && (
       <section id="demographics" className="py-20 md:py-32 px-6 bg-[#F4F1EA] text-[#0A0A0A]" data-testid="section-demographics">
         <div className="max-w-[1440px] mx-auto">
-          <div className="mb-10 md:mb-16">
+          <div className="mb-6 md:mb-8">
             <h3 className="font-mono text-[#E13B2C] text-sm tracking-[0.2em] font-bold mb-6">{settings.demographicsSection.eyebrow}</h3>
             <h2 className="font-display text-[48px] md:text-[64px] leading-[1.1] max-w-[800px]">{settings.demographicsSection.headline}</h2>
-            {settings.demographicsSection.sourceNote && (
-              <div className="inline-flex items-center gap-2 mt-6 px-3 py-1.5 rounded-full border border-[#0A0A0A]/15 font-mono text-[11px] tracking-[0.15em] text-[#0A0A0A]/60" data-testid="demographics-source-note">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#E13B2C]" />
-                {settings.demographicsSection.sourceNote.toUpperCase()}
-              </div>
-            )}
           </div>
 
           <DataGate email={settings.partnerSection.email}>
