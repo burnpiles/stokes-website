@@ -18,11 +18,11 @@ export const defaultSettings: SiteSettings = {
   marqueeText: "ANIMATION · ANIME · BRANDED · CONSUMER PRODUCTS · FILMS · GAMES · TECHNOLOGY",
   socials: {
     tiktok: { value: "30.8M", url: "https://www.tiktok.com/@stokestwins?lang=en" },
-    youtube: { value: "142M", url: "https://www.youtube.com/@stokestwins" },
+    youtube: { value: "145M", url: "https://www.youtube.com/@stokestwins" },
     instagram: { value: "4.9M", url: "https://www.instagram.com/stokestwins/?hl=en" },
   },
   youtubeCounter: {
-    base: 142000000,
+    base: 145000000,
     target: 150000000,
     perMinute: 100,
     anchorIso: "2026-07-07T00:00:00Z",
@@ -95,7 +95,7 @@ export const seedStats: InsertStat[] = [
 ];
 
 export const seedPlatforms: InsertPlatform[] = [
-  { name: "YouTube", value: "142M", handle: "@stokestwins", color: "#FF0000", iconKey: "youtube", url: "https://www.youtube.com/@stokestwins", links: [
+  { name: "YouTube", value: "145M", handle: "@stokestwins", color: "#FF0000", iconKey: "youtube", url: "https://www.youtube.com/@stokestwins", links: [
     { label: "@stokestoo", value: "13.1M", url: "https://www.youtube.com/channel/UCUdKQXtKb1me2Gt1nz6tzdg" },
     { label: "Top Videos", value: "3.4M", url: "https://www.youtube.com/@stokestwinstopvideos" },
   ], sortOrder: 1 },
